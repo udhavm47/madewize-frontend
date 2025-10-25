@@ -1206,12 +1206,12 @@ const LandingPage = ({ onLoginSuccess }) => {
           <div 
             className="flex flex-col lg:flex-row items-start w-full"
             style={{
-              gap: '60px'
+              gap: 'clamp(40px, 8vw, 80px)'
             }}
           >
             {/* Left Side - Contact Info */}
             <div 
-              className="flex flex-col justify-between items-start w-full lg:w-auto"
+              className="flex flex-col justify-between items-start w-full lg:w-auto lg:max-w-md"
               style={{
                 gap: '10px',
                 minHeight: '400px'
@@ -1376,7 +1376,7 @@ const LandingPage = ({ onLoginSuccess }) => {
                 style={{
                   gap: '10px',
                   maxWidth: '700px',
-                  minWidth: 'auto'
+                  minWidth: 'clamp(300px, 40vw, 500px)'
                 }}
               >
                 {/* Form Fields */}
