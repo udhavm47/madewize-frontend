@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import RegistrationForm from '../components/RegistrationForm'
 import LoginForm from '../components/LoginForm'
 import AnimatedText from '../components/AnimatedText'
+import Stack from '../components/Stack'
 
 const LandingPage = ({ onLoginSuccess }) => {
   const [showRegistration, setShowRegistration] = useState(false)
@@ -9,6 +10,40 @@ const LandingPage = ({ onLoginSuccess }) => {
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [isTitleVisible, setIsTitleVisible] = useState(false)
   const titleRef = useRef(null)
+
+  // Card data for Stack component
+  const stackCardsData = [
+    {
+      id: 1,
+      title: "Your Digital Manufacturing Identity",
+      description: "Build a smart, SEO-powered profile that showcases everything about your manufacturing business products, processes, strengths & scale, all in one place."
+    },
+    {
+      id: 2,
+      title: "Share. Engage. Grow.",
+      description: "Post achievements, insights, trends, innovations, and promotions - position yourself as a modern manufacturer in a fast-evolving ecosystem."
+    },
+    {
+      id: 3,
+      title: "Instant RFQs, Smarter Quotes",
+      description: "Post your requirements and receive competitive quotes from trusted manufacturers across India - faster, fairer, and completely transparent."
+    },
+    {
+      id: 4,
+      title: "A Marketplace for Manufacturers",
+      description: "Get discovered by the right buyers and businesses through a targeted digital platform - designed exclusively for Indian manufacturers."
+    },
+    {
+      id: 5,
+      title: "Find Vendors in Minutes, Not Months",
+      description: "Easily search by location, materials, manufacturing type, or finished product - compare profiles, certifications, and capabilities at a glance."
+    },
+    {
+      id: 6,
+      title: "One-Click Digital Business Card",
+      description: "Generate a sleek, shareable business card right from your profile - download or send it instantly to clients and vendors, anytime."
+    }
+  ]
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -63,40 +98,40 @@ const LandingPage = ({ onLoginSuccess }) => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30" />
 
         {/* Header */}
-        <header className="relative z-10 flex items-center justify-between px-8 py-6">
+        <header className="relative z-10 flex items-center justify-between px-4 sm:px-6 md:px-8 py-4 sm:py-6">
         <div className="flex items-center">
           <img 
             src="/madevize.svg" 
             alt="Madevize Logo" 
-            className="h-6 md:h-8"
+            className="h-5 sm:h-6 md:h-8"
           />
         </div>
         
         {/* Desktop Navigation - Right Side */}
-        <div className="hidden md:flex items-center space-x-3">
-          <button className="px-6 py-2.5 bg-gray-700/80 hover:bg-gray-600/80 text-white rounded-full transition-all duration-200" style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px' }}>
+        <div className="hidden lg:flex items-center space-x-2 xl:space-x-3">
+          <button className="px-4 xl:px-6 py-2 xl:py-2.5 bg-gray-700/80 hover:bg-gray-600/80 text-white rounded-full transition-all duration-200 text-sm xl:text-base" style={{ fontFamily: 'Inter, sans-serif' }}>
             About Us
           </button>
-          <button className="px-6 py-2.5 bg-gray-700/80 hover:bg-gray-600/80 text-white rounded-full transition-all duration-200" style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px' }}>
+          <button className="px-4 xl:px-6 py-2 xl:py-2.5 bg-gray-700/80 hover:bg-gray-600/80 text-white rounded-full transition-all duration-200 text-sm xl:text-base" style={{ fontFamily: 'Inter, sans-serif' }}>
             Service
           </button>
-          <button className="px-6 py-2.5 bg-gray-700/80 hover:bg-gray-600/80 text-white rounded-full transition-all duration-200" style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px' }}>
+          <button className="px-4 xl:px-6 py-2 xl:py-2.5 bg-gray-700/80 hover:bg-gray-600/80 text-white rounded-full transition-all duration-200 text-sm xl:text-base" style={{ fontFamily: 'Inter, sans-serif' }}>
             Contact
           </button>
           <button 
             onClick={() => setShowLogin(true)}
-            className="px-6 py-2.5 bg-gray-700/80 hover:bg-gray-600/80 text-white rounded-full transition-all duration-200"
-            style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px' }}
+            className="px-4 xl:px-6 py-2 xl:py-2.5 bg-gray-700/80 hover:bg-gray-600/80 text-white rounded-full transition-all duration-200 text-sm xl:text-base"
+            style={{ fontFamily: 'Inter, sans-serif' }}
           >
             Sign In
           </button>
           <button 
             onClick={() => setShowRegistration(true)}
-            className="px-6 py-2.5 bg-white text-black hover:bg-gray-100 rounded-full transition-all duration-200 flex items-center space-x-2 font-medium"
-            style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px' }}
+            className="px-4 xl:px-6 py-2 xl:py-2.5 bg-white text-black hover:bg-gray-100 rounded-full transition-all duration-200 flex items-center space-x-1 xl:space-x-2 font-medium text-sm xl:text-base"
+            style={{ fontFamily: 'Inter, sans-serif' }}
           >
             <span>Sign Up</span>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+            <svg className="w-3 h-3 xl:w-4 xl:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-7-7l7 7-7 7" />
             </svg>
           </button>
@@ -105,9 +140,9 @@ const LandingPage = ({ onLoginSuccess }) => {
         {/* Mobile Menu Button */}
         <button 
           onClick={() => setShowMobileMenu(!showMobileMenu)}
-          className="md:hidden text-white p-2"
+          className="lg:hidden text-white p-2"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
@@ -115,31 +150,31 @@ const LandingPage = ({ onLoginSuccess }) => {
 
       {/* Mobile Navigation */}
       {showMobileMenu && (
-        <div className="md:hidden absolute top-20 left-0 right-0 bg-gray-900/95 backdrop-blur-lg z-20 px-6 py-4 border-t border-gray-700">
-          <nav className="flex flex-col space-y-3">
-            <button className="px-4 py-2.5 bg-gray-700/80 hover:bg-gray-600/80 text-white rounded-full transition-all duration-200 text-center" style={{ fontFamily: 'Inter, sans-serif' }}>
+        <div className="lg:hidden absolute top-16 sm:top-20 left-0 right-0 bg-gray-900/95 backdrop-blur-lg z-20 px-4 sm:px-6 py-4 border-t border-gray-700">
+          <nav className="flex flex-col space-y-2 sm:space-y-3">
+            <button className="px-4 py-2 sm:py-2.5 bg-gray-700/80 hover:bg-gray-600/80 text-white rounded-full transition-all duration-200 text-center text-sm sm:text-base" style={{ fontFamily: 'Inter, sans-serif' }}>
               About Us
             </button>
-            <button className="px-4 py-2.5 bg-gray-700/80 hover:bg-gray-600/80 text-white rounded-full transition-all duration-200 text-center" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <button className="px-4 py-2 sm:py-2.5 bg-gray-700/80 hover:bg-gray-600/80 text-white rounded-full transition-all duration-200 text-center text-sm sm:text-base" style={{ fontFamily: 'Inter, sans-serif' }}>
               Service
             </button>
-            <button className="px-4 py-2.5 bg-gray-700/80 hover:bg-gray-600/80 text-white rounded-full transition-all duration-200 text-center" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <button className="px-4 py-2 sm:py-2.5 bg-gray-700/80 hover:bg-gray-600/80 text-white rounded-full transition-all duration-200 text-center text-sm sm:text-base" style={{ fontFamily: 'Inter, sans-serif' }}>
               Contact
             </button>
             <button 
               onClick={() => setShowLogin(true)}
-              className="px-4 py-2.5 text-white hover:text-gray-300 transition-colors text-center underline underline-offset-4"
+              className="px-4 py-2 sm:py-2.5 text-white hover:text-gray-300 transition-colors text-center underline underline-offset-4 text-sm sm:text-base"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Sign In
             </button>
             <button 
               onClick={() => setShowRegistration(true)}
-              className="px-4 py-2.5 bg-white text-black hover:bg-gray-100 rounded-full transition-all duration-200 flex items-center justify-center space-x-2 font-medium"
+              className="px-4 py-2 sm:py-2.5 bg-white text-black hover:bg-gray-100 rounded-full transition-all duration-200 flex items-center justify-center space-x-2 font-medium text-sm sm:text-base"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               <span>Sign Up</span>
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+              <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-7-7l7 7-7 7" />
               </svg>
             </button>
@@ -148,14 +183,9 @@ const LandingPage = ({ onLoginSuccess }) => {
       )}
 
       {/* Hero Section */}
-      <main className="relative max-w-5xl z-10 flex items-center min-h-screen px-6 md:px-12 lg:px-20">
-        <div 
-          className="relative max-w-4xl text-left"
-          style={{
-            paddingRight: '15%'
-          }}
-        >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
+      <main className="relative max-w-5xl z-10 flex items-center min-h-screen px-4 sm:px-6 md:px-12 lg:px-20">
+        <div className="relative max-w-4xl text-left w-full">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
             <AnimatedText 
               text="Built Your Factory's Digital Presence & Get Discovered by Buyers"
               staggerDelay={0.1}
@@ -163,11 +193,11 @@ const LandingPage = ({ onLoginSuccess }) => {
             />
           </h1>
           
-          <div className="flex items-center mb-12">
-            <div className="w-1 h-8 bg-white mr-4"></div>
+          <div className="flex items-center mb-8 sm:mb-12">
+            <div className="w-1 h-6 sm:h-8 bg-white mr-3 sm:mr-4"></div>
             <AnimatedText 
               text="The potential of manufacturing to shape economies and futures"
-              className="text-lg md:text-xl text-white font-light"
+              className="text-base sm:text-lg md:text-xl text-white font-light"
               style={{ fontFamily: 'Inter, sans-serif' }}
               staggerDelay={0.08}
               delay={1.5}
@@ -177,19 +207,19 @@ const LandingPage = ({ onLoginSuccess }) => {
 
         {/* Bottom CTA - Positioned on the cutout area */}
         <div 
-          className="absolute left-1/2 z-10 flex justify-center items-center"
+          className="absolute left-1/2 z-10 flex justify-center items-center w-full px-4"
           style={{
-            bottom: '60px',
+            bottom: '40px',
             transform: 'translateX(-50%)'
           }}
         >
           <button 
             onClick={() => setShowRegistration(true)}
-            className="px-8 py-4 bg-white hover:bg-gray-100 text-black rounded-lg transition-all duration-200 flex items-center space-x-3 text-lg font-semibold shadow-lg hover:shadow-xl"
+            className="px-6 sm:px-8 py-3 sm:py-4 bg-white hover:bg-gray-100 text-black rounded-lg transition-all duration-200 flex items-center space-x-2 sm:space-x-3 text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl w-full sm:w-auto max-w-sm sm:max-w-none"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
             <span>Build Your Profile</span>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </button>
@@ -199,22 +229,22 @@ const LandingPage = ({ onLoginSuccess }) => {
       {/* End Hero Section Container */}
 
       {/* Who Are We Section */}
-      <section className="relative bg-black flex flex-col justify-between items-start w-full px-6 md:px-10 py-12 md:py-16" style={{ minHeight: '682px' }}>
+      <section className="relative bg-black flex flex-col justify-between items-start w-full px-4 sm:px-6 md:px-10 py-8 sm:py-12 md:py-16" style={{ minHeight: 'auto' }}>
         {/* WHO ARE WE Label */}
-        <div className="relative flex items-center mb-6 md:mb-8" style={{ width: 'fit-content' }}>
-          <div className="w-6 md:w-8 h-px bg-white mr-2 md:mr-3"></div>
-          <span className="text-white uppercase tracking-wider text-xs md:text-sm" style={{ fontFamily: 'Inter, sans-serif', fontWeight: '500', letterSpacing: '0.1em' }}>
+        <div className="relative flex items-center mb-4 sm:mb-6 md:mb-8" style={{ width: 'fit-content' }}>
+          <div className="w-4 sm:w-6 md:w-8 h-px bg-white mr-2 md:mr-3"></div>
+          <span className="text-white uppercase tracking-wider text-xs sm:text-sm" style={{ fontFamily: 'Inter, sans-serif', fontWeight: '500', letterSpacing: '0.1em' }}>
             WHO ARE WE
           </span>
         </div>
 
         {/* Main Heading */}
         <h2 
-          className="relative text-left text-white mb-10 md:mb-16 px-4"
+          className="relative text-left text-white mb-6 sm:mb-10 md:mb-16 px-2 sm:px-4"
           style={{
             fontFamily: '"Inter Display", Inter, sans-serif',
             fontWeight: 500,
-            fontSize: 'clamp(32px, 5vw, 60px)',
+            fontSize: 'clamp(24px, 4vw, 60px)',
             letterSpacing: '-0.04em',
             lineHeight: '1.2em',
             maxWidth: '820px',
@@ -225,15 +255,15 @@ const LandingPage = ({ onLoginSuccess }) => {
         </h2>
 
         {/* Images and Paragraph Section */}
-        <div className="relative flex flex-col md:flex-row justify-between items-start md:items-start w-full overflow-hidden gap-8 md:gap-16" style={{ maxWidth: '1200px' }}>
+        <div className="relative flex flex-col lg:flex-row justify-between items-start lg:items-start w-full overflow-hidden gap-6 sm:gap-8 md:gap-16" style={{ maxWidth: '1200px' }}>
           {/* Images Container */}
-          <div className="flex gap-6 md:gap-6 justify-center w-full md:w-auto">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center w-full lg:w-auto">
             <img 
               src="/abou1.jpeg" 
               alt="Madevise Feature 1" 
-              className="relative flex-1 object-contain animate-fade-in-scale"
+              className="relative flex-1 object-contain animate-fade-in-scale rounded-lg"
               style={{ 
-                height: '191px',
+                height: 'clamp(120px, 20vw, 191px)',
                 opacity: 0,
                 animation: 'fadeInScale 0.6s ease-out 0.2s forwards'
               }}
@@ -241,9 +271,9 @@ const LandingPage = ({ onLoginSuccess }) => {
             <img 
               src="/about2.jpeg" 
               alt="Madevise Feature 2" 
-              className="relative flex-1 object-contain animate-fade-in-scale"
+              className="relative flex-1 object-contain animate-fade-in-scale rounded-lg"
               style={{ 
-                height: '191px',
+                height: 'clamp(120px, 20vw, 191px)',
                 opacity: 0,
                 animation: 'fadeInScale 0.6s ease-out 0.4s forwards'
               }}
@@ -251,9 +281,9 @@ const LandingPage = ({ onLoginSuccess }) => {
             <img 
               src="/about3.jpeg" 
               alt="Madevise Feature 3" 
-              className="relative flex-1 object-contain animate-fade-in-scale"
+              className="relative flex-1 object-contain animate-fade-in-scale rounded-lg"
               style={{ 
-                height: '191px',
+                height: 'clamp(120px, 20vw, 191px)',
                 opacity: 0,
                 animation: 'fadeInScale 0.6s ease-out 0.6s forwards'
               }}
@@ -262,11 +292,11 @@ const LandingPage = ({ onLoginSuccess }) => {
 
           {/* Paragraph */}
           <p 
-            className="relative flex-1 text-white/90 text-center md:text-left"
+            className="relative flex-1 text-white/90 text-center lg:text-left mt-6 lg:mt-0"
             style={{
               fontFamily: 'Manrope, sans-serif',
               fontWeight: 400,
-              fontSize: '16px',
+              fontSize: 'clamp(14px, 2vw, 16px)',
               letterSpacing: '0em',
               lineHeight: '1.5em',
               maxWidth: '600px',
@@ -279,11 +309,11 @@ const LandingPage = ({ onLoginSuccess }) => {
 
         {/* About Us Button */}
         <button 
-          className="mt-12 md:mt-16 px-8 py-3 bg-white text-black hover:bg-gray-100 rounded-full transition-all duration-200 flex items-center space-x-2 font-medium"
-          style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px' }}
+          className="mt-8 sm:mt-12 md:mt-16 px-6 sm:px-8 py-2.5 sm:py-3 bg-white text-black hover:bg-gray-100 rounded-full transition-all duration-200 flex items-center space-x-2 font-medium text-sm sm:text-base"
+          style={{ fontFamily: 'Inter, sans-serif' }}
         >
           <span>About Us</span>
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+          <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-7-7l7 7-7 7" />
           </svg>
         </button>
@@ -291,43 +321,43 @@ const LandingPage = ({ onLoginSuccess }) => {
 
       {/* Why Choose Us Section */}
       <section 
-        className="relative bg-white overflow-hidden px-4 md:px-10 lg:px-10 py-16 md:py-20 lg:py-24"
+        className="relative bg-white overflow-hidden px-4 sm:px-6 md:px-10 lg:px-10 py-12 sm:py-16 md:py-20 lg:py-24"
         style={{
-          minHeight: '100vh'
+          minHeight: 'auto'
         }}
       >
-        {/* Background Ellipses - Hidden on mobile */}
-        <div className="absolute inset-0 w-full h-full pointer-events-none hidden lg:block">
+        {/* Background Ellipses - Responsive for all devices */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none">
           {/* Top-Left Ellipses */}
           <div className="absolute top-0 left-0">
             {/* Ellipse 1 - Largest (Top-Left) */}
             <div 
               className="absolute border border-black/71 rounded-full"
               style={{
-                width: '1050px',
-                height: '1050px',
-                top: '-200px',
-                left: '-300px'
+                width: 'clamp(300px, 50vw, 1050px)',
+                height: 'clamp(300px, 50vw, 1050px)',
+                top: 'clamp(-50px, -10vw, -200px)',
+                left: 'clamp(-100px, -20vw, -300px)'
               }}
             />
             {/* Ellipse 2 - Medium (Top-Left) */}
             <div 
               className="absolute border border-black/71 rounded-full"
               style={{
-                width: '820px',
-                height: '820px',
-                top: '-100px',
-                left: '-200px'
+                width: 'clamp(250px, 40vw, 820px)',
+                height: 'clamp(250px, 40vw, 820px)',
+                top: 'clamp(-30px, -5vw, -100px)',
+                left: 'clamp(-80px, -15vw, -200px)'
               }}
             />
             {/* Ellipse 3 - Smallest (Top-Left) */}
             <div 
               className="absolute border border-black/71 rounded-full"
               style={{
-                width: '550px',
-                height: '550px',
-                top: '50px',
-                left: '-100px'
+                width: 'clamp(200px, 30vw, 550px)',
+                height: 'clamp(200px, 30vw, 550px)',
+                top: 'clamp(20px, 3vw, 50px)',
+                left: 'clamp(-50px, -10vw, -100px)'
               }}
             />
           </div>
@@ -338,30 +368,30 @@ const LandingPage = ({ onLoginSuccess }) => {
             <div 
               className="absolute border border-black/71 rounded-full"
               style={{
-                width: '1400px',
-                height: '1400px',
-                bottom: '-300px',
-                right: '-400px'
+                width: 'clamp(400px, 70vw, 1400px)',
+                height: 'clamp(400px, 70vw, 1400px)',
+                bottom: 'clamp(-100px, -15vw, -300px)',
+                right: 'clamp(-150px, -25vw, -400px)'
               }}
             />
             {/* Ellipse 2 - Medium (Bottom-Right) */}
             <div 
               className="absolute border border-black/71 rounded-full"
               style={{
-                width: '1100px',
-                height: '1100px',
-                bottom: '-200px',
-                right: '-300px'
+                width: 'clamp(350px, 60vw, 1100px)',
+                height: 'clamp(350px, 60vw, 1100px)',
+                bottom: 'clamp(-80px, -12vw, -200px)',
+                right: 'clamp(-120px, -20vw, -300px)'
               }}
             />
             {/* Ellipse 3 - Smallest (Bottom-Right) */}
             <div 
               className="absolute border border-black/71 rounded-full"
               style={{
-                width: '800px',
-                height: '800px',
-                bottom: '-100px',
-                right: '-200px'
+                width: 'clamp(300px, 50vw, 800px)',
+                height: 'clamp(300px, 50vw, 800px)',
+                bottom: 'clamp(-50px, -8vw, -100px)',
+                right: 'clamp(-100px, -15vw, -200px)'
               }}
             />
           </div>
@@ -433,20 +463,32 @@ const LandingPage = ({ onLoginSuccess }) => {
             </h2>
           </div>
 
-          {/* Feature Cards Stack */}
+          {/* Mobile Stack Component */}
+          <div className="lg:hidden flex justify-center w-full">
+            <Stack
+              randomRotation={true}
+              sensitivity={180}
+              sendToBackOnClick={false}
+              cardDimensions={{ width: 280, height: 200 }}
+              cardsData={stackCardsData}
+              animationConfig={{ stiffness: 260, damping: 20 }}
+            />
+          </div>
+
+          {/* Desktop Feature Cards Stack */}
           <div 
-            className="flex flex-col items-center w-full lg:w-auto"
+            className="hidden lg:flex flex-col items-center w-full lg:w-auto"
             style={{
               width: '100%',
               maxWidth: '618px',
-              gap: '56px'
+              gap: 'clamp(32px, 8vw, 56px)'
             }}
           >
             {/* Card 1: Your Digital Manufacturing Identity */}
             <div 
               className="relative w-full max-w-[618px]"
               style={{
-                height: '187px'
+                height: 'clamp(150px, 25vw, 187px)'
               }}
             >
               {/* Card Background SVG */}
@@ -487,15 +529,17 @@ const LandingPage = ({ onLoginSuccess }) => {
               <h3 
                 className="absolute text-white font-medium"
                 style={{
-                  top: '20px',
-                  left: '110px',
+                  top: 'clamp(15px, 3vw, 20px)',
+                  left: 'clamp(80px, 15vw, 110px)',
+                  right: 'clamp(20px, 4vw, 30px)',
                   fontFamily: '"Inter Display", Inter, sans-serif',
-                  fontSize: 'clamp(18px, 3vw, 25px)',
+                  fontSize: 'clamp(14px, 2.5vw, 20px)',
                   letterSpacing: '0em',
                   lineHeight: '1.2',
-                  whiteSpace: 'pre',
-                  width: 'calc(100% - 130px)',
-                  maxWidth: '418px'
+                  whiteSpace: 'normal',
+                  wordWrap: 'break-word',
+                  wordBreak: 'break-word',
+                  overflow: 'hidden'
                 }}
               >
                 Your Digital Manufacturing Identity
@@ -505,18 +549,22 @@ const LandingPage = ({ onLoginSuccess }) => {
               <p 
                 className="absolute text-gray-300"
                 style={{
-                  top: '60px',
-                  left: '110px',
-                  width: 'calc(100% - 130px)',
-                  maxWidth: '418px',
+                  top: 'clamp(45px, 7vw, 55px)',
+                  left: 'clamp(80px, 15vw, 110px)',
+                  right: 'clamp(20px, 4vw, 30px)',
+                  bottom: 'clamp(20px, 4vw, 30px)',
                   fontFamily: 'Manrope, sans-serif',
                   fontWeight: '500',
-                  fontSize: 'clamp(14px, 2vw, 16px)',
+                  fontSize: 'clamp(11px, 1.8vw, 14px)',
                   letterSpacing: '0em',
-                  lineHeight: '1.2',
-                  whiteSpace: 'pre-wrap',
+                  lineHeight: '1.3',
+                  whiteSpace: 'normal',
                   wordWrap: 'break-word',
-                  wordBreak: 'break-word'
+                  wordBreak: 'break-word',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: '3',
+                  WebkitBoxOrient: 'vertical'
                 }}
               >
                 Build a smart, SEO-powered profile that showcases everything about your manufacturing business products, processes, strengths & scale, all in one place.
@@ -549,7 +597,7 @@ const LandingPage = ({ onLoginSuccess }) => {
             <div 
               className="relative w-full max-w-[618px]"
               style={{
-                height: '187px'
+                height: 'clamp(150px, 25vw, 187px)'
               }}
             >
               {/* Card Background SVG */}
@@ -590,15 +638,17 @@ const LandingPage = ({ onLoginSuccess }) => {
               <h3 
                 className="absolute text-white font-medium"
                 style={{
-                  top: '20px',
-                  left: '110px',
+                  top: 'clamp(15px, 3vw, 20px)',
+                  left: 'clamp(80px, 15vw, 110px)',
+                  right: 'clamp(20px, 4vw, 30px)',
                   fontFamily: '"Inter Display", Inter, sans-serif',
-                  fontSize: 'clamp(18px, 3vw, 25px)',
+                  fontSize: 'clamp(14px, 2.5vw, 20px)',
                   letterSpacing: '0em',
                   lineHeight: '1.2',
-                  whiteSpace: 'pre',
-                  width: 'calc(100% - 130px)',
-                  maxWidth: '418px'
+                  whiteSpace: 'normal',
+                  wordWrap: 'break-word',
+                  wordBreak: 'break-word',
+                  overflow: 'hidden'
                 }}
               >
                 Share. Engage. Grow.
@@ -608,18 +658,22 @@ const LandingPage = ({ onLoginSuccess }) => {
               <p 
                 className="absolute text-gray-300"
                 style={{
-                  top: '60px',
-                  left: '110px',
-                  width: 'calc(100% - 130px)',
-                  maxWidth: '418px',
+                  top: 'clamp(45px, 7vw, 55px)',
+                  left: 'clamp(80px, 15vw, 110px)',
+                  right: 'clamp(20px, 4vw, 30px)',
+                  bottom: 'clamp(20px, 4vw, 30px)',
                   fontFamily: 'Manrope, sans-serif',
                   fontWeight: '500',
-                  fontSize: 'clamp(14px, 2vw, 16px)',
+                  fontSize: 'clamp(11px, 1.8vw, 14px)',
                   letterSpacing: '0em',
-                  lineHeight: '1.2',
-                  whiteSpace: 'pre-wrap',
+                  lineHeight: '1.3',
+                  whiteSpace: 'normal',
                   wordWrap: 'break-word',
-                  wordBreak: 'break-word'
+                  wordBreak: 'break-word',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: '3',
+                  WebkitBoxOrient: 'vertical'
                 }}
               >
                 Post achievements, insights, trends, innovations, and promotions - position yourself as a modern manufacturer in a fast-evolving ecosystem.
@@ -652,7 +706,7 @@ const LandingPage = ({ onLoginSuccess }) => {
             <div 
               className="relative w-full max-w-[618px]"
               style={{
-                height: '187px'
+                height: 'clamp(150px, 25vw, 187px)'
               }}
             >
               {/* Card Background SVG */}
@@ -693,15 +747,17 @@ const LandingPage = ({ onLoginSuccess }) => {
               <h3 
                 className="absolute text-white font-medium"
                 style={{
-                  top: '20px',
-                  left: '110px',
+                  top: 'clamp(15px, 3vw, 20px)',
+                  left: 'clamp(80px, 15vw, 110px)',
+                  right: 'clamp(20px, 4vw, 30px)',
                   fontFamily: '"Inter Display", Inter, sans-serif',
-                  fontSize: 'clamp(18px, 3vw, 25px)',
+                  fontSize: 'clamp(14px, 2.5vw, 20px)',
                   letterSpacing: '0em',
                   lineHeight: '1.2',
-                  whiteSpace: 'pre',
-                  width: 'calc(100% - 130px)',
-                  maxWidth: '418px'
+                  whiteSpace: 'normal',
+                  wordWrap: 'break-word',
+                  wordBreak: 'break-word',
+                  overflow: 'hidden'
                 }}
               >
                 Instant RFQs, Smarter Quotes
@@ -711,18 +767,22 @@ const LandingPage = ({ onLoginSuccess }) => {
               <p 
                 className="absolute text-gray-300"
                 style={{
-                  top: '60px',
-                  left: '110px',
-                  width: 'calc(100% - 130px)',
-                  maxWidth: '418px',
+                  top: 'clamp(45px, 7vw, 55px)',
+                  left: 'clamp(80px, 15vw, 110px)',
+                  right: 'clamp(20px, 4vw, 30px)',
+                  bottom: 'clamp(20px, 4vw, 30px)',
                   fontFamily: 'Manrope, sans-serif',
                   fontWeight: '500',
-                  fontSize: 'clamp(14px, 2vw, 16px)',
+                  fontSize: 'clamp(11px, 1.8vw, 14px)',
                   letterSpacing: '0em',
-                  lineHeight: '1.2',
-                  whiteSpace: 'pre-wrap',
+                  lineHeight: '1.3',
+                  whiteSpace: 'normal',
                   wordWrap: 'break-word',
-                  wordBreak: 'break-word'
+                  wordBreak: 'break-word',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: '3',
+                  WebkitBoxOrient: 'vertical'
                 }}
               >
                 Post your requirements and receive competitive quotes from trusted manufacturers across India - faster, fairer, and completely transparent.
@@ -755,7 +815,7 @@ const LandingPage = ({ onLoginSuccess }) => {
             <div 
               className="relative w-full max-w-[618px]"
               style={{
-                height: '187px'
+                height: 'clamp(150px, 25vw, 187px)'
               }}
             >
               {/* Card Background SVG */}
@@ -796,15 +856,17 @@ const LandingPage = ({ onLoginSuccess }) => {
               <h3 
                 className="absolute text-white font-medium"
                 style={{
-                  top: '20px',
-                  left: '110px',
+                  top: 'clamp(15px, 3vw, 20px)',
+                  left: 'clamp(80px, 15vw, 110px)',
+                  right: 'clamp(20px, 4vw, 30px)',
                   fontFamily: '"Inter Display", Inter, sans-serif',
-                  fontSize: 'clamp(18px, 3vw, 25px)',
+                  fontSize: 'clamp(14px, 2.5vw, 20px)',
                   letterSpacing: '0em',
                   lineHeight: '1.2',
-                  whiteSpace: 'pre',
-                  width: 'calc(100% - 130px)',
-                  maxWidth: '418px'
+                  whiteSpace: 'normal',
+                  wordWrap: 'break-word',
+                  wordBreak: 'break-word',
+                  overflow: 'hidden'
                 }}
               >
                 A Marketplace for Manufacturers
@@ -814,18 +876,22 @@ const LandingPage = ({ onLoginSuccess }) => {
               <p 
                 className="absolute text-gray-300"
                 style={{
-                  top: '60px',
-                  left: '110px',
-                  width: 'calc(100% - 130px)',
-                  maxWidth: '418px',
+                  top: 'clamp(45px, 7vw, 55px)',
+                  left: 'clamp(80px, 15vw, 110px)',
+                  right: 'clamp(20px, 4vw, 30px)',
+                  bottom: 'clamp(20px, 4vw, 30px)',
                   fontFamily: 'Manrope, sans-serif',
                   fontWeight: '500',
-                  fontSize: 'clamp(14px, 2vw, 16px)',
+                  fontSize: 'clamp(11px, 1.8vw, 14px)',
                   letterSpacing: '0em',
-                  lineHeight: '1.2',
-                  whiteSpace: 'pre-wrap',
+                  lineHeight: '1.3',
+                  whiteSpace: 'normal',
                   wordWrap: 'break-word',
-                  wordBreak: 'break-word'
+                  wordBreak: 'break-word',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: '3',
+                  WebkitBoxOrient: 'vertical'
                 }}
               >
                 Get discovered by the right buyers and businesses through a targeted digital platform - designed exclusively for Indian manufacturers.
@@ -858,7 +924,7 @@ const LandingPage = ({ onLoginSuccess }) => {
             <div 
               className="relative w-full max-w-[618px]"
               style={{
-                height: '187px'
+                height: 'clamp(150px, 25vw, 187px)'
               }}
             >
               {/* Card Background SVG */}
@@ -899,15 +965,17 @@ const LandingPage = ({ onLoginSuccess }) => {
               <h3 
                 className="absolute text-white font-medium"
                 style={{
-                  top: '20px',
-                  left: '110px',
+                  top: 'clamp(15px, 3vw, 20px)',
+                  left: 'clamp(80px, 15vw, 110px)',
+                  right: 'clamp(20px, 4vw, 30px)',
                   fontFamily: '"Inter Display", Inter, sans-serif',
-                  fontSize: 'clamp(18px, 3vw, 25px)',
+                  fontSize: 'clamp(14px, 2.5vw, 20px)',
                   letterSpacing: '0em',
                   lineHeight: '1.2',
-                  whiteSpace: 'pre',
-                  width: 'calc(100% - 130px)',
-                  maxWidth: '418px'
+                  whiteSpace: 'normal',
+                  wordWrap: 'break-word',
+                  wordBreak: 'break-word',
+                  overflow: 'hidden'
                 }}
               >
                 Find Vendors in Minutes, Not Months
@@ -917,18 +985,22 @@ const LandingPage = ({ onLoginSuccess }) => {
               <p 
                 className="absolute text-gray-300"
                 style={{
-                  top: '60px',
-                  left: '110px',
-                  width: 'calc(100% - 130px)',
-                  maxWidth: '418px',
+                  top: 'clamp(45px, 7vw, 55px)',
+                  left: 'clamp(80px, 15vw, 110px)',
+                  right: 'clamp(20px, 4vw, 30px)',
+                  bottom: 'clamp(20px, 4vw, 30px)',
                   fontFamily: 'Manrope, sans-serif',
                   fontWeight: '500',
-                  fontSize: 'clamp(14px, 2vw, 16px)',
+                  fontSize: 'clamp(11px, 1.8vw, 14px)',
                   letterSpacing: '0em',
-                  lineHeight: '1.2',
-                  whiteSpace: 'pre-wrap',
+                  lineHeight: '1.3',
+                  whiteSpace: 'normal',
                   wordWrap: 'break-word',
-                  wordBreak: 'break-word'
+                  wordBreak: 'break-word',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: '3',
+                  WebkitBoxOrient: 'vertical'
                 }}
               >
                 Easily search by location, materials, manufacturing type, or finished product - compare profiles, certifications, and capabilities at a glance.
@@ -961,7 +1033,7 @@ const LandingPage = ({ onLoginSuccess }) => {
             <div 
               className="relative w-full max-w-[618px]"
               style={{
-                height: '187px'
+                height: 'clamp(150px, 25vw, 187px)'
               }}
             >
               {/* Card Background SVG */}
@@ -1002,15 +1074,17 @@ const LandingPage = ({ onLoginSuccess }) => {
               <h3 
                 className="absolute text-white font-medium"
                 style={{
-                  top: '20px',
-                  left: '110px',
+                  top: 'clamp(15px, 3vw, 20px)',
+                  left: 'clamp(80px, 15vw, 110px)',
+                  right: 'clamp(20px, 4vw, 30px)',
                   fontFamily: '"Inter Display", Inter, sans-serif',
-                  fontSize: 'clamp(18px, 3vw, 25px)',
+                  fontSize: 'clamp(14px, 2.5vw, 20px)',
                   letterSpacing: '0em',
                   lineHeight: '1.2',
-                  whiteSpace: 'pre',
-                  width: 'calc(100% - 130px)',
-                  maxWidth: '418px'
+                  whiteSpace: 'normal',
+                  wordWrap: 'break-word',
+                  wordBreak: 'break-word',
+                  overflow: 'hidden'
                 }}
               >
                 One-Click Digital Business Card
@@ -1020,18 +1094,22 @@ const LandingPage = ({ onLoginSuccess }) => {
               <p 
                 className="absolute text-gray-300"
                 style={{
-                  top: '60px',
-                  left: '110px',
-                  width: 'calc(100% - 130px)',
-                  maxWidth: '418px',
+                  top: 'clamp(45px, 7vw, 55px)',
+                  left: 'clamp(80px, 15vw, 110px)',
+                  right: 'clamp(20px, 4vw, 30px)',
+                  bottom: 'clamp(20px, 4vw, 30px)',
                   fontFamily: 'Manrope, sans-serif',
                   fontWeight: '500',
-                  fontSize: 'clamp(14px, 2vw, 16px)',
+                  fontSize: 'clamp(11px, 1.8vw, 14px)',
                   letterSpacing: '0em',
-                  lineHeight: '1.2',
-                  whiteSpace: 'pre-wrap',
+                  lineHeight: '1.3',
+                  whiteSpace: 'normal',
                   wordWrap: 'break-word',
-                  wordBreak: 'break-word'
+                  wordBreak: 'break-word',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: '3',
+                  WebkitBoxOrient: 'vertical'
                 }}
               >
                 Generate a sleek, shareable business card right from your profile - download or send it instantly to clients and vendors, anytime.
@@ -1065,10 +1143,9 @@ const LandingPage = ({ onLoginSuccess }) => {
 
       {/* Contact Us Section */}
       <section 
-        className="relative bg-black overflow-hidden px-4 md:px-10 lg:px-10 py-16 md:py-20 lg:py-24"
+        className="relative bg-black overflow-hidden px-4 sm:px-6 md:px-10 lg:px-10 py-12 sm:py-16 md:py-20 lg:py-24"
         style={{
-          minHeight: '100vh',
-          padding: '100px 40px'
+          minHeight: 'auto'
         }}
       >
         {/* Container */}
@@ -1295,11 +1372,11 @@ const LandingPage = ({ onLoginSuccess }) => {
             >
               {/* Form Container */}
               <div 
-                className="w-full bg-white rounded-lg border border-gray-200 p-6"
+                className="w-full bg-white rounded-lg border border-gray-200 p-4 sm:p-6"
                 style={{
                   gap: '10px',
                   maxWidth: '700px',
-                  minWidth: '500px'
+                  minWidth: 'auto'
                 }}
               >
                 {/* Form Fields */}
@@ -1408,7 +1485,7 @@ const LandingPage = ({ onLoginSuccess }) => {
 
       {/* Footer Section */}
       <footer 
-        className="relative bg-black overflow-hidden px-2 md:px-8 lg:px-8 py-8 md:py-10 lg:py-10"
+        className="relative bg-black overflow-hidden px-4 sm:px-6 md:px-8 lg:px-8 py-6 sm:py-8 md:py-10 lg:py-10"
       >
         {/* Container */}
         <div 
@@ -1422,22 +1499,22 @@ const LandingPage = ({ onLoginSuccess }) => {
           <div 
             className="flex flex-col lg:flex-row items-start justify-between w-full"
             style={{
-              gap: '480px'
+              gap: 'clamp(32px, 8vw, 480px)'
             }}
           >
             {/* Left Stack - Logo */}
             <div 
               className="flex flex-col items-start"
               style={{
-                gap: '383px'
+                gap: 'clamp(20px, 5vw, 383px)'
               }}
             >
               {/* Logo */}
               <div 
                 className="flex items-center"
                 style={{
-                  width: '200px',
-                  height: '100px',
+                  width: 'clamp(150px, 25vw, 200px)',
+                  height: 'clamp(60px, 10vw, 100px)',
                   backgroundImage: 'url(/madevize.svg)',
                   backgroundSize: 'contain',
                   backgroundRepeat: 'no-repeat',
@@ -1459,18 +1536,18 @@ const LandingPage = ({ onLoginSuccess }) => {
 
             {/* Right Stack - Join Us Content */}
             <div 
-              className="flex flex-col items-end"
+              className="flex flex-col items-end w-full lg:w-auto"
               style={{
-                width: '37%',
+                width: '100%',
                 gap: '10px'
               }}
             >
               {/* Join Us Now Title */}
               <h3 
-                className="text-white font-medium"
+                className="text-white font-medium text-center lg:text-right"
                 style={{
                   fontFamily: '"Inter Display", Inter, sans-serif',
-                  fontSize: '32px',
+                  fontSize: 'clamp(24px, 4vw, 32px)',
                   letterSpacing: '0em',
                   lineHeight: '1.2',
                   whiteSpace: 'pre'
@@ -1481,14 +1558,15 @@ const LandingPage = ({ onLoginSuccess }) => {
 
               {/* Description Text */}
               <p 
-                className="text-white text-right"
+                className="text-white text-center lg:text-right"
                 style={{
                   fontFamily: 'Manrope, sans-serif',
                   fontWeight: '500',
-                  fontSize: '20px',
+                  fontSize: 'clamp(16px, 3vw, 20px)',
                   letterSpacing: '0em',
                   lineHeight: '1.2',
-                  width: '403px',
+                  width: '100%',
+                  maxWidth: '403px',
                   whiteSpace: 'pre-wrap',
                   wordWrap: 'break-word',
                   wordBreak: 'break-word'
@@ -1580,7 +1658,7 @@ const LandingPage = ({ onLoginSuccess }) => {
       {/* Registration Modal */}
       {showRegistration && (
         <div 
-          className="fixed inset-0 flex items-center justify-center p-4 z-50 backdrop-blur-sm"
+          className="fixed inset-0 flex items-center justify-center p-2 sm:p-4 z-50 backdrop-blur-sm"
           style={{
             backgroundImage: 'url("/bg.avif")',
             backgroundSize: 'cover',
@@ -1592,7 +1670,7 @@ const LandingPage = ({ onLoginSuccess }) => {
           <div className="absolute inset-0 bg-black bg-opacity-70"></div>
           
           {/* Modal container */}
-          <div className="relative rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-700 bg-gray-900/90 backdrop-blur-sm">
+          <div className="relative rounded-2xl max-w-5xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-700 bg-gray-900/90 backdrop-blur-sm">
             <RegistrationForm onClose={() => setShowRegistration(false)} />
           </div>
         </div>
@@ -1601,7 +1679,7 @@ const LandingPage = ({ onLoginSuccess }) => {
       {/* Login Modal */}
       {showLogin && (
         <div 
-          className="fixed inset-0 flex items-center justify-center p-4 z-50 backdrop-blur-sm"
+          className="fixed inset-0 flex items-center justify-center p-2 sm:p-4 z-50 backdrop-blur-sm"
           style={{
             backgroundImage: 'url("/bg.avif")',
             backgroundSize: 'cover',
@@ -1613,7 +1691,7 @@ const LandingPage = ({ onLoginSuccess }) => {
           <div className="absolute inset-0 bg-black bg-opacity-70"></div>
           
           {/* Modal container */}
-          <div className="relative rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-700 bg-gray-900/90 backdrop-blur-sm">
+          <div className="relative rounded-2xl max-w-2xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-700 bg-gray-900/90 backdrop-blur-sm">
             <LoginForm 
               onClose={() => setShowLogin(false)} 
               onLoginSuccess={onLoginSuccess}
