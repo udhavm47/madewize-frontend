@@ -59,7 +59,7 @@ const DemoCompanyProfilePage = () => {
     
     // If no more fields are being edited, turn off edit mode
     const remainingFields = Object.keys(editingFields).filter(f => f !== fieldName)
-    if (remainingFields.length === 0) {
+    if (remainingFields.length === 1) { // Only the one we're removing
       setIsEditMode(false)
     }
   }
@@ -273,29 +273,74 @@ function Hero({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onF
           <div className="space-y-6">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                <EditableField
-                  value={company?.companyName}
-                  fieldName="companyName"
-                  isEditing={editingFields.companyName}
-                  onStartEdit={onStartEdit}
-                  onStopEdit={onStopEdit}
-                  onChange={onFieldChange}
-                  className="inline-block min-w-[200px]"
-                />
+                {editingFields.companyName ? (
+                  <input
+                    type="text"
+                    value={company?.companyName || ''}
+                    onChange={(e) => onFieldChange('companyName', e.target.value)}
+                    onBlur={() => onStopEdit('companyName')}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === 'Escape') {
+                        onStopEdit('companyName')
+                      }
+                    }}
+                    className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-4xl md:text-5xl font-bold w-full focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
+                    autoFocus
+                  />
+                ) : (
+                  <span
+                    onClick={() => onStartEdit('companyName')}
+                    className="cursor-pointer hover:bg-gray-800/50 rounded px-2 py-1 transition-colors inline-block group relative"
+                    title="Click to edit"
+                  >
+                    {company?.companyName || 'Company Name'}
+                    <svg 
+                      className="w-4 h-4 text-gray-500 absolute -right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity ml-2" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                  </span>
+                )}
               </h1>
-              <p className="text-lg text-gray-300 leading-relaxed">
-                <EditableField
-                  value={company?.companyDescription}
-                  fieldName="companyDescription"
-                  isEditing={editingFields.companyDescription}
-                  onStartEdit={onStartEdit}
-                  onStopEdit={onStopEdit}
-                  onChange={onFieldChange}
-                  multiline={true}
-                  maxLength={1000}
-                  className="block min-h-[100px] w-full"
-                />
-              </p>
+              <div className="text-lg text-gray-300 leading-relaxed">
+                {editingFields.companyDescriptionHero ? (
+                  <textarea
+                    value={company?.companyDescription || ''}
+                    onChange={(e) => onFieldChange('companyDescription', e.target.value)}
+                    onBlur={() => onStopEdit('companyDescriptionHero')}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Escape') {
+                        onStopEdit('companyDescriptionHero')
+                      }
+                    }}
+                    maxLength={1000}
+                    className="bg-gray-700 border-2 border-[#FC6500] rounded p-3 text-white w-full min-h-[100px] focus:outline-none focus:ring-2 focus:ring-[#FC6500] resize-y"
+                    autoFocus
+                  />
+                ) : (
+                  <span
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      onStartEdit('companyDescriptionHero')
+                    }}
+                    className="cursor-pointer hover:bg-gray-800/50 rounded px-2 py-1 transition-colors inline-block group relative w-full"
+                    title="Click to edit"
+                  >
+                    {company?.companyDescription || 'Company description...'}
+                    <svg 
+                      className="w-4 h-4 text-gray-500 absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                  </span>
+                )}
+              </div>
             </div>
             
             <div className="flex flex-wrap gap-4">
@@ -331,50 +376,116 @@ function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, on
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <motion.div variants={fadeUp}>
           <h2 className="text-3xl font-bold text-white mb-6">About Us</h2>
-          <p className="text-gray-300 leading-relaxed">
-            <EditableField
-              value={company?.companyDescription}
-              fieldName="companyDescription"
-              isEditing={editingFields.companyDescription}
-              onStartEdit={onStartEdit}
-              onStopEdit={onStopEdit}
-              onChange={onFieldChange}
-              multiline={true}
-              maxLength={1000}
-              className="block min-h-[120px] w-full"
-            />
-          </p>
+          <div className="text-gray-300 leading-relaxed">
+            {editingFields.companyDescriptionAbout ? (
+              <textarea
+                value={company?.companyDescription || ''}
+                onChange={(e) => onFieldChange('companyDescription', e.target.value)}
+                onBlur={() => onStopEdit('companyDescriptionAbout')}
+                onKeyDown={(e) => {
+                  if (e.key === 'Escape') {
+                    onStopEdit('companyDescriptionAbout')
+                  }
+                }}
+                maxLength={1000}
+                className="bg-gray-700 border-2 border-[#FC6500] rounded p-3 text-white w-full min-h-[120px] focus:outline-none focus:ring-2 focus:ring-[#FC6500] resize-y"
+                autoFocus
+              />
+            ) : (
+              <span
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onStartEdit('companyDescriptionAbout')
+                }}
+                className="cursor-pointer hover:bg-gray-800/50 rounded px-2 py-1 transition-colors inline-block group relative w-full"
+                title="Click to edit"
+              >
+                {company?.companyDescription || 'Company description...'}
+                <svg 
+                  className="w-4 h-4 text-gray-500 absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+              </span>
+            )}
+          </div>
         </motion.div>
         <motion.div variants={fadeUp} className="grid grid-cols-2 gap-4">
           <div className="bg-gray-800 p-6 rounded-lg">
             <h3 className="text-xl font-semibold text-white mb-2">Experience</h3>
-            <p className="text-gray-300">
-              <EditableField
-                value={company?.establishedOn ? `${new Date().getFullYear() - new Date(company.establishedOn).getFullYear()}+ Years` : ''}
-                fieldName="establishedOn"
-                isEditing={editingFields.establishedOn}
-                onStartEdit={onStartEdit}
-                onStopEdit={onStopEdit}
-                onChange={onFieldChange}
-                type="date"
-                className="block"
-              />
-            </p>
+            <div className="text-gray-300">
+              {editingFields.establishedOn ? (
+                <input
+                  type="date"
+                  value={company?.establishedOn ? company.establishedOn.split('T')[0] : ''}
+                  onChange={(e) => onFieldChange('establishedOn', e.target.value)}
+                  onBlur={() => onStopEdit('establishedOn')}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape') {
+                      onStopEdit('establishedOn')
+                    }
+                  }}
+                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white w-full focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
+                  autoFocus
+                />
+              ) : (
+                <p
+                  onClick={() => onStartEdit('establishedOn')}
+                  className="cursor-pointer hover:bg-gray-700/50 rounded px-2 py-1 transition-colors inline-block group relative"
+                  title="Click to edit"
+                >
+                  {company?.establishedOn ? new Date(company.establishedOn).getFullYear() + ' (' + (new Date().getFullYear() - new Date(company.establishedOn).getFullYear()) + '+ Years)' : 'Not set'}
+                  <svg 
+                    className="w-4 h-4 text-gray-500 ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </p>
+              )}
+            </div>
           </div>
           <div className="bg-gray-800 p-6 rounded-lg">
             <h3 className="text-xl font-semibold text-white mb-2">Production Capacity</h3>
-            <p className="text-gray-300">
-              <EditableField
-                value={company?.productionCapacity}
-                fieldName="productionCapacity"
-                isEditing={editingFields.productionCapacity}
-                onStartEdit={onStartEdit}
-                onStopEdit={onStopEdit}
-                onChange={onFieldChange}
-                placeholder="Enter production capacity"
-                className="block"
-              />
-            </p>
+            <div className="text-gray-300">
+              {editingFields.productionCapacity ? (
+                <input
+                  type="text"
+                  value={company?.productionCapacity || ''}
+                  onChange={(e) => onFieldChange('productionCapacity', e.target.value)}
+                  onBlur={() => onStopEdit('productionCapacity')}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === 'Escape') {
+                      onStopEdit('productionCapacity')
+                    }
+                  }}
+                  placeholder="Enter production capacity"
+                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white w-full focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
+                  autoFocus
+                />
+              ) : (
+                <p
+                  onClick={() => onStartEdit('productionCapacity')}
+                  className="cursor-pointer hover:bg-gray-700/50 rounded px-2 py-1 transition-colors inline-block group relative"
+                  title="Click to edit"
+                >
+                  {company?.productionCapacity || 'Not set'}
+                  <svg 
+                    className="w-4 h-4 text-gray-500 ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </p>
+              )}
+            </div>
           </div>
         </motion.div>
       </div>
@@ -649,7 +760,6 @@ function Machines({ company, isEditMode, editingFields, onStartEdit, onStopEdit,
 }
 
 function Details({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onFieldChange }) {
-  const isEditing = editingFields.details
   const editingAnyDetail = editingFields.companyMotto || editingFields.establishedOn || editingFields.plantLocation || editingFields.officialEmail || editingFields.gstinNumber
 
   return (
@@ -657,127 +767,194 @@ function Details({ company, isEditMode, editingFields, onStartEdit, onStopEdit, 
       <motion.div variants={fadeUp}>
         <div className="flex items-center justify-center gap-3 mb-8">
           <h2 className="text-3xl font-bold text-white text-center">Company Details</h2>
-          {!editingAnyDetail && (
-            <button
-              onClick={() => {
-                // Start editing all detail fields at once
-                onStartEdit('details')
-                onStartEdit('companyMotto')
-                onStartEdit('establishedOn')
-                onStartEdit('plantLocation')
-                onStartEdit('officialEmail')
-                onStartEdit('gstinNumber')
-              }}
-              className="text-gray-400 hover:text-[#FC6500]"
-              title="Edit company details"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-            </button>
-          )}
         </div>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-gray-800 p-6 rounded-lg">
             <h3 className="text-xl font-semibold text-white mb-3">Company Motto</h3>
-            <p className="text-gray-300">
-              <EditableField
-                value={company?.companyMotto}
-                fieldName="companyMotto"
-                isEditing={editingFields.companyMotto}
-                onStartEdit={onStartEdit}
-                onStopEdit={onStopEdit}
-                onChange={onFieldChange}
-                maxLength={200}
-                placeholder="Enter company motto"
-                className="block w-full"
-              />
-            </p>
+            <div className="text-gray-300">
+              {editingFields.companyMotto ? (
+                <input
+                  type="text"
+                  value={company?.companyMotto || ''}
+                  onChange={(e) => onFieldChange('companyMotto', e.target.value)}
+                  onBlur={() => onStopEdit('companyMotto')}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === 'Escape') {
+                      onStopEdit('companyMotto')
+                    }
+                  }}
+                  maxLength={200}
+                  placeholder="Enter company motto"
+                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white w-full focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
+                  autoFocus
+                />
+              ) : (
+                <p
+                  onClick={() => onStartEdit('companyMotto')}
+                  className="cursor-pointer hover:bg-gray-700/50 rounded px-2 py-1 transition-colors inline-block group relative"
+                  title="Click to edit"
+                >
+                  {company?.companyMotto || 'Not set'}
+                  <svg 
+                    className="w-4 h-4 text-gray-500 ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </p>
+              )}
+            </div>
           </div>
           <div className="bg-gray-800 p-6 rounded-lg">
             <h3 className="text-xl font-semibold text-white mb-3">Established On</h3>
-            <p className="text-gray-300">
-              <EditableField
-                value={company?.establishedOn ? new Date(company.establishedOn).toLocaleDateString() : ''}
-                fieldName="establishedOn"
-                isEditing={editingFields.establishedOn}
-                onStartEdit={onStartEdit}
-                onStopEdit={onStopEdit}
-                onChange={(field, value) => {
-                  // Convert date string back to ISO format
-                  const dateObj = new Date(value)
-                  onFieldChange(field, dateObj.toISOString().split('T')[0])
-                }}
-                type="date"
-                placeholder="Select date"
-                className="block w-full"
-              />
-            </p>
+            <div className="text-gray-300">
+              {editingFields.establishedOn ? (
+                <input
+                  type="date"
+                  value={company?.establishedOn ? company.establishedOn.split('T')[0] : ''}
+                  onChange={(e) => onFieldChange('establishedOn', e.target.value)}
+                  onBlur={() => onStopEdit('establishedOn')}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape') {
+                      onStopEdit('establishedOn')
+                    }
+                  }}
+                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white w-full focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
+                  autoFocus
+                />
+              ) : (
+                <p
+                  onClick={() => onStartEdit('establishedOn')}
+                  className="cursor-pointer hover:bg-gray-700/50 rounded px-2 py-1 transition-colors inline-block group relative"
+                  title="Click to edit"
+                >
+                  {company?.establishedOn ? new Date(company.establishedOn).toLocaleDateString() : 'Not set'}
+                  <svg 
+                    className="w-4 h-4 text-gray-500 ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </p>
+              )}
+            </div>
           </div>
           <div className="bg-gray-800 p-6 rounded-lg">
             <h3 className="text-xl font-semibold text-white mb-3">Plant Location</h3>
-            <p className="text-gray-300">
-              <EditableField
-                value={company?.plantLocation}
-                fieldName="plantLocation"
-                isEditing={editingFields.plantLocation}
-                onStartEdit={onStartEdit}
-                onStopEdit={onStopEdit}
-                onChange={onFieldChange}
-                placeholder="Enter plant location"
-                className="block w-full"
-              />
-            </p>
+            <div className="text-gray-300">
+              {editingFields.plantLocation ? (
+                <input
+                  type="text"
+                  value={company?.plantLocation || ''}
+                  onChange={(e) => onFieldChange('plantLocation', e.target.value)}
+                  onBlur={() => onStopEdit('plantLocation')}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === 'Escape') {
+                      onStopEdit('plantLocation')
+                    }
+                  }}
+                  placeholder="Enter plant location"
+                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white w-full focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
+                  autoFocus
+                />
+              ) : (
+                <p
+                  onClick={() => onStartEdit('plantLocation')}
+                  className="cursor-pointer hover:bg-gray-700/50 rounded px-2 py-1 transition-colors inline-block group relative"
+                  title="Click to edit"
+                >
+                  {company?.plantLocation || 'Not set'}
+                  <svg 
+                    className="w-4 h-4 text-gray-500 ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </p>
+              )}
+            </div>
           </div>
           <div className="bg-gray-800 p-6 rounded-lg">
             <h3 className="text-xl font-semibold text-white mb-3">Official Email</h3>
-            <p className="text-gray-300">
-              <EditableField
-                value={company?.officialEmail}
-                fieldName="officialEmail"
-                isEditing={editingFields.officialEmail}
-                onStartEdit={onStartEdit}
-                onStopEdit={onStopEdit}
-                onChange={onFieldChange}
-                type="email"
-                placeholder="Enter official email"
-                className="block w-full"
-              />
-            </p>
+            <div className="text-gray-300">
+              {editingFields.officialEmail ? (
+                <input
+                  type="email"
+                  value={company?.officialEmail || ''}
+                  onChange={(e) => onFieldChange('officialEmail', e.target.value)}
+                  onBlur={() => onStopEdit('officialEmail')}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === 'Escape') {
+                      onStopEdit('officialEmail')
+                    }
+                  }}
+                  placeholder="Enter official email"
+                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white w-full focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
+                  autoFocus
+                />
+              ) : (
+                <p
+                  onClick={() => onStartEdit('officialEmail')}
+                  className="cursor-pointer hover:bg-gray-700/50 rounded px-2 py-1 transition-colors inline-block group relative"
+                  title="Click to edit"
+                >
+                  {company?.officialEmail || 'Not set'}
+                  <svg 
+                    className="w-4 h-4 text-gray-500 ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </p>
+              )}
+            </div>
           </div>
           <div className="bg-gray-800 p-6 rounded-lg">
             <h3 className="text-xl font-semibold text-white mb-3">GSTIN Number</h3>
-            <p className="text-gray-300">
-              <EditableField
-                value={company?.gstinNumber}
-                fieldName="gstinNumber"
-                isEditing={editingFields.gstinNumber}
-                onStartEdit={onStartEdit}
-                onStopEdit={onStopEdit}
-                onChange={onFieldChange}
-                placeholder="Enter GSTIN number"
-                className="block w-full"
-              />
-            </p>
+            <div className="text-gray-300">
+              {editingFields.gstinNumber ? (
+                <input
+                  type="text"
+                  value={company?.gstinNumber || ''}
+                  onChange={(e) => onFieldChange('gstinNumber', e.target.value)}
+                  onBlur={() => onStopEdit('gstinNumber')}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === 'Escape') {
+                      onStopEdit('gstinNumber')
+                    }
+                  }}
+                  placeholder="Enter GSTIN number"
+                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white w-full focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
+                  autoFocus
+                />
+              ) : (
+                <p
+                  onClick={() => onStartEdit('gstinNumber')}
+                  className="cursor-pointer hover:bg-gray-700/50 rounded px-2 py-1 transition-colors inline-block group relative"
+                  title="Click to edit"
+                >
+                  {company?.gstinNumber || 'Not set'}
+                  <svg 
+                    className="w-4 h-4 text-gray-500 ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </p>
+              )}
+            </div>
           </div>
         </div>
-        {editingAnyDetail && (
-          <div className="mt-6 flex justify-center">
-            <button
-              onClick={() => {
-                onStopEdit('details')
-                onStopEdit('companyMotto')
-                onStopEdit('establishedOn')
-                onStopEdit('plantLocation')
-                onStopEdit('officialEmail')
-                onStopEdit('gstinNumber')
-              }}
-              className="bg-green-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-700"
-            >
-              Done Editing
-            </button>
-          </div>
-        )}
       </motion.div>
     </motion.section>
   )
