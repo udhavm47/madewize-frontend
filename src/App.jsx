@@ -5,6 +5,7 @@ import DashboardPage from './pages/DashboardPage'
 import ProfilePage from './pages/ProfilePage'
 import PublicProfilePage from './pages/PublicProfilePage'
 import CompanyProfilePage from './pages/CompanyProfilePage'
+import DemoCompanyProfilePage from './pages/DemoCompanyProfilePage'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -158,6 +159,12 @@ function App() {
               <Navigate to="/" replace />
             )
           } 
+        />
+        
+        {/* Demo Route - Public access */}
+        <Route 
+          path="/demo-company" 
+          element={<DemoCompanyProfilePage />} 
         />
       </Routes>
     </Router>

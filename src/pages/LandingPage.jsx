@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import RegistrationForm from '../components/RegistrationForm'
 import LoginForm from '../components/LoginForm'
 import AnimatedText from '../components/AnimatedText'
 import Stack from '../components/Stack'
 
 const LandingPage = ({ onLoginSuccess }) => {
+  const navigate = useNavigate()
   const [showRegistration, setShowRegistration] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
@@ -109,6 +111,13 @@ const LandingPage = ({ onLoginSuccess }) => {
         
         {/* Desktop Navigation - Right Side */}
         <div className="hidden lg:flex items-center space-x-2 xl:space-x-3">
+          <button 
+            onClick={() => navigate('/demo-company')}
+            className="px-4 xl:px-6 py-2 xl:py-2.5 bg-[#FC6500] hover:bg-[#e55a00] text-white rounded-full transition-all duration-200 text-sm xl:text-base font-medium"
+            style={{ fontFamily: 'Inter, sans-serif' }}
+          >
+            View Demo
+          </button>
           <button className="px-4 xl:px-6 py-2 xl:py-2.5 bg-gray-700/80 hover:bg-gray-600/80 text-white rounded-full transition-all duration-200 text-sm xl:text-base" style={{ fontFamily: 'Inter, sans-serif' }}>
             About Us
           </button>
@@ -152,6 +161,16 @@ const LandingPage = ({ onLoginSuccess }) => {
       {showMobileMenu && (
         <div className="lg:hidden absolute top-16 sm:top-20 left-0 right-0 bg-gray-900/95 backdrop-blur-lg z-20 px-4 sm:px-6 py-4 border-t border-gray-700">
           <nav className="flex flex-col space-y-2 sm:space-y-3">
+            <button 
+              onClick={() => {
+                navigate('/demo-company')
+                setShowMobileMenu(false)
+              }}
+              className="px-4 py-2 sm:py-2.5 bg-[#FC6500] hover:bg-[#e55a00] text-white rounded-full transition-all duration-200 text-center text-sm sm:text-base font-medium"
+              style={{ fontFamily: 'Inter, sans-serif' }}
+            >
+              View Demo
+            </button>
             <button className="px-4 py-2 sm:py-2.5 bg-gray-700/80 hover:bg-gray-600/80 text-white rounded-full transition-all duration-200 text-center text-sm sm:text-base" style={{ fontFamily: 'Inter, sans-serif' }}>
               About Us
             </button>
