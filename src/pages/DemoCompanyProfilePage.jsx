@@ -143,7 +143,7 @@ const DemoCompanyProfilePage = () => {
         />
         
         {/* Edit Mode Banner */}
-        {isEditMode && (
+        {/* {isEditMode && (
           <div className="max-w-6xl mx-auto mt-4 mb-4 p-4 bg-yellow-600/20 border border-yellow-500 rounded-lg flex items-center justify-between">
             <div className="flex items-center gap-3">
               <svg className="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -159,7 +159,7 @@ const DemoCompanyProfilePage = () => {
               {saving ? 'Saving...' : 'Save All Changes'}
             </button>
           </div>
-        )}
+        )} */}
 
         {saveMessage && (
           <div className={`max-w-6xl mx-auto mt-2 mb-4 p-3 rounded-lg ${
