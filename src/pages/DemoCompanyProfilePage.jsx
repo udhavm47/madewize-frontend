@@ -12,11 +12,20 @@ const initialMockCompanyData = {
   companyName: 'Advanced Manufacturing Solutions',
   companyDescription: 'We are a leading precision manufacturing company specializing in CNC machining, fabrication, and assembly services. With over 20 years of experience, we deliver high-quality components for aerospace, automotive, and medical industries.',
   companyMotto: 'Excellence in Every Component',
-  vendors: ['Steel Suppliers Inc', 'Tooling Solutions Ltd', 'Material Corp', 'Precision Tools Co'],
+  vendors: [
+    { name: 'Orion Fabrication Works', location: 'Gurugram' },
+    { name: 'GreenField AgriTech', location: 'Hyderabad' },
+    { name: 'Velocity Auto Components', location: 'Noida' },
+    { name: 'Stellar Pumps & Valves', location: 'New Delhi' },
+    { name: 'Rivetron Engineering', location: 'Gaziabaad' },
+    { name: 'Bluemax Motorsports', location: 'Faridabaad' }
+  ],
   machines: ['CNC Milling Center', '5-Axis CNC', 'Lathe Machines', 'Welding Equipment', 'Quality Testing Lab'],
   certifications: ['ISO 9001:2015', 'AS9100D', 'ISO 14001:2015'],
   productionCapacity: '10,000+ units per month',
-  establishedOn: '2003-01-15',
+  establishedOn: '1998-01-15',
+  experience: '25',
+  partsManufacturedAnnually: '150M',
   plantLocation: '123 Industrial Park, Manufacturing City, State 12345',
   officialEmail: 'info@advancedmfg.com',
   gstinNumber: '12ABCDE1234F1Z5',
@@ -74,7 +83,33 @@ const DemoCompanyProfilePage = () => {
   const handleArrayFieldChange = (fieldName, index, value) => {
     setCompany(prev => ({
       ...prev,
-      [fieldName]: prev[fieldName].map((item, i) => i === index ? value : item)
+      [fieldName]: prev[fieldName].map((item, i) => {
+        if (i === index) {
+          // If item is an object (partner with name/location), update accordingly
+          if (typeof item === 'object' && item !== null) {
+            return { ...item, ...value }
+          }
+          // Otherwise, treat as simple string update
+          return value
+        }
+        return item
+      })
+    }))
+  }
+
+  const handlePartnerFieldChange = (fieldName, index, field, value) => {
+    setCompany(prev => ({
+      ...prev,
+      [fieldName]: prev[fieldName].map((item, i) => {
+        if (i === index) {
+          if (typeof item === 'object' && item !== null) {
+            return { ...item, [field]: value }
+          }
+          // If it's a string, convert to object
+          return { name: item || '', location: '', [field]: value }
+        }
+        return item
+      })
     }))
   }
 
@@ -84,11 +119,16 @@ const DemoCompanyProfilePage = () => {
       startEditing(fieldName)
     }
     
-    // Add new empty item
-    setCompany(prev => ({
-      ...prev,
-      [fieldName]: [...(prev[fieldName] || []), '']
-    }))
+    // Add new empty item - check if vendors use object format
+    setCompany(prev => {
+      const existingItems = prev[fieldName] || []
+      const isObjectFormat = existingItems.length > 0 && typeof existingItems[0] === 'object' && existingItems[0] !== null && !Array.isArray(existingItems[0])
+      
+      return {
+        ...prev,
+        [fieldName]: [...existingItems, isObjectFormat ? { name: '', location: '' } : '']
+      }
+    })
   }
 
   const handleRemoveArrayItem = (fieldName, index) => {
@@ -171,7 +211,9 @@ const DemoCompanyProfilePage = () => {
 
         <Hero company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
         <About company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
-        <Vendors company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} onArrayChange={handleArrayFieldChange} onAddItem={handleAddArrayItem} onRemoveItem={handleRemoveArrayItem} />
+        <SectionSeparator sectionName="CLIENTS" />
+        <Vendors company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} onArrayChange={handleArrayFieldChange} onPartnerFieldChange={handlePartnerFieldChange} onAddItem={handleAddArrayItem} onRemoveItem={handleRemoveArrayItem} />
+        <MoreAboutUs company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
         <Certifications company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
         <Machines company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} onArrayChange={handleArrayFieldChange} onAddItem={handleAddArrayItem} onRemoveItem={handleRemoveArrayItem} />
         <Details company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
@@ -268,7 +310,7 @@ const EditableField = ({
 function Hero({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onFieldChange }) {
   return (
     <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="max-w-6xl mx-auto pt-4 sm:pt-6 md:pt-8 pb-8 sm:pb-10 md:pb-12">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-center">
         <motion.div variants={fadeUp} className="md:col-span-2 order-2 md:order-1">
           <div className="space-y-4 sm:space-y-6">
             <div>
@@ -305,47 +347,6 @@ function Hero({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onF
                   </span>
                 )}
               </h1>
-              <div className="text-base sm:text-lg text-gray-300 leading-relaxed">
-                {editingFields.companyDescriptionHero ? (
-                  <textarea
-                    value={company?.companyDescription || ''}
-                    onChange={(e) => onFieldChange('companyDescription', e.target.value)}
-                    onBlur={() => onStopEdit('companyDescriptionHero')}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Escape') {
-                        onStopEdit('companyDescriptionHero')
-                      }
-                    }}
-                    maxLength={1000}
-                    className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 sm:p-3 text-white w-full min-h-[80px] sm:min-h-[100px] text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#FC6500] resize-y"
-                    autoFocus
-                  />
-                ) : (
-                  <span
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      onStartEdit('companyDescriptionHero')
-                    }}
-                    className="cursor-pointer hover:bg-gray-800/50 rounded px-2 py-1 transition-colors inline-block group relative w-full"
-                    title="Click to edit"
-                  >
-                    {company?.companyDescription || 'Company description...'}
-                    <svg 
-                      className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                    </svg>
-                  </span>
-                )}
-              </div>
-            </div>
-            
-            <div className="flex flex-wrap gap-3 sm:gap-4">
-              <button className="bg-[#FC6500] text-black px-4 sm:px-5 py-2 rounded-md font-semibold text-sm sm:text-base w-full sm:w-auto">View Materials</button>
-              <button className="border border-gray-700 px-4 sm:px-5 py-2 rounded-md text-sm sm:text-base w-full sm:w-auto">Get Quote</button>
             </div>
           </div>
         </motion.div>
@@ -371,38 +372,81 @@ function Hero({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onF
 }
 
 function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onFieldChange }) {
+  const hasMotto = company?.companyMotto && company.companyMotto.trim()
+  const hasDescription = company?.companyDescription && company.companyDescription.trim()
+  
   return (
-    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="max-w-6xl mx-auto py-8 sm:py-12 md:py-16">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-start md:items-center">
-        <motion.div variants={fadeUp}>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6">About Us</h2>
-          <div className="text-gray-300 leading-relaxed">
-            {editingFields.companyDescriptionAbout ? (
+    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16">
+      <div className="relative mx-auto" style={{ width: '1160px', maxWidth: '95%' }}>
+        {/* Main Container */}
+        <motion.div 
+          variants={fadeUp}
+          className="relative mx-auto rounded-[30px]"
+          style={{
+            width: '1160px',
+            maxWidth: '100%',
+            background: 'rgba(33, 33, 33, 0.35)',
+            borderRadius: '30px',
+            padding: '66px 0 60px 0'
+          }}
+        >
+          {/* Company Motto */}
+          <div 
+            className="relative mx-auto text-center"
+            style={{
+              width: '896px',
+              maxWidth: '77%',
+              marginBottom: hasDescription || !hasMotto ? '48px' : '0px'
+            }}
+          >
+            {editingFields.companyMottoAbout ? (
               <textarea
-                value={company?.companyDescription || ''}
-                onChange={(e) => onFieldChange('companyDescription', e.target.value)}
-                onBlur={() => onStopEdit('companyDescriptionAbout')}
+                value={company?.companyMotto || ''}
+                onChange={(e) => onFieldChange('companyMotto', e.target.value)}
+                onBlur={() => onStopEdit('companyMottoAbout')}
                 onKeyDown={(e) => {
                   if (e.key === 'Escape') {
-                    onStopEdit('companyDescriptionAbout')
+                    onStopEdit('companyMottoAbout')
                   }
                 }}
-                maxLength={1000}
-                className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 sm:p-3 text-white w-full min-h-[100px] sm:min-h-[120px] text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#FC6500] resize-y"
+                maxLength={200}
+                className="bg-gray-700 border-2 border-[#FC6500] rounded p-4 text-white w-full text-center focus:outline-none focus:ring-2 focus:ring-[#FC6500] resize-y"
+                style={{
+                  fontFamily: 'Montserrat, sans-serif',
+                  fontWeight: 600,
+                  fontSize: '36px',
+                  lineHeight: '44px',
+                  minHeight: hasMotto ? 'auto' : '44px',
+                  height: 'auto'
+                }}
                 autoFocus
               />
             ) : (
               <span
                 onClick={(e) => {
                   e.stopPropagation()
-                  onStartEdit('companyDescriptionAbout')
+                  onStartEdit('companyMottoAbout')
                 }}
-                className="cursor-pointer hover:bg-gray-800/50 rounded px-2 py-1 transition-colors inline-block group relative w-full text-sm sm:text-base"
+                className="cursor-pointer hover:bg-gray-700/30 rounded px-4 py-2 transition-colors inline-block group relative block w-full"
                 title="Click to edit"
+                style={{
+                  fontFamily: 'Montserrat, sans-serif',
+                  fontStyle: 'normal',
+                  fontWeight: 600,
+                  fontSize: '36px',
+                  lineHeight: '44px',
+                  textAlign: 'center',
+                  color: '#FFFFFF',
+                  minHeight: hasMotto ? 'auto' : '44px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: hasMotto ? '12px 16px' : '16px'
+                }}
               >
-                {company?.companyDescription || 'Company description...'}
+                {company?.companyMotto || 'Click to add company motto...'}
                 <svg 
-                  className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity" 
+                  className="w-5 h-5 text-gray-500 ml-3 opacity-0 group-hover:opacity-100 transition-opacity absolute right-4" 
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
@@ -412,89 +456,99 @@ function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, on
               </span>
             )}
           </div>
-        </motion.div>
-        <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-4">
-          <div className="bg-gray-800 p-4 sm:p-5 md:p-6 rounded-lg">
-            <h3 className="text-lg sm:text-xl font-semibold text-white mb-2">Experience</h3>
-            <div className="text-gray-300">
-              {editingFields.establishedOn ? (
-                <input
-                  type="date"
-                  value={company?.establishedOn ? company.establishedOn.split('T')[0] : ''}
-                  onChange={(e) => {
-                    // Convert YYYY-MM-DD to ISO string
-                    const dateValue = e.target.value
-                    if (dateValue) {
-                      const isoString = new Date(dateValue + 'T00:00:00').toISOString()
-                      onFieldChange('establishedOn', isoString)
-                    } else {
-                      onFieldChange('establishedOn', '')
-                    }
-                  }}
-                  onBlur={() => onStopEdit('establishedOn')}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Escape') {
-                      onStopEdit('establishedOn')
-                    }
-                  }}
-                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white w-full text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
-                  autoFocus
-                />
-              ) : (
-                <p
-                  onClick={() => onStartEdit('establishedOn')}
-                  className="cursor-pointer hover:bg-gray-700/50 rounded px-2 py-1 transition-colors inline-block group relative text-sm sm:text-base"
-                  title="Click to edit"
+
+          {/* Company Description */}
+          <div 
+            className="relative mx-auto text-center"
+            style={{
+              width: '818px',
+              maxWidth: '70%'
+            }}
+          >
+            {editingFields.companyDescriptionAbout ? (
+              <textarea
+                value={company?.companyDescription || ''}
+                onChange={(e) => {
+                  onFieldChange('companyDescription', e.target.value)
+                  // Auto-resize textarea based on content
+                  e.target.style.height = 'auto'
+                  e.target.style.height = Math.max(72, e.target.scrollHeight) + 'px'
+                }}
+                onBlur={() => onStopEdit('companyDescriptionAbout')}
+                onKeyDown={(e) => {
+                  if (e.key === 'Escape') {
+                    onStopEdit('companyDescriptionAbout')
+                  }
+                }}
+                maxLength={2000}
+                placeholder="Enter company description (2-3 paragraphs)..."
+                className="bg-gray-700 border-2 border-[#FC6500] rounded p-4 text-white w-full text-center focus:outline-none focus:ring-2 focus:ring-[#FC6500] resize-none overflow-hidden"
+                style={{
+                  fontFamily: 'Montserrat, sans-serif',
+                  fontStyle: 'normal',
+                  fontWeight: 400,
+                  fontSize: '20px',
+                  lineHeight: '24px',
+                  textAlign: 'center',
+                  color: '#929292',
+                  minHeight: hasDescription ? 'auto' : '72px',
+                  paddingTop: '16px',
+                  paddingBottom: '16px'
+                }}
+                autoFocus
+              />
+            ) : (
+              <div
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onStartEdit('companyDescriptionAbout')
+                }}
+                className="cursor-pointer hover:bg-gray-700/30 rounded px-4 py-3 transition-colors group relative w-full"
+                title="Click to edit"
+                style={{
+                  fontFamily: 'Montserrat, sans-serif',
+                  fontStyle: 'normal',
+                  fontWeight: 400,
+                  fontSize: '20px',
+                  lineHeight: '24px',
+                  textAlign: 'center',
+                  color: '#929292',
+                  minHeight: hasDescription ? 'auto' : '72px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexDirection: 'column',
+                  padding: hasDescription ? '16px' : '24px 16px'
+                }}
+              >
+                {hasDescription ? (
+                  <div style={{ 
+                    whiteSpace: 'pre-wrap',
+                    width: '100%',
+                    lineHeight: '1.6'
+                  }}>
+                    {company.companyDescription.split('\n\n').filter(p => p.trim()).map((paragraph, index, arr) => (
+                      <p key={index} style={{ 
+                        marginBottom: index < arr.length - 1 ? '16px' : '0px',
+                        marginTop: '0px'
+                      }}>
+                        {paragraph.trim()}
+                      </p>
+                    ))}
+                  </div>
+                ) : (
+                  <span>Click to add company description (2-3 paragraphs)...</span>
+                )}
+                <svg 
+                  className="w-4 h-4 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity absolute right-4 top-3" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
                 >
-                  {company?.establishedOn ? new Date(company.establishedOn).getFullYear() + ' (' + (new Date().getFullYear() - new Date(company.establishedOn).getFullYear()) + '+ Years)' : 'Not set'}
-                  <svg 
-                    className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                  </svg>
-                </p>
-              )}
-            </div>
-          </div>
-          <div className="bg-gray-800 p-4 sm:p-5 md:p-6 rounded-lg">
-            <h3 className="text-lg sm:text-xl font-semibold text-white mb-2">Production Capacity</h3>
-            <div className="text-gray-300">
-              {editingFields.productionCapacity ? (
-                <input
-                  type="text"
-                  value={company?.productionCapacity || ''}
-                  onChange={(e) => onFieldChange('productionCapacity', e.target.value)}
-                  onBlur={() => onStopEdit('productionCapacity')}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === 'Escape') {
-                      onStopEdit('productionCapacity')
-                    }
-                  }}
-                  placeholder="Enter production capacity"
-                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white w-full text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
-                  autoFocus
-                />
-              ) : (
-                <p
-                  onClick={() => onStartEdit('productionCapacity')}
-                  className="cursor-pointer hover:bg-gray-700/50 rounded px-2 py-1 transition-colors inline-block group relative text-sm sm:text-base"
-                  title="Click to edit"
-                >
-                  {company?.productionCapacity || 'Not set'}
-                  <svg 
-                    className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                  </svg>
-                </p>
-              )}
-            </div>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+              </div>
+            )}
           </div>
         </motion.div>
       </div>
@@ -502,90 +556,715 @@ function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, on
   )
 }
 
-function Vendors({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onFieldChange, onArrayChange, onAddItem, onRemoveItem }) {
+function SectionSeparator({ sectionName }) {
+  return (
+    <div 
+      className="relative w-full flex items-center"
+      style={{
+        width: '1162px',
+        maxWidth: '95%',
+        height: '22px',
+        margin: '0 auto',
+        padding: '40px 0'
+      }}
+    >
+      <div
+        className="flex flex-row items-center"
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          padding: '0px',
+          gap: '29px',
+          width: '100%'
+        }}
+      >
+        {/* Section Name */}
+        <div
+          style={{
+            width: 'auto',
+            height: '22px',
+            fontFamily: 'Manrope, sans-serif',
+            fontStyle: 'normal',
+            fontWeight: 600,
+            fontSize: '16px',
+            lineHeight: '22px',
+            color: '#FFFFFF',
+            flex: 'none',
+            order: 0,
+            flexGrow: 0,
+            whiteSpace: 'nowrap'
+          }}
+        >
+          {sectionName}
+        </div>
+        
+        {/* Line */}
+        <div
+          style={{
+            flex: '1 1 auto',
+            height: '0px',
+            border: '2px solid #B1B1B1',
+            flexShrink: 1,
+            order: 1,
+            minWidth: 0
+          }}
+        />
+      </div>
+    </div>
+  )
+}
+
+function Vendors({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onFieldChange, onArrayChange, onPartnerFieldChange, onAddItem, onRemoveItem }) {
   const isEditing = editingFields.vendors
 
   return (
-    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="max-w-6xl mx-auto py-8 sm:py-12 md:py-16">
-      <motion.div variants={fadeUp} className="text-center mb-8 sm:mb-10 md:mb-12">
-        <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2 sm:mb-4">Our Vendors</h2>
-          {!isEditing && (
-            <button
-              onClick={() => onStartEdit('vendors')}
-              className="text-gray-400 hover:text-[#FC6500] mb-2 sm:mb-4"
-              title="Edit vendors"
+    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16">
+      {/* Header Section */}
+      <div className="relative mx-auto mb-8 sm:mb-10 md:mb-12" style={{ width: '1162px', maxWidth: '95%' }}>
+        <motion.div 
+          variants={fadeUp}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            padding: '0px',
+            gap: '22px',
+            width: '100%'
+          }}
+        >
+          {/* Heading with Edit Button */}
+          <div
+            style={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: '12px'
+            }}
+          >
+            <h2
+              style={{
+                height: 'auto',
+                fontFamily: 'Montserrat, sans-serif',
+                fontStyle: 'normal',
+                fontWeight: 600,
+                fontSize: '40px',
+                lineHeight: '49px',
+                color: '#FFFFFF',
+                flex: 'none',
+                order: 0,
+                flexGrow: 0,
+                margin: 0
+              }}
             >
-              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-            </button>
-          )}
-        </div>
-        <p className="text-sm sm:text-base text-gray-300">Trusted partners and suppliers</p>
-      </motion.div>
-      
-      {isEditing ? (
-        <motion.div variants={fadeUp}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-            {company?.vendors && company.vendors.length > 0 ? (
-              company.vendors.map((vendor, index) => (
-                <div key={index} className="bg-gray-800 p-3 sm:p-4 rounded-lg text-center">
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="text"
-                      value={vendor}
-                      onChange={(e) => onArrayChange('vendors', index, e.target.value)}
-                      className="flex-1 bg-gray-700 border-2 border-[#FC6500] rounded p-1.5 sm:p-2 text-white text-xs sm:text-sm focus:outline-none"
-                      autoFocus={index === company.vendors.length - 1 && vendor === ''}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          e.target.blur()
-                        }
-                      }}
-                    />
-                    <button
-                      onClick={() => onRemoveItem('vendors', index)}
-                      className="text-red-400 hover:text-red-300 font-bold text-lg sm:text-xl w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center flex-shrink-0"
-                      title="Remove vendor"
-                    >
-                      ×
-                    </button>
-                  </div>
-                </div>
-              ))
-            ) : null}
-            <button
-              onClick={() => onAddItem('vendors')}
-              className="bg-gray-700 hover:bg-gray-600 p-3 sm:p-4 rounded-lg text-center text-gray-300 border-2 border-dashed border-gray-600 min-h-[50px] sm:min-h-[60px] flex items-center justify-center text-sm sm:text-base"
-            >
-              + Add Vendor
-            </button>
+              Vendors We Supply
+            </h2>
+            {!isEditing && (
+              <button
+                onClick={() => onStartEdit('vendors')}
+                className="text-gray-400 hover:text-[#FC6500] transition-colors"
+                title="Edit vendors"
+                style={{
+                  flex: 'none',
+                  order: 1,
+                  flexGrow: 0
+                }}
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+              </button>
+            )}
           </div>
-          <div className="mt-4 flex justify-center">
-            <button
-              onClick={() => onStopEdit('vendors')}
-              className="bg-green-600 text-white px-4 sm:px-6 py-2 rounded-lg font-semibold hover:bg-green-700 text-sm sm:text-base"
-            >
-              Done Editing
-            </button>
-          </div>
+          
+          {/* Description Text */}
+          <p
+            style={{
+              width: '100%',
+              height: 'auto',
+              fontFamily: 'Montserrat, sans-serif',
+              fontStyle: 'normal',
+              fontWeight: 500,
+              fontSize: '20px',
+              lineHeight: '24px',
+              color: '#929292',
+              flex: 'none',
+              order: 1,
+              alignSelf: 'stretch',
+              flexGrow: 0,
+              margin: 0
+            }}
+          >
+            We collaborate with top-tier vendors who share our passion for precision and performance. Through consistent quality and timely delivery, we help them achieve efficiency, durability, and innovation in every build.
+          </p>
         </motion.div>
-      ) : (
-        <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          {company?.vendors && company.vendors.length > 0 ? (
-            company.vendors.map((vendor, index) => (
-              <div key={index} className="bg-gray-800 p-3 sm:p-4 rounded-lg text-center">
-                <h3 className="text-white font-semibold text-sm sm:text-base">{vendor}</h3>
-              </div>
-            ))
-          ) : (
-            <div className="col-span-full text-center text-gray-400 text-sm sm:text-base px-4">
-              No vendors listed. Click edit to add vendors.
+      </div>
+
+      {/* Partners Content */}
+      <div className="max-w-6xl mx-auto">
+        {isEditing ? (
+          <motion.div variants={fadeUp}>
+            <div className="space-y-4">
+              {company?.vendors && company.vendors.length > 0 ? (
+                company.vendors.map((vendor, index) => {
+                  const vendorName = typeof vendor === 'object' && vendor !== null ? vendor.name : vendor
+                  const vendorLocation = typeof vendor === 'object' && vendor !== null ? vendor.location : ''
+                  
+                  return (
+                    <div key={index} className="bg-gray-800 p-4 rounded-lg">
+                      <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                        <div className="flex-1 space-y-2">
+                          <input
+                            type="text"
+                            value={vendorName}
+                            onChange={(e) => {
+                              if (typeof vendor === 'object' && vendor !== null) {
+                                onArrayChange('vendors', index, { name: e.target.value, location: vendorLocation })
+                              } else {
+                                onArrayChange('vendors', index, e.target.value)
+                              }
+                            }}
+                            placeholder="Partner name"
+                            className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-sm sm:text-base focus:outline-none"
+                            autoFocus={index === company.vendors.length - 1 && (!vendorName || vendorName === '')}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.target.blur()
+                              }
+                            }}
+                          />
+                          <input
+                            type="text"
+                            value={vendorLocation}
+                            onChange={(e) => {
+                              if (typeof vendor === 'object' && vendor !== null) {
+                                onArrayChange('vendors', index, { name: vendorName, location: e.target.value })
+                              } else {
+                                onArrayChange('vendors', index, { name: vendorName, location: e.target.value })
+                              }
+                            }}
+                            placeholder="Location"
+                            className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-sm sm:text-base focus:outline-none"
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.target.blur()
+                              }
+                            }}
+                          />
+                        </div>
+                        <button
+                          onClick={() => onRemoveItem('vendors', index)}
+                          className="text-red-400 hover:text-red-300 font-bold text-xl w-8 h-8 flex items-center justify-center flex-shrink-0"
+                          title="Remove partner"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    </div>
+                  )
+                })
+              ) : null}
+              <button
+                onClick={() => onAddItem('vendors')}
+                className="bg-gray-700 hover:bg-gray-600 p-4 rounded-lg text-center text-gray-300 border-2 border-dashed border-gray-600 min-h-[60px] flex items-center justify-center text-sm sm:text-base w-full"
+              >
+                + Add Partner
+              </button>
             </div>
-          )}
+            <div className="mt-4 flex justify-center">
+              <button
+                onClick={() => onStopEdit('vendors')}
+                className="bg-green-600 text-white px-4 sm:px-6 py-2 rounded-lg font-semibold hover:bg-green-700 text-sm sm:text-base"
+              >
+                Done Editing
+              </button>
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div variants={fadeUp}>
+            {company?.vendors && company.vendors.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6" style={{ maxWidth: '100vw', margin: '0 auto', width: '100%' }}>
+                {company.vendors.map((vendor, index) => {
+                  const vendorName = typeof vendor === 'object' && vendor !== null ? vendor.name : vendor
+                  const vendorLocation = typeof vendor === 'object' && vendor !== null ? vendor.location : ''
+                  
+                  return (
+                    <div 
+                      key={index}
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'flex-start',
+                        padding: '0px',
+                        gap: '13px',
+                        width: '219px',
+                        maxWidth: '100%',
+                        height: 'auto'
+                      }}
+                    >
+                      {/* Partner Name */}
+                      <div
+                        style={{
+                          width: '100%',
+                          height: 'auto',
+                          minHeight: '20px',
+                          fontFamily: 'Montserrat, sans-serif',
+                          fontStyle: 'normal',
+                          fontWeight: 600,
+                          fontSize: '16px',
+                          lineHeight: '20px',
+                          color: '#979797',
+                          flex: 'none',
+                          order: 0,
+                          flexGrow: 0
+                        }}
+                      >
+                        {vendorName || 'Partner Name'}
+                      </div>
+                      
+                      {/* Location with Map Pin */}
+                      {vendorLocation ? (
+                        <div
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'flex-start',
+                            alignItems: 'center',
+                            padding: '0px',
+                            gap: '5px',
+                            flex: 'none',
+                            order: 1,
+                            flexGrow: 0,
+                            width: 'auto',
+                            height: '20px'
+                          }}
+                        >
+                          {/* Map Pin Icon */}
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            style={{
+                              flex: 'none',
+                              order: 0,
+                              flexGrow: 0
+                            }}
+                          >
+                            <path
+                              d="M8 2C5.79 2 4 3.79 4 6C4 9 8 14 8 14C8 14 12 9 12 6C12 3.79 10.21 2 8 2Z"
+                              stroke="white"
+                              strokeWidth="1.33333"
+                              fill="none"
+                            />
+                            <circle
+                              cx="8"
+                              cy="6"
+                              r="1.5"
+                              stroke="white"
+                              strokeWidth="1.33333"
+                              fill="none"
+                            />
+                          </svg>
+                          
+                          {/* Location Text */}
+                          <div
+                            style={{
+                              fontFamily: 'Montserrat, sans-serif',
+                              fontStyle: 'normal',
+                              fontWeight: 500,
+                              fontSize: '16px',
+                              lineHeight: '20px',
+                              color: '#FFFFFF',
+                              flex: 'none',
+                              order: 1,
+                              flexGrow: 0
+                            }}
+                          >
+                            {vendorLocation}
+                          </div>
+                        </div>
+                      ) : null}
+                    </div>
+                  )
+                })}
+              </div>
+            ) : (
+              <div className="text-center text-gray-400 text-sm sm:text-base px-4">
+                No partners listed. Click edit to add partners.
+              </div>
+            )}
+          </motion.div>
+        )}
+      </div>
+    </motion.section>
+  )
+}
+
+function MoreAboutUs({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onFieldChange }) {
+  // Calculate experience from establishedOn date if not set
+  const getExperience = () => {
+    if (company?.experience) return company.experience
+    if (company?.establishedOn) {
+      const established = new Date(company.establishedOn)
+      const now = new Date()
+      const years = now.getFullYear() - established.getFullYear()
+      return years.toString()
+    }
+    return '25'
+  }
+
+  const getEstablishedYear = () => {
+    if (company?.establishedOn) {
+      return new Date(company.establishedOn).getFullYear().toString()
+    }
+    return '1998'
+  }
+
+  const experience = getExperience()
+  const establishedYear = getEstablishedYear()
+  const partsManufactured = company?.partsManufacturedAnnually || '150M'
+
+  return (
+    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16">
+      <div className="relative mx-auto" style={{ width: '76vw', maxWidth: '100%' }}>
+        <motion.div 
+          variants={fadeUp}
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            padding: '0px',
+            gap: '121px',
+            width: '100%',
+            flexWrap: 'wrap'
+          }}
+        >
+          {/* More About Us Title */}
+          <div
+            style={{
+              width: '246px',
+              height: 'auto',
+              fontFamily: 'Montserrat, sans-serif',
+              fontStyle: 'normal',
+              fontWeight: 600,
+              fontSize: '32px',
+              lineHeight: '39px',
+              color: '#929292',
+              flex: 'none',
+              order: 0,
+              flexGrow: 0
+            }}
+          >
+            More About Us
+          </div>
+
+          {/* Stats Container */}
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              padding: '0px',
+              gap: '118px',
+              flex: '1 1 auto',
+              justifyContent: 'flex-start',
+              flexWrap: 'wrap'
+            }}
+          >
+            {/* Experience Card */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                padding: '0px',
+                gap: '20px',
+                width: '115px',
+                height: 'auto',
+                minHeight: '103px',
+                flex: 'none',
+                order: 0,
+                flexGrow: 0
+              }}
+            >
+              <div
+                style={{
+                  width: '115px',
+                  height: 'auto',
+                  minHeight: '24px',
+                  fontFamily: 'Montserrat, sans-serif',
+                  fontStyle: 'normal',
+                  fontWeight: 500,
+                  fontSize: '20px',
+                  lineHeight: '24px',
+                  color: '#929292',
+                  flex: 'none',
+                  order: 0,
+                  alignSelf: 'stretch',
+                  flexGrow: 0
+                }}
+              >
+                Experience
+              </div>
+              {editingFields.experience ? (
+                <input
+                  type="text"
+                  value={experience}
+                  onChange={(e) => onFieldChange('experience', e.target.value)}
+                  onBlur={() => onStopEdit('experience')}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === 'Escape') {
+                      onStopEdit('experience')
+                    }
+                  }}
+                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
+                  style={{
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontStyle: 'normal',
+                    fontWeight: 600,
+                    fontSize: '48px',
+                    lineHeight: '59px',
+                    color: '#FFFFFF',
+                    width: '115px',
+                    height: 'auto'
+                  }}
+                  autoFocus
+                />
+              ) : (
+                <div
+                  onClick={() => onStartEdit('experience')}
+                  className="cursor-pointer hover:bg-gray-800/30 rounded px-2 py-1 transition-colors"
+                  style={{
+                    width: '115px',
+                    height: 'auto',
+                    minHeight: '59px',
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontStyle: 'normal',
+                    fontWeight: 600,
+                    fontSize: '48px',
+                    lineHeight: '59px',
+                    color: '#FFFFFF',
+                    flex: 'none',
+                    order: 1,
+                    alignSelf: 'stretch',
+                    flexGrow: 0,
+                    display: 'flex',
+                    alignItems: 'center'
+                  }}
+                  title="Click to edit"
+                >
+                  {experience}+
+                </div>
+              )}
+            </div>
+
+            {/* Established In Card */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                padding: '0px',
+                gap: '20px',
+                width: '144px',
+                height: 'auto',
+                minHeight: '103px',
+                flex: 'none',
+                order: 1,
+                flexGrow: 0
+              }}
+            >
+              <div
+                style={{
+                  width: '144px',
+                  height: 'auto',
+                  minHeight: '24px',
+                  fontFamily: 'Montserrat, sans-serif',
+                  fontStyle: 'normal',
+                  fontWeight: 500,
+                  fontSize: '20px',
+                  lineHeight: '24px',
+                  color: '#929292',
+                  flex: 'none',
+                  order: 0,
+                  flexGrow: 0
+                }}
+              >
+                Established In
+              </div>
+              {editingFields.establishedYear ? (
+                <input
+                  type="text"
+                  value={establishedYear}
+                  onChange={(e) => {
+                    const newYear = e.target.value
+                    // Allow typing digits only, up to 4 digits
+                    if (/^\d{0,4}$/.test(newYear)) {
+                      // Store temporarily as text, will update on blur
+                      const currentDate = company?.establishedOn ? new Date(company.establishedOn) : new Date('1998-01-15')
+                      if (newYear.length === 4 && /^\d{4}$/.test(newYear)) {
+                        currentDate.setFullYear(parseInt(newYear))
+                        const isoString = currentDate.toISOString()
+                        onFieldChange('establishedOn', isoString)
+                      }
+                    }
+                  }}
+                  onBlur={() => {
+                    // Validate and update on blur
+                    const currentDate = company?.establishedOn ? new Date(company.establishedOn) : new Date('1998-01-15')
+                    const yearText = establishedYear
+                    if (yearText && /^\d{4}$/.test(yearText)) {
+                      currentDate.setFullYear(parseInt(yearText))
+                      const isoString = currentDate.toISOString()
+                      onFieldChange('establishedOn', isoString)
+                    }
+                    onStopEdit('establishedYear')
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === 'Escape') {
+                      const currentDate = company?.establishedOn ? new Date(company.establishedOn) : new Date('1998-01-15')
+                      const yearText = e.target.value
+                      if (yearText && /^\d{4}$/.test(yearText)) {
+                        currentDate.setFullYear(parseInt(yearText))
+                        const isoString = currentDate.toISOString()
+                        onFieldChange('establishedOn', isoString)
+                      }
+                      onStopEdit('establishedYear')
+                    }
+                  }}
+                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
+                  style={{
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontStyle: 'normal',
+                    fontWeight: 600,
+                    fontSize: '48px',
+                    lineHeight: '59px',
+                    color: '#FFFFFF',
+                    width: '110px',
+                    height: 'auto'
+                  }}
+                  autoFocus
+                  maxLength={4}
+                  pattern="\d{4}"
+                />
+              ) : (
+                <div
+                  onClick={() => onStartEdit('establishedYear')}
+                  className="cursor-pointer hover:bg-gray-800/30 rounded px-2 py-1 transition-colors"
+                  style={{
+                    width: '110px',
+                    height: 'auto',
+                    minHeight: '59px',
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontStyle: 'normal',
+                    fontWeight: 600,
+                    fontSize: '48px',
+                    lineHeight: '59px',
+                    color: '#FFFFFF',
+                    flex: 'none',
+                    order: 1,
+                    flexGrow: 0,
+                    display: 'flex',
+                    alignItems: 'center'
+                  }}
+                  title="Click to edit"
+                >
+                  {establishedYear}
+                </div>
+              )}
+            </div>
+
+            {/* Parts Manufactured Annually Card */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                padding: '0px',
+                gap: '20px',
+                width: '298px',
+                height: 'auto',
+                minHeight: '103px',
+                flex: 'none',
+                order: 2,
+                flexGrow: 0
+              }}
+            >
+              <div
+                style={{
+                  width: '298px',
+                  height: 'auto',
+                  minHeight: '24px',
+                  fontFamily: 'Montserrat, sans-serif',
+                  fontStyle: 'normal',
+                  fontWeight: 500,
+                  fontSize: '20px',
+                  lineHeight: '24px',
+                  color: '#929292',
+                  flex: 'none',
+                  order: 0,
+                  flexGrow: 0
+                }}
+              >
+                Parts Manufactured Annually
+              </div>
+              {editingFields.partsManufacturedAnnually ? (
+                <input
+                  type="text"
+                  value={partsManufactured}
+                  onChange={(e) => onFieldChange('partsManufacturedAnnually', e.target.value)}
+                  onBlur={() => onStopEdit('partsManufacturedAnnually')}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === 'Escape') {
+                      onStopEdit('partsManufacturedAnnually')
+                    }
+                  }}
+                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
+                  style={{
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontStyle: 'normal',
+                    fontWeight: 600,
+                    fontSize: '48px',
+                    lineHeight: '59px',
+                    color: '#FFFFFF',
+                    width: '153px',
+                    height: 'auto'
+                  }}
+                  autoFocus
+                />
+              ) : (
+                <div
+                  onClick={() => onStartEdit('partsManufacturedAnnually')}
+                  className="cursor-pointer hover:bg-gray-800/30 rounded px-2 py-1 transition-colors"
+                  style={{
+                    width: '153px',
+                    height: 'auto',
+                    minHeight: '59px',
+                    fontFamily: 'Montserrat',
+                    fontStyle: 'SemiBold',
+                    fontWeight: 600,
+                    fontSize: '48px',
+                    lineHeight: '59px',
+                    color: '#FFFFFF',
+                    flex: 'none',
+                    order: 1,
+                    flexGrow: 0,
+                    display: 'flex',
+                    alignItems: 'center'
+                  }}
+                  title="Click to edit"
+                >
+                  {partsManufactured}+
+                </div>
+              )}
+            </div>
+          </div>
         </motion.div>
-      )}
+      </div>
     </motion.section>
   )
 }
