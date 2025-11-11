@@ -12,32 +12,53 @@ const AnimatedText = ({
   const [animatedWords, setAnimatedWords] = useState([]);
 
   useEffect(() => {
-    if (isIntersecting) {
-      const words = text.split(' ');
-      const animatedWordsArray = words.map((word, index) => ({
-        word,
-        delay: delay + (index * staggerDelay),
-        id: index
-      }));
-      setAnimatedWords(animatedWordsArray);
-    }
-  }, [isIntersecting, text, delay, staggerDelay]);
+    // Process text regardless of intersection state
+    // Split by newlines first, then by spaces within each line
+    const lines = text.split('\n');
+    const animatedWordsArray = [];
+    lines.forEach((line, lineIndex) => {
+      const words = line.split(' ').filter(word => word.length > 0);
+      words.forEach((word, wordIndex) => {
+        animatedWordsArray.push({
+          word,
+          isNewline: false,
+          delay: delay + (animatedWordsArray.length * staggerDelay),
+          id: animatedWordsArray.length
+        });
+      });
+      // Add newline after each line except the last one
+      if (lineIndex < lines.length - 1) {
+        animatedWordsArray.push({
+          word: '\n',
+          isNewline: true,
+          delay: delay + (animatedWordsArray.length * staggerDelay),
+          id: animatedWordsArray.length
+        });
+      }
+    });
+    setAnimatedWords(animatedWordsArray);
+  }, [text, delay, staggerDelay, isIntersecting]);
 
   return (
     <div ref={ref} className={`${className} relative`}>
-      {animatedWords.map(({ word, delay: wordDelay, id }) => (
-        <span
-          key={id}
-          className="text-word"
-          style={{
-            animation: isIntersecting 
-              ? `textIn ${animationDuration}s ease-out ${wordDelay}s forwards` 
-              : 'none'
-          }}
-        >
-          {word}
-        </span>
-      ))}
+      {animatedWords.map(({ word, isNewline, delay: wordDelay, id }) => {
+        if (isNewline) {
+          return <br key={id} />;
+        }
+        return (
+          <span
+            key={id}
+            className="text-word"
+            style={{
+              animation: isIntersecting 
+                ? `textIn ${animationDuration}s ease-out ${wordDelay}s forwards` 
+                : 'none'
+            }}
+          >
+            {word}{' '}
+          </span>
+        );
+      })}
     </div>
   );
 };

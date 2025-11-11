@@ -47,6 +47,7 @@ const DemoCompanyProfilePage = () => {
   const [isEditMode, setIsEditMode] = useState(false)
   const [saving, setSaving] = useState(false)
   const [saveMessage, setSaveMessage] = useState('')
+  const [activeTab, setActiveTab] = useState('Raw Material')
 
   // Mock user data for navbar
   const mockUser = {
@@ -214,6 +215,7 @@ const DemoCompanyProfilePage = () => {
         <SectionSeparator sectionName="CLIENTS" />
         <Vendors company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} onArrayChange={handleArrayFieldChange} onPartnerFieldChange={handlePartnerFieldChange} onAddItem={handleAddArrayItem} onRemoveItem={handleRemoveArrayItem} />
         <MoreAboutUs company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
+        <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
         <Certifications company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
         <Machines company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} onArrayChange={handleArrayFieldChange} onAddItem={handleAddArrayItem} onRemoveItem={handleRemoveArrayItem} />
         <Details company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
@@ -619,7 +621,7 @@ function Vendors({ company, isEditMode, editingFields, onStartEdit, onStopEdit, 
   const isEditing = editingFields.vendors
 
   return (
-    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16">
+    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16" style={{ marginBottom: '120px' }}>
       {/* Header Section */}
       <div className="relative mx-auto mb-8 sm:mb-10 md:mb-12" style={{ width: '1162px', maxWidth: '95%' }}>
         <motion.div 
@@ -928,7 +930,7 @@ function MoreAboutUs({ company, isEditMode, editingFields, onStartEdit, onStopEd
   const partsManufactured = company?.partsManufacturedAnnually || '150M'
 
   return (
-    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16">
+    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16" style={{ marginTop: '120px', marginBottom: '120px' }}>
       <div className="relative mx-auto" style={{ width: '76vw', maxWidth: '100%' }}>
         <motion.div 
           variants={fadeUp}
@@ -1264,6 +1266,128 @@ function MoreAboutUs({ company, isEditMode, editingFields, onStartEdit, onStopEd
             </div>
           </div>
         </motion.div>
+      </div>
+    </motion.section>
+  )
+}
+
+function TabNavigation({ activeTab, onTabChange }) {
+  const tabs = ['Raw Material', 'Machines', 'Mfg Process', 'Specializations']
+  const tabWidths = [191, 117, 149, 182] // Raw Material, Machines, Mfg Process, Specializations
+  const gap = 116
+
+  return (
+    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16" style={{ marginTop: '120px', marginBottom: '120px' }}>
+      <div className="relative mx-auto" style={{ width: '987px', maxWidth: '95%', height: '69px' }}>
+        <motion.div 
+          variants={fadeUp}
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            padding: '0px',
+            gap: '116px',
+            width: '100%',
+            height: '53px',
+            position: 'relative'
+          }}
+        >
+          {tabs.map((tab, index) => {
+            const isActive = activeTab === tab
+            return (
+              <div key={tab} style={{ position: 'relative', flex: 'none', order: index, flexGrow: 0 }}>
+                {isActive ? (
+                  <div
+                    onClick={() => onTabChange(tab)}
+                    className="cursor-pointer"
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      padding: '12px 16px',
+                      gap: '10px',
+                      width: 'auto',
+                      height: '53px',
+                      background: 'rgba(255, 255, 255, 0.12)',
+                      borderRadius: '14px',
+                      flex: 'none',
+                      order: 0,
+                      flexGrow: 0
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontFamily: 'Montserrat, sans-serif',
+                        fontStyle: 'normal',
+                        fontWeight: 500,
+                        fontSize: '24px',
+                        lineHeight: '29px',
+                        color: '#FFFFFF',
+                        flex: 'none',
+                        order: 0,
+                        flexGrow: 0,
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      {tab}
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    onClick={() => onTabChange(tab)}
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
+                    style={{
+                      fontFamily: 'Montserrat, sans-serif',
+                      fontStyle: 'normal',
+                      fontWeight: 500,
+                      fontSize: '24px',
+                      lineHeight: '29px',
+                      color: '#FFFFFF',
+                      flex: 'none',
+                      order: index,
+                      flexGrow: 0,
+                      whiteSpace: 'nowrap',
+                      padding: '12px 0',
+                      height: '53px',
+                      display: 'flex',
+                      alignItems: 'center'
+                    }}
+                  >
+                    {tab}
+                  </div>
+                )}
+              </div>
+            )
+          })}
+        </motion.div>
+        
+        {/* Underline for active tab */}
+        {activeTab && (() => {
+          const activeIndex = tabs.indexOf(activeTab)
+          let offset = 0
+          for (let i = 0; i < activeIndex; i++) {
+            offset += tabWidths[i] + gap
+          }
+          offset += tabWidths[activeIndex] / 2 - 65.5 // Center the line on the active tab (131px / 2 = 65.5px)
+          // Account for container being centered
+          offset -= 493.5 // 987px / 2 = 493.5px
+          
+          return (
+            <div
+              style={{
+                position: 'absolute',
+                width: '131px',
+                height: '0px',
+                left: '50%',
+                top: '63px',
+                transform: `translateX(calc(-50% + ${offset}px))`,
+                border: '1px solid #FFFFFF',
+                transition: 'transform 0.3s ease'
+              }}
+            />
+          )
+        })()}
       </div>
     </motion.section>
   )

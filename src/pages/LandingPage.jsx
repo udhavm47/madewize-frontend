@@ -13,7 +13,7 @@ const LandingPage = ({ onLoginSuccess }) => {
   const [isTitleVisible, setIsTitleVisible] = useState(false)
   const titleRef = useRef(null)
 
-  // Card data for Stack component
+  // Card data for Stack component and Desktop cards
   const stackCardsData = [
     {
       id: 1,
@@ -46,6 +46,112 @@ const LandingPage = ({ onLoginSuccess }) => {
       description: "Generate a sleek, shareable business card right from your profile - download or send it instantly to clients and vendors, anytime."
     }
   ]
+
+  // Reusable SVG Components
+  const CardBackgroundSVG = () => (
+    <svg 
+      className="absolute inset-0 w-full h-full "
+      xmlns="http://www.w3.org/2000/svg" 
+      viewBox="0 0 617.229 186.851" 
+      fill="none"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <path 
+        d="M 0 160.285 L 0 120.655 C 0 105.983 11.894 94.088 26.567 94.088 L 65.484 94.088 C 80.156 94.088 92.05 82.194 92.05 67.522 L 92.05 26.567 C 92.05 11.894 103.944 0 118.617 0 L 590.662 0 C 605.335 0 617.229 11.894 617.229 26.567 L 617.229 107.94 C 617.229 122.612 605.335 134.506 590.662 134.506 L 518.476 134.506 C 504.022 134.506 492.303 146.224 492.303 160.679 C 492.303 175.134 480.586 186.851 466.132 186.851 L 26.567 186.851 C 11.894 186.851 0 174.957 0 160.285 Z" 
+        fill="rgb(0, 0, 0)" 
+        stroke="rgb(0, 0, 0)" 
+        strokeWidth="0.89"
+      />
+    </svg>
+  )
+
+  const IconSVG = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="none" viewBox="0 0 73 73">
+      <path d="M 36.5 73 C 16.342 73 0 56.658 0 36.5 L 0 36.5 C 0 16.342 16.342 0 36.5 0 L 36.5 0 C 56.658 0 73 16.342 73 36.5 L 73 36.5 C 73 56.658 56.658 73 36.5 73 Z" fill="rgb(0, 0, 0)"></path>
+      <g transform="translate(16.5 16.5)">
+        <path d="M 0 40 L 0 0 L 40 0 L 40 40 Z" fill="transparent"></path>
+        <path d="M 23.962 1.3 L 26.285 3 C 26.667 3.28 27.112 3.465 27.58 3.538 L 30.425 3.975 C 31.832 4.192 33.134 4.852 34.141 5.859 C 35.148 6.866 35.808 8.168 36.025 9.575 L 36.46 12.423 C 36.532 12.89 36.717 13.335 36.997 13.718 L 38.697 16.038 C 39.54 17.187 39.995 18.575 39.995 20 C 39.995 21.425 39.54 22.814 38.697 23.963 L 36.997 26.283 C 36.718 26.666 36.534 27.11 36.46 27.578 L 36.022 30.423 C 35.806 31.831 35.145 33.133 34.138 34.141 C 33.13 35.148 31.828 35.809 30.42 36.025 L 27.575 36.463 C 27.107 36.537 26.663 36.721 26.28 37 L 23.96 38.7 C 22.811 39.543 21.422 39.998 19.997 39.998 C 18.572 39.998 17.184 39.543 16.035 38.7 L 13.715 37 C 13.332 36.721 12.888 36.537 12.42 36.463 L 9.575 36.025 C 8.167 35.808 6.866 35.148 5.859 34.141 C 4.852 33.134 4.192 31.833 3.975 30.425 L 3.537 27.58 C 3.463 27.112 3.279 26.668 3 26.285 L 1.3 23.965 C 0.457 22.816 0.002 21.428 0.002 20.003 C 0.002 18.578 0.457 17.19 1.3 16.04 L 3 13.72 C 3.28 13.338 3.465 12.893 3.537 12.425 L 3.975 9.575 C 4.192 8.168 4.852 6.866 5.859 5.859 C 6.866 4.852 8.167 4.192 9.575 3.975 L 12.422 3.538 C 12.89 3.465 13.335 3.28 13.717 3 L 16.037 1.3 C 17.187 0.457 18.575 0.003 20 0.003 C 21.425 0.003 22.813 0.457 23.962 1.3 Z M 18.257 4.32 L 15.94 6.02 C 15.068 6.658 14.057 7.077 12.99 7.243 L 10.147 7.678 C 9.527 7.773 8.953 8.064 8.51 8.508 C 8.066 8.951 7.775 9.525 7.68 10.145 L 7.245 12.985 C 7.079 14.052 6.66 15.064 6.022 15.935 L 4.322 18.255 C 3.952 18.761 3.753 19.371 3.753 19.998 C 3.753 20.624 3.952 21.235 4.322 21.74 L 6.022 24.058 C 6.662 24.928 7.082 25.94 7.245 27.008 L 7.68 29.85 C 7.875 31.123 8.875 32.123 10.147 32.318 L 12.987 32.753 C 14.054 32.919 15.066 33.338 15.937 33.975 L 18.257 35.675 C 19.292 36.438 20.705 36.438 21.742 35.675 L 24.06 33.975 C 24.931 33.338 25.943 32.919 27.01 32.753 L 29.852 32.318 C 30.473 32.222 31.046 31.932 31.49 31.488 C 31.934 31.044 32.224 30.471 32.32 29.85 L 32.755 27.01 C 32.92 25.943 33.34 24.932 33.977 24.06 L 35.677 21.74 C 36.047 21.235 36.247 20.624 36.247 19.998 C 36.247 19.371 36.047 18.761 35.677 18.255 L 33.977 15.938 C 33.34 15.066 32.92 14.055 32.755 12.988 L 32.32 10.145 C 32.224 9.525 31.934 8.951 31.49 8.508 C 31.046 8.064 30.473 7.773 29.852 7.678 L 27.012 7.243 C 25.945 7.077 24.934 6.658 24.062 6.02 L 21.742 4.32 C 21.237 3.95 20.626 3.751 20 3.751 C 19.373 3.751 18.763 3.95 18.257 4.32 Z M 28.2 16.95 L 18.825 26.325 C 18.473 26.676 17.997 26.874 17.5 26.874 C 17.003 26.874 16.526 26.676 16.175 26.325 L 11.8 21.95 C 11.468 21.595 11.287 21.125 11.296 20.639 C 11.304 20.153 11.501 19.689 11.845 19.345 C 12.188 19.002 12.652 18.805 13.138 18.796 C 13.624 18.788 14.094 18.969 14.45 19.3 L 17.5 22.35 L 25.55 14.3 C 25.905 13.969 26.375 13.788 26.861 13.796 C 27.347 13.805 27.811 14.002 28.155 14.345 C 28.498 14.689 28.695 15.153 28.704 15.639 C 28.712 16.125 28.531 16.595 28.2 16.95 Z" fill="rgb(255,255,255)"></path>
+      </g>
+    </svg>
+  )
+
+  // Feature Card Component
+  const FeatureCard = ({ title, description }) => (
+    <div 
+      className="relative w-full max-w-[650px]"
+      style={{
+        height: 'clamp(160px, 25vw, 200px)'
+      }}
+    >
+      <CardBackgroundSVG />
+
+      {/* Icon */}
+      <div 
+        className="absolute"
+        style={{
+          top: '15px',
+          left: '5px',
+          width: '80px',
+          height: '80px',
+          zIndex: 10
+        }}
+      >
+        <IconSVG />
+      </div>
+
+      {/* Card Title */}
+      <h3 
+        className="absolute text-white font-medium"
+        style={{
+          top: '35px',
+          left: '150px',
+          right: 'clamp(20px, 4vw, 30px)',
+          fontFamily: '"Inter Display", Inter, sans-serif',
+          fontSize: '26px',
+          letterSpacing: '0em',
+          lineHeight: '1.3',
+          whiteSpace: 'normal',
+          wordWrap: 'break-word',
+          wordBreak: 'break-word',
+          overflow: 'hidden'
+        }}
+      >
+        {title}
+      </h3>
+
+      {/* Card Description */}
+      <p 
+        className="absolute text-[#CACACA]"
+        style={{
+          width: '500px',
+          top: '120px',
+          paddingLeft: '15px',
+          paddingRight: '10px',
+          fontFamily: 'Manrope, sans-serif',
+          fontWeight: '400',
+          fontSize: '16px',
+          lineHeight: '1.3',
+          whiteSpace: 'normal',
+          wordWrap: 'break-word',
+          wordBreak: 'break-word',
+          overflow: 'hidden'
+        }}
+      >
+        {description}
+      </p>
+
+      {/* Decorative Rectangle */}
+      <div 
+        className="absolute border border-black rounded-lg bg-white mr-auto right-[-5px]"
+        style={{
+          bottom: '6px',
+          width: '120px',
+          height: '45px'
+        }}
+      >
+      </div>
+    </div>
+  )
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -82,14 +188,14 @@ const LandingPage = ({ onLoginSuccess }) => {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen">
       {/* Hero Section Container with Background */}
       <div className="relative min-h-screen overflow-hidden">
         {/* Background Image */}
         <div 
-          className="absolute inset-0"
+          className="absolute inset-0 z-10"
           style={{
-            backgroundImage: 'url("/NewBackground.jpeg")',
+            backgroundImage: 'url("/background.jpeg")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
@@ -105,7 +211,7 @@ const LandingPage = ({ onLoginSuccess }) => {
           <img 
             src="/madevize.svg" 
             alt="Madevize Logo" 
-            className="h-5 sm:h-6 md:h-8"
+            className="h-5 sm:h-6 md:h-7"
           />
         </div>
         
@@ -202,22 +308,47 @@ const LandingPage = ({ onLoginSuccess }) => {
       )}
 
       {/* Hero Section */}
-      <main className="relative max-w-5xl z-10 flex items-center min-h-screen px-4 sm:px-6 md:px-12 lg:px-20">
-        <div className="relative max-w-4xl text-left w-full">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
+      <main className="relative max-w-5xl z-10 flex items-start min-h-screen px-4 sm:px-6 md:px-12 lg:px-20">
+        <div className="relative left-[-10px] top-38 max-w-6xl text-left w-full">
+          <h2 
+            className="w-full h-auto whitespace-pre-wrap break-words max-w-[820px] font-medium text-white text-[60px] leading-[1.2]"
+            style={{
+              fontFamily: '"Inter Display", "Inter Display Placeholder", sans-serif',
+              letterSpacing: '-0.04em',
+              wordSpacing: '-1.5em',
+              fontFeatureSettings: 'normal'
+            }}
+          >
             <AnimatedText 
               text="Built Your Factory's Digital Presence & Get Discovered by Buyers"
               staggerDelay={0.1}
               delay={0.2}
             />
-          </h1>
+          </h2>
           
-          <div className="flex items-center mb-8 sm:mb-12">
-            <div className="w-1 h-6 sm:h-8 bg-white mr-3 sm:mr-4"></div>
+          <div 
+            className="flex top-70 flex-row items-center flex-nowrap overflow-visible"
+            style={{
+              width: '52%',
+              height: 'min-content',
+              padding: '0px',
+              gap: '19px',
+              position: 'absolute',
+              justifyContent: 'flex-start',
+              alignContent: 'center'
+            }}
+          >
+            <div className="w-[0.5px] h-auto bg-white flex-shrink-0 text-xl" style={{ minHeight: '60px' }}></div>
             <AnimatedText 
-              text="The potential of manufacturing to shape economies and futures"
-              className="text-base sm:text-lg md:text-xl text-white font-light"
-              style={{ fontFamily: 'Inter, sans-serif' }}
+              text={'The potential of manufacturing to shape\neconomies and futures'}
+              className="text-white whitespace-pre-line"
+              style={{ 
+                fontFamily: '"Inter Display", "Inter Display Placeholder", sans-serif',
+                fontSize: '20px',
+                lineHeight: '20px',
+                fontWeight: 400,
+                maxWidth: 'max-content'
+              }}
               staggerDelay={0.08}
               delay={1.5}
             />
@@ -226,15 +357,15 @@ const LandingPage = ({ onLoginSuccess }) => {
 
         {/* Bottom CTA - Positioned on the cutout area */}
         <div 
-          className="absolute left-1/2 z-10 flex justify-center items-center w-full px-4"
+          className="absolute right-15 flex justify-center items-center h-25 w-110 px-4 bg-black opacity-100"
           style={{
-            bottom: '40px',
-            transform: 'translateX(-50%)'
+            bottom: '0px',
+            transform: 'translateX(0%)'
           }}
         >
           <button 
             onClick={() => setShowRegistration(true)}
-            className="px-6 sm:px-8 py-3 sm:py-4 bg-white hover:bg-gray-100 text-black rounded-lg transition-all duration-200 flex items-center space-x-2 sm:space-x-3 text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl w-full sm:w-auto max-w-sm sm:max-w-none"
+            className="px-6 sm:px-8 py-3 sm:py-4 bg-white hover:bg-gray-100 text-black rounded-[60px] transition-all duration-200 flex items-center space-x-2 sm:space-x-3 text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl w-full sm:w-auto max-w-sm sm:max-w-none"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
             <span>Build Your Profile</span>
@@ -248,11 +379,11 @@ const LandingPage = ({ onLoginSuccess }) => {
       {/* End Hero Section Container */}
 
       {/* Who Are We Section */}
-      <section className="relative bg-black flex flex-col justify-between items-start w-full px-4 sm:px-6 md:px-10 py-8 sm:py-12 md:py-16" style={{ minHeight: 'auto' }}>
+      <section className="relative bg-[#0D0D0D] flex flex-col justify-between items-start w-full px-3 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16" style={{ minHeight: 'auto' }}>
         {/* WHO ARE WE Label */}
         <div className="relative flex items-center mb-4 sm:mb-6 md:mb-8" style={{ width: 'fit-content' }}>
-          <div className="w-4 sm:w-6 md:w-8 h-px bg-white mr-2 md:mr-3"></div>
-          <span className="text-white uppercase tracking-wider text-xs sm:text-sm" style={{ fontFamily: 'Inter, sans-serif', fontWeight: '500', letterSpacing: '0.1em' }}>
+          <div className="w-4 sm:w-6 md:w-10 h-[4px] bg-white mr-2 md:mr-3"></div>
+          <span className="text-white uppercase tracking-wider text-lg sm:text-lg" style={{ fontFamily: 'Inter, sans-serif', fontWeight: '500', letterSpacing: '0.1em' }}>
             WHO ARE WE
           </span>
         </div>
@@ -274,15 +405,15 @@ const LandingPage = ({ onLoginSuccess }) => {
         </h2>
 
         {/* Images and Paragraph Section */}
-        <div className="relative flex flex-col lg:flex-row justify-between items-start lg:items-start w-full overflow-hidden gap-6 sm:gap-8 md:gap-16" style={{ maxWidth: '1200px' }}>
+        <div className="relative flex flex-col lg:flex-row justify-between items-center lg:items-center w-full overflow-hidden gap-4 sm:gap-8 md:gap-16" style={{ maxWidth: '1500px' }}>
           {/* Images Container */}
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center w-full lg:w-auto">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center w-full lg:w-auto">
             <img 
               src="/abou1.jpeg" 
               alt="Madevise Feature 1" 
-              className="relative flex-1 object-contain animate-fade-in-scale rounded-lg"
+              className="relative flex-1 object-contain animate-fade-in-scale h-100"
               style={{ 
-                height: 'clamp(120px, 20vw, 191px)',
+                height: 'clamp(120px, 15vw, 280px)',
                 opacity: 0,
                 animation: 'fadeInScale 0.6s ease-out 0.2s forwards'
               }}
@@ -290,9 +421,9 @@ const LandingPage = ({ onLoginSuccess }) => {
             <img 
               src="/about2.jpeg" 
               alt="Madevise Feature 2" 
-              className="relative flex-1 object-contain animate-fade-in-scale rounded-lg"
+              className="relative flex-1 object-contain animate-fade-in-scale"
               style={{ 
-                height: 'clamp(120px, 20vw, 191px)',
+                height: 'clamp(120px, 15vw, 280px)',
                 opacity: 0,
                 animation: 'fadeInScale 0.6s ease-out 0.4s forwards'
               }}
@@ -300,9 +431,9 @@ const LandingPage = ({ onLoginSuccess }) => {
             <img 
               src="/about3.jpeg" 
               alt="Madevise Feature 3" 
-              className="relative flex-1 object-contain animate-fade-in-scale rounded-lg"
+              className="relative flex-1 object-contain animate-fade-in-scale"
               style={{ 
-                height: 'clamp(120px, 20vw, 191px)',
+                height: 'clamp(120px, 15vw, 280px)',
                 opacity: 0,
                 animation: 'fadeInScale 0.6s ease-out 0.6s forwards'
               }}
@@ -310,10 +441,26 @@ const LandingPage = ({ onLoginSuccess }) => {
           </div>
 
           {/* Paragraph */}
+          <div className="relative flex-1 text-white/90 text-center lg:text-left mt-6 lg:mt-0">
           <p 
-            className="relative flex-1 text-white/90 text-center lg:text-left mt-6 lg:mt-0"
             style={{
               fontFamily: 'Manrope, sans-serif',
+                font:'Manrope',
+                fontWeight: 400,
+                fontSize: 'clamp(14px, 2vw, 16px)',
+                letterSpacing: '0em',
+                lineHeight: '1.5em',
+                maxWidth: '600px',
+                opacity: 1,
+                marginBottom: '1em'
+              }}
+            >
+              {`Madevise has grown from a single idea into a simple, powerful tool that helps small and medium manufacturers get noticed and grow their business. Whether you make parts, do fabrication, or run a job shop, we make it easy to show your work to the right players.`}
+            </p>
+            <p 
+              style={{
+                fontFamily: 'Manrope, sans-serif',
+                font:'Manrope',
               fontWeight: 400,
               fontSize: 'clamp(14px, 2vw, 16px)',
               letterSpacing: '0em',
@@ -322,13 +469,15 @@ const LandingPage = ({ onLoginSuccess }) => {
               opacity: 1
             }}
           >
-            Madevise has grown from a single idea into a simple, powerful tool that helps small and medium manufacturers get noticed and grow their business. Whether you make parts, do fabrication, or run a job shop, we make it easy to show your work to the right players. Our platform brings together easy-to-use features and local know-how, helping factories create an online profile, share achievements, find new buyers and suppliers, and get quotes faster, all in one place, in your own language, right from your phone.
+              {`Our platform brings together easy-to-use features and local know-how, helping factories create an online profile, share achievements, find new buyers and suppliers, and get quotes faster, all in one place, in your own language, right from your phone.`}
           </p>
+          </div>
+          
         </div>
 
         {/* About Us Button */}
         <button 
-          className="mt-8 sm:mt-12 md:mt-16 px-6 sm:px-8 py-2.5 sm:py-3 bg-white text-black hover:bg-gray-100 rounded-full transition-all duration-200 flex items-center space-x-2 font-medium text-sm sm:text-base"
+          className="mt-8 ml-auto sm:mt-12 md:mt-16 px-6 sm:px-8 py-2.5 sm:py-3 bg-white text-black hover:bg-gray-100 rounded-full transition-all duration-200 flex items-center space-x-2 font-medium text-sm sm:text-base"
           style={{ fontFamily: 'Inter, sans-serif' }}
         >
           <span>About Us</span>
@@ -418,9 +567,8 @@ const LandingPage = ({ onLoginSuccess }) => {
 
         {/* Container */}
         <div 
-          className="relative flex flex-col items-end max-w-7xl mx-auto"
+          className="relative flex flex-row items-start max-w-full mx-auto"
           style={{
-            gap: '64px',
             width: '100%'
           }}
         >
@@ -433,17 +581,17 @@ const LandingPage = ({ onLoginSuccess }) => {
           >
             {/* Section Tag */}
             <div 
-              className="relative"
+              className="relative flex items-center"
               style={{
                 width: 'fit-content',
                 height: 'fit-content'
               }}
             >
+              <div className="w-4 sm:w-6 md:w-10 h-[4px] bg-black items-center mr-2 md:mr-3"></div>
               <span 
-                className="text-black uppercase tracking-wider"
+                className="text-black uppercase tracking-wider text-lg"
                 style={{
                   fontFamily: 'Inter, sans-serif',
-                  fontSize: '14px',
                   fontWeight: '500',
                   letterSpacing: '0.1em'
                 }}
@@ -461,7 +609,7 @@ const LandingPage = ({ onLoginSuccess }) => {
                 fontSize: 'clamp(28px, 4vw, 41px)',
                 letterSpacing: '-0.04em',
                 lineHeight: '1.2',
-                maxWidth: '820px',
+                maxWidth: '1050px',
                 whiteSpace: 'pre-wrap',
                 wordWrap: 'break-word',
                 wordBreak: 'break-word'
@@ -503,659 +651,13 @@ const LandingPage = ({ onLoginSuccess }) => {
               gap: 'clamp(32px, 8vw, 56px)'
             }}
           >
-            {/* Card 1: Your Digital Manufacturing Identity */}
-            <div 
-              className="relative w-full max-w-[618px]"
-              style={{
-                height: 'clamp(150px, 25vw, 187px)'
-              }}
-            >
-              {/* Card Background SVG */}
-              <svg 
-                className="absolute inset-0 w-full h-full"
-                xmlns="http://www.w3.org/2000/svg" 
-                viewBox="0 0 617.229 186.851" 
-                fill="none"
-              >
-                <path 
-                  d="M 0 160.285 L 0 120.655 C 0 105.983 11.894 94.088 26.567 94.088 L 65.484 94.088 C 80.156 94.088 92.05 82.194 92.05 67.522 L 92.05 26.567 C 92.05 11.894 103.944 0 118.617 0 L 590.662 0 C 605.335 0 617.229 11.894 617.229 26.567 L 617.229 107.94 C 617.229 122.612 605.335 134.506 590.662 134.506 L 518.476 134.506 C 504.022 134.506 492.303 146.224 492.303 160.679 C 492.303 175.134 480.586 186.851 466.132 186.851 L 26.567 186.851 C 11.894 186.851 0 174.957 0 160.285 Z" 
-                  fill="rgb(0, 0, 0)" 
-                  stroke="rgb(0, 0, 0)" 
-                  strokeWidth="0.89"
-                />
-              </svg>
-
-              {/* Icon */}
-              <div 
-                className="absolute"
-                style={{
-                  top: '20px',
-                  left: '20px',
-                  width: '73px',
-                  height: '73px'
-                }}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="73" height="73" fill="none">
-                  <path d="M 36.5 73 C 16.342 73 0 56.658 0 36.5 L 0 36.5 C 0 16.342 16.342 0 36.5 0 L 36.5 0 C 56.658 0 73 16.342 73 36.5 L 73 36.5 C 73 56.658 56.658 73 36.5 73 Z" fill="rgb(0, 0, 0)"></path>
-                  <g transform="translate(16.5 16.5)">
-                    <path d="M 0 40 L 0 0 L 40 0 L 40 40 Z" fill="transparent"></path>
-                    <path d="M 23.962 1.3 L 26.285 3 C 26.667 3.28 27.112 3.465 27.58 3.538 L 30.425 3.975 C 31.832 4.192 33.134 4.852 34.141 5.859 C 35.148 6.866 35.808 8.168 36.025 9.575 L 36.46 12.423 C 36.532 12.89 36.717 13.335 36.997 13.718 L 38.697 16.038 C 39.54 17.187 39.995 18.575 39.995 20 C 39.995 21.425 39.54 22.814 38.697 23.963 L 36.997 26.283 C 36.718 26.666 36.534 27.11 36.46 27.578 L 36.022 30.423 C 35.806 31.831 35.145 33.133 34.138 34.141 C 33.13 35.148 31.828 35.809 30.42 36.025 L 27.575 36.463 C 27.107 36.537 26.663 36.721 26.28 37 L 23.96 38.7 C 22.811 39.543 21.422 39.998 19.997 39.998 C 18.572 39.998 17.184 39.543 16.035 38.7 L 13.715 37 C 13.332 36.721 12.888 36.537 12.42 36.463 L 9.575 36.025 C 8.167 35.808 6.866 35.148 5.859 34.141 C 4.852 33.134 4.192 31.833 3.975 30.425 L 3.537 27.58 C 3.463 27.112 3.279 26.668 3 26.285 L 1.3 23.965 C 0.457 22.816 0.002 21.428 0.002 20.003 C 0.002 18.578 0.457 17.19 1.3 16.04 L 3 13.72 C 3.28 13.338 3.465 12.893 3.537 12.425 L 3.975 9.575 C 4.192 8.168 4.852 6.866 5.859 5.859 C 6.866 4.852 8.167 4.192 9.575 3.975 L 12.422 3.538 C 12.89 3.465 13.335 3.28 13.717 3 L 16.037 1.3 C 17.187 0.457 18.575 0.003 20 0.003 C 21.425 0.003 22.813 0.457 23.962 1.3 Z M 18.257 4.32 L 15.94 6.02 C 15.068 6.658 14.057 7.077 12.99 7.243 L 10.147 7.678 C 9.527 7.773 8.953 8.064 8.51 8.508 C 8.066 8.951 7.775 9.525 7.68 10.145 L 7.245 12.985 C 7.079 14.052 6.66 15.064 6.022 15.935 L 4.322 18.255 C 3.952 18.761 3.753 19.371 3.753 19.998 C 3.753 20.624 3.952 21.235 4.322 21.74 L 6.022 24.058 C 6.662 24.928 7.082 25.94 7.245 27.008 L 7.68 29.85 C 7.875 31.123 8.875 32.123 10.147 32.318 L 12.987 32.753 C 14.054 32.919 15.066 33.338 15.937 33.975 L 18.257 35.675 C 19.292 36.438 20.705 36.438 21.742 35.675 L 24.06 33.975 C 24.931 33.338 25.943 32.919 27.01 32.753 L 29.852 32.318 C 30.473 32.222 31.046 31.932 31.49 31.488 C 31.934 31.044 32.224 30.471 32.32 29.85 L 32.755 27.01 C 32.92 25.943 33.34 24.932 33.977 24.06 L 35.677 21.74 C 36.047 21.235 36.247 20.624 36.247 19.998 C 36.247 19.371 36.047 18.761 35.677 18.255 L 33.977 15.938 C 33.34 15.066 32.92 14.055 32.755 12.988 L 32.32 10.145 C 32.224 9.525 31.934 8.951 31.49 8.508 C 31.046 8.064 30.473 7.773 29.852 7.678 L 27.012 7.243 C 25.945 7.077 24.934 6.658 24.062 6.02 L 21.742 4.32 C 21.237 3.95 20.626 3.751 20 3.751 C 19.373 3.751 18.763 3.95 18.257 4.32 Z M 28.2 16.95 L 18.825 26.325 C 18.473 26.676 17.997 26.874 17.5 26.874 C 17.003 26.874 16.526 26.676 16.175 26.325 L 11.8 21.95 C 11.468 21.595 11.287 21.125 11.296 20.639 C 11.304 20.153 11.501 19.689 11.845 19.345 C 12.188 19.002 12.652 18.805 13.138 18.796 C 13.624 18.788 14.094 18.969 14.45 19.3 L 17.5 22.35 L 25.55 14.3 C 25.905 13.969 26.375 13.788 26.861 13.796 C 27.347 13.805 27.811 14.002 28.155 14.345 C 28.498 14.689 28.695 15.153 28.704 15.639 C 28.712 16.125 28.531 16.595 28.2 16.95 Z" fill="rgb(255,255,255)"></path>
-                  </g>
-                </svg>
-              </div>
-
-              {/* Card Title */}
-              <h3 
-                className="absolute text-white font-medium"
-                style={{
-                  top: 'clamp(15px, 3vw, 20px)',
-                  left: 'clamp(80px, 15vw, 110px)',
-                  right: 'clamp(20px, 4vw, 30px)',
-                  fontFamily: '"Inter Display", Inter, sans-serif',
-                  fontSize: 'clamp(14px, 2.5vw, 20px)',
-                  letterSpacing: '0em',
-                  lineHeight: '1.2',
-                  whiteSpace: 'normal',
-                  wordWrap: 'break-word',
-                  wordBreak: 'break-word',
-                  overflow: 'hidden'
-                }}
-              >
-                Your Digital Manufacturing Identity
-              </h3>
-
-              {/* Card Description */}
-              <p 
-                className="absolute text-gray-300"
-                style={{
-                  top: 'clamp(45px, 7vw, 55px)',
-                  left: 'clamp(80px, 15vw, 110px)',
-                  right: 'clamp(20px, 4vw, 30px)',
-                  bottom: 'clamp(20px, 4vw, 30px)',
-                  fontFamily: 'Manrope, sans-serif',
-                  fontWeight: '500',
-                  fontSize: 'clamp(11px, 1.8vw, 14px)',
-                  letterSpacing: '0em',
-                  lineHeight: '1.3',
-                  whiteSpace: 'normal',
-                  wordWrap: 'break-word',
-                  wordBreak: 'break-word',
-                  overflow: 'hidden',
-                  display: '-webkit-box',
-                  WebkitLineClamp: '3',
-                  WebkitBoxOrient: 'vertical'
-                }}
-              >
-                Build a smart, SEO-powered profile that showcases everything about your manufacturing business products, processes, strengths & scale, all in one place.
-              </p>
-
-              {/* Decorative Rectangle */}
-              <div 
-                className="absolute border border-black rounded-lg bg-white"
-                style={{
-                  bottom: '0px',
-                  right: '6px',
-                  width: '110px',
-                  height: '45px'
-                }}
-              >
-                <div 
-                  className="absolute bg-black"
-                  style={{
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '76px',
-                    height: '2px'
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Card 2: Share. Engage. Grow. */}
-            <div 
-              className="relative w-full max-w-[618px]"
-              style={{
-                height: 'clamp(150px, 25vw, 187px)'
-              }}
-            >
-              {/* Card Background SVG */}
-              <svg 
-                className="absolute inset-0 w-full h-full"
-                xmlns="http://www.w3.org/2000/svg" 
-                viewBox="0 0 617.229 186.851" 
-                fill="none"
-              >
-                <path 
-                  d="M 0 160.285 L 0 120.655 C 0 105.983 11.894 94.088 26.567 94.088 L 65.484 94.088 C 80.156 94.088 92.05 82.194 92.05 67.522 L 92.05 26.567 C 92.05 11.894 103.944 0 118.617 0 L 590.662 0 C 605.335 0 617.229 11.894 617.229 26.567 L 617.229 107.94 C 617.229 122.612 605.335 134.506 590.662 134.506 L 518.476 134.506 C 504.022 134.506 492.303 146.224 492.303 160.679 C 492.303 175.134 480.586 186.851 466.132 186.851 L 26.567 186.851 C 11.894 186.851 0 174.957 0 160.285 Z" 
-                  fill="rgb(0, 0, 0)" 
-                  stroke="rgb(0, 0, 0)" 
-                  strokeWidth="0.89"
-                />
-              </svg>
-
-              {/* Icon */}
-              <div 
-                className="absolute"
-                style={{
-                  top: '20px',
-                  left: '20px',
-                  width: '73px',
-                  height: '73px'
-                }}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="73" height="73" fill="none">
-                  <path d="M 36.5 73 C 16.342 73 0 56.658 0 36.5 L 0 36.5 C 0 16.342 16.342 0 36.5 0 L 36.5 0 C 56.658 0 73 16.342 73 36.5 L 73 36.5 C 73 56.658 56.658 73 36.5 73 Z" fill="rgb(0, 0, 0)"></path>
-                  <g transform="translate(16.5 16.5)">
-                    <path d="M 0 40 L 0 0 L 40 0 L 40 40 Z" fill="transparent"></path>
-                    <path d="M 23.962 1.3 L 26.285 3 C 26.667 3.28 27.112 3.465 27.58 3.538 L 30.425 3.975 C 31.832 4.192 33.134 4.852 34.141 5.859 C 35.148 6.866 35.808 8.168 36.025 9.575 L 36.46 12.423 C 36.532 12.89 36.717 13.335 36.997 13.718 L 38.697 16.038 C 39.54 17.187 39.995 18.575 39.995 20 C 39.995 21.425 39.54 22.814 38.697 23.963 L 36.997 26.283 C 36.718 26.666 36.534 27.11 36.46 27.578 L 36.022 30.423 C 35.806 31.831 35.145 33.133 34.138 34.141 C 33.13 35.148 31.828 35.809 30.42 36.025 L 27.575 36.463 C 27.107 36.537 26.663 36.721 26.28 37 L 23.96 38.7 C 22.811 39.543 21.422 39.998 19.997 39.998 C 18.572 39.998 17.184 39.543 16.035 38.7 L 13.715 37 C 13.332 36.721 12.888 36.537 12.42 36.463 L 9.575 36.025 C 8.167 35.808 6.866 35.148 5.859 34.141 C 4.852 33.134 4.192 31.833 3.975 30.425 L 3.537 27.58 C 3.463 27.112 3.279 26.668 3 26.285 L 1.3 23.965 C 0.457 22.816 0.002 21.428 0.002 20.003 C 0.002 18.578 0.457 17.19 1.3 16.04 L 3 13.72 C 3.28 13.338 3.465 12.893 3.537 12.425 L 3.975 9.575 C 4.192 8.168 4.852 6.866 5.859 5.859 C 6.866 4.852 8.167 4.192 9.575 3.975 L 12.422 3.538 C 12.89 3.465 13.335 3.28 13.717 3 L 16.037 1.3 C 17.187 0.457 18.575 0.003 20 0.003 C 21.425 0.003 22.813 0.457 23.962 1.3 Z M 18.257 4.32 L 15.94 6.02 C 15.068 6.658 14.057 7.077 12.99 7.243 L 10.147 7.678 C 9.527 7.773 8.953 8.064 8.51 8.508 C 8.066 8.951 7.775 9.525 7.68 10.145 L 7.245 12.985 C 7.079 14.052 6.66 15.064 6.022 15.935 L 4.322 18.255 C 3.952 18.761 3.753 19.371 3.753 19.998 C 3.753 20.624 3.952 21.235 4.322 21.74 L 6.022 24.058 C 6.662 24.928 7.082 25.94 7.245 27.008 L 7.68 29.85 C 7.875 31.123 8.875 32.123 10.147 32.318 L 12.987 32.753 C 14.054 32.919 15.066 33.338 15.937 33.975 L 18.257 35.675 C 19.292 36.438 20.705 36.438 21.742 35.675 L 24.06 33.975 C 24.931 33.338 25.943 32.919 27.01 32.753 L 29.852 32.318 C 30.473 32.222 31.046 31.932 31.49 31.488 C 31.934 31.044 32.224 30.471 32.32 29.85 L 32.755 27.01 C 32.92 25.943 33.34 24.932 33.977 24.06 L 35.677 21.74 C 36.047 21.235 36.247 20.624 36.247 19.998 C 36.247 19.371 36.047 18.761 35.677 18.255 L 33.977 15.938 C 33.34 15.066 32.92 14.055 32.755 12.988 L 32.32 10.145 C 32.224 9.525 31.934 8.951 31.49 8.508 C 31.046 8.064 30.473 7.773 29.852 7.678 L 27.012 7.243 C 25.945 7.077 24.934 6.658 24.062 6.02 L 21.742 4.32 C 21.237 3.95 20.626 3.751 20 3.751 C 19.373 3.751 18.763 3.95 18.257 4.32 Z M 28.2 16.95 L 18.825 26.325 C 18.473 26.676 17.997 26.874 17.5 26.874 C 17.003 26.874 16.526 26.676 16.175 26.325 L 11.8 21.95 C 11.468 21.595 11.287 21.125 11.296 20.639 C 11.304 20.153 11.501 19.689 11.845 19.345 C 12.188 19.002 12.652 18.805 13.138 18.796 C 13.624 18.788 14.094 18.969 14.45 19.3 L 17.5 22.35 L 25.55 14.3 C 25.905 13.969 26.375 13.788 26.861 13.796 C 27.347 13.805 27.811 14.002 28.155 14.345 C 28.498 14.689 28.695 15.153 28.704 15.639 C 28.712 16.125 28.531 16.595 28.2 16.95 Z" fill="rgb(255,255,255)"></path>
-                  </g>
-                </svg>
-              </div>
-
-              {/* Card Title */}
-              <h3 
-                className="absolute text-white font-medium"
-                style={{
-                  top: 'clamp(15px, 3vw, 20px)',
-                  left: 'clamp(80px, 15vw, 110px)',
-                  right: 'clamp(20px, 4vw, 30px)',
-                  fontFamily: '"Inter Display", Inter, sans-serif',
-                  fontSize: 'clamp(14px, 2.5vw, 20px)',
-                  letterSpacing: '0em',
-                  lineHeight: '1.2',
-                  whiteSpace: 'normal',
-                  wordWrap: 'break-word',
-                  wordBreak: 'break-word',
-                  overflow: 'hidden'
-                }}
-              >
-                Share. Engage. Grow.
-              </h3>
-
-              {/* Card Description */}
-              <p 
-                className="absolute text-gray-300"
-                style={{
-                  top: 'clamp(45px, 7vw, 55px)',
-                  left: 'clamp(80px, 15vw, 110px)',
-                  right: 'clamp(20px, 4vw, 30px)',
-                  bottom: 'clamp(20px, 4vw, 30px)',
-                  fontFamily: 'Manrope, sans-serif',
-                  fontWeight: '500',
-                  fontSize: 'clamp(11px, 1.8vw, 14px)',
-                  letterSpacing: '0em',
-                  lineHeight: '1.3',
-                  whiteSpace: 'normal',
-                  wordWrap: 'break-word',
-                  wordBreak: 'break-word',
-                  overflow: 'hidden',
-                  display: '-webkit-box',
-                  WebkitLineClamp: '3',
-                  WebkitBoxOrient: 'vertical'
-                }}
-              >
-                Post achievements, insights, trends, innovations, and promotions - position yourself as a modern manufacturer in a fast-evolving ecosystem.
-              </p>
-
-              {/* Decorative Rectangle */}
-              <div 
-                className="absolute border border-black rounded-lg bg-white"
-                style={{
-                  bottom: '0px',
-                  right: '6px',
-                  width: '110px',
-                  height: '45px'
-                }}
-              >
-                <div 
-                  className="absolute bg-black"
-                  style={{
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '76px',
-                    height: '2px'
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Card 3: Instant RFQs, Smarter Quotes */}
-            <div 
-              className="relative w-full max-w-[618px]"
-              style={{
-                height: 'clamp(150px, 25vw, 187px)'
-              }}
-            >
-              {/* Card Background SVG */}
-              <svg 
-                className="absolute inset-0 w-full h-full"
-                xmlns="http://www.w3.org/2000/svg" 
-                viewBox="0 0 617.229 186.851" 
-                fill="none"
-              >
-                <path 
-                  d="M 0 160.285 L 0 120.655 C 0 105.983 11.894 94.088 26.567 94.088 L 65.484 94.088 C 80.156 94.088 92.05 82.194 92.05 67.522 L 92.05 26.567 C 92.05 11.894 103.944 0 118.617 0 L 590.662 0 C 605.335 0 617.229 11.894 617.229 26.567 L 617.229 107.94 C 617.229 122.612 605.335 134.506 590.662 134.506 L 518.476 134.506 C 504.022 134.506 492.303 146.224 492.303 160.679 C 492.303 175.134 480.586 186.851 466.132 186.851 L 26.567 186.851 C 11.894 186.851 0 174.957 0 160.285 Z" 
-                  fill="rgb(0, 0, 0)" 
-                  stroke="rgb(0, 0, 0)" 
-                  strokeWidth="0.89"
-                />
-              </svg>
-
-              {/* Icon */}
-              <div 
-                className="absolute"
-                style={{
-                  top: '20px',
-                  left: '20px',
-                  width: '73px',
-                  height: '73px'
-                }}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="73" height="73" fill="none">
-                  <path d="M 36.5 73 C 16.342 73 0 56.658 0 36.5 L 0 36.5 C 0 16.342 16.342 0 36.5 0 L 36.5 0 C 56.658 0 73 16.342 73 36.5 L 73 36.5 C 73 56.658 56.658 73 36.5 73 Z" fill="rgb(0, 0, 0)"></path>
-                  <g transform="translate(16.5 16.5)">
-                    <path d="M 0 40 L 0 0 L 40 0 L 40 40 Z" fill="transparent"></path>
-                    <path d="M 23.962 1.3 L 26.285 3 C 26.667 3.28 27.112 3.465 27.58 3.538 L 30.425 3.975 C 31.832 4.192 33.134 4.852 34.141 5.859 C 35.148 6.866 35.808 8.168 36.025 9.575 L 36.46 12.423 C 36.532 12.89 36.717 13.335 36.997 13.718 L 38.697 16.038 C 39.54 17.187 39.995 18.575 39.995 20 C 39.995 21.425 39.54 22.814 38.697 23.963 L 36.997 26.283 C 36.718 26.666 36.534 27.11 36.46 27.578 L 36.022 30.423 C 35.806 31.831 35.145 33.133 34.138 34.141 C 33.13 35.148 31.828 35.809 30.42 36.025 L 27.575 36.463 C 27.107 36.537 26.663 36.721 26.28 37 L 23.96 38.7 C 22.811 39.543 21.422 39.998 19.997 39.998 C 18.572 39.998 17.184 39.543 16.035 38.7 L 13.715 37 C 13.332 36.721 12.888 36.537 12.42 36.463 L 9.575 36.025 C 8.167 35.808 6.866 35.148 5.859 34.141 C 4.852 33.134 4.192 31.833 3.975 30.425 L 3.537 27.58 C 3.463 27.112 3.279 26.668 3 26.285 L 1.3 23.965 C 0.457 22.816 0.002 21.428 0.002 20.003 C 0.002 18.578 0.457 17.19 1.3 16.04 L 3 13.72 C 3.28 13.338 3.465 12.893 3.537 12.425 L 3.975 9.575 C 4.192 8.168 4.852 6.866 5.859 5.859 C 6.866 4.852 8.167 4.192 9.575 3.975 L 12.422 3.538 C 12.89 3.465 13.335 3.28 13.717 3 L 16.037 1.3 C 17.187 0.457 18.575 0.003 20 0.003 C 21.425 0.003 22.813 0.457 23.962 1.3 Z M 18.257 4.32 L 15.94 6.02 C 15.068 6.658 14.057 7.077 12.99 7.243 L 10.147 7.678 C 9.527 7.773 8.953 8.064 8.51 8.508 C 8.066 8.951 7.775 9.525 7.68 10.145 L 7.245 12.985 C 7.079 14.052 6.66 15.064 6.022 15.935 L 4.322 18.255 C 3.952 18.761 3.753 19.371 3.753 19.998 C 3.753 20.624 3.952 21.235 4.322 21.74 L 6.022 24.058 C 6.662 24.928 7.082 25.94 7.245 27.008 L 7.68 29.85 C 7.875 31.123 8.875 32.123 10.147 32.318 L 12.987 32.753 C 14.054 32.919 15.066 33.338 15.937 33.975 L 18.257 35.675 C 19.292 36.438 20.705 36.438 21.742 35.675 L 24.06 33.975 C 24.931 33.338 25.943 32.919 27.01 32.753 L 29.852 32.318 C 30.473 32.222 31.046 31.932 31.49 31.488 C 31.934 31.044 32.224 30.471 32.32 29.85 L 32.755 27.01 C 32.92 25.943 33.34 24.932 33.977 24.06 L 35.677 21.74 C 36.047 21.235 36.247 20.624 36.247 19.998 C 36.247 19.371 36.047 18.761 35.677 18.255 L 33.977 15.938 C 33.34 15.066 32.92 14.055 32.755 12.988 L 32.32 10.145 C 32.224 9.525 31.934 8.951 31.49 8.508 C 31.046 8.064 30.473 7.773 29.852 7.678 L 27.012 7.243 C 25.945 7.077 24.934 6.658 24.062 6.02 L 21.742 4.32 C 21.237 3.95 20.626 3.751 20 3.751 C 19.373 3.751 18.763 3.95 18.257 4.32 Z M 28.2 16.95 L 18.825 26.325 C 18.473 26.676 17.997 26.874 17.5 26.874 C 17.003 26.874 16.526 26.676 16.175 26.325 L 11.8 21.95 C 11.468 21.595 11.287 21.125 11.296 20.639 C 11.304 20.153 11.501 19.689 11.845 19.345 C 12.188 19.002 12.652 18.805 13.138 18.796 C 13.624 18.788 14.094 18.969 14.45 19.3 L 17.5 22.35 L 25.55 14.3 C 25.905 13.969 26.375 13.788 26.861 13.796 C 27.347 13.805 27.811 14.002 28.155 14.345 C 28.498 14.689 28.695 15.153 28.704 15.639 C 28.712 16.125 28.531 16.595 28.2 16.95 Z" fill="rgb(255,255,255)"></path>
-                  </g>
-                </svg>
-              </div>
-
-              {/* Card Title */}
-              <h3 
-                className="absolute text-white font-medium"
-                style={{
-                  top: 'clamp(15px, 3vw, 20px)',
-                  left: 'clamp(80px, 15vw, 110px)',
-                  right: 'clamp(20px, 4vw, 30px)',
-                  fontFamily: '"Inter Display", Inter, sans-serif',
-                  fontSize: 'clamp(14px, 2.5vw, 20px)',
-                  letterSpacing: '0em',
-                  lineHeight: '1.2',
-                  whiteSpace: 'normal',
-                  wordWrap: 'break-word',
-                  wordBreak: 'break-word',
-                  overflow: 'hidden'
-                }}
-              >
-                Instant RFQs, Smarter Quotes
-              </h3>
-
-              {/* Card Description */}
-              <p 
-                className="absolute text-gray-300"
-                style={{
-                  top: 'clamp(45px, 7vw, 55px)',
-                  left: 'clamp(80px, 15vw, 110px)',
-                  right: 'clamp(20px, 4vw, 30px)',
-                  bottom: 'clamp(20px, 4vw, 30px)',
-                  fontFamily: 'Manrope, sans-serif',
-                  fontWeight: '500',
-                  fontSize: 'clamp(11px, 1.8vw, 14px)',
-                  letterSpacing: '0em',
-                  lineHeight: '1.3',
-                  whiteSpace: 'normal',
-                  wordWrap: 'break-word',
-                  wordBreak: 'break-word',
-                  overflow: 'hidden',
-                  display: '-webkit-box',
-                  WebkitLineClamp: '3',
-                  WebkitBoxOrient: 'vertical'
-                }}
-              >
-                Post your requirements and receive competitive quotes from trusted manufacturers across India - faster, fairer, and completely transparent.
-              </p>
-
-              {/* Decorative Rectangle */}
-              <div 
-                className="absolute border border-black rounded-lg bg-white"
-                style={{
-                  bottom: '0px',
-                  right: '6px',
-                  width: '110px',
-                  height: '45px'
-                }}
-              >
-                <div 
-                  className="absolute bg-black"
-                  style={{
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '76px',
-                    height: '2px'
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Card 4: A Marketplace for Manufacturers */}
-            <div 
-              className="relative w-full max-w-[618px]"
-              style={{
-                height: 'clamp(150px, 25vw, 187px)'
-              }}
-            >
-              {/* Card Background SVG */}
-              <svg 
-                className="absolute inset-0 w-full h-full"
-                xmlns="http://www.w3.org/2000/svg" 
-                viewBox="0 0 617.229 186.851" 
-                fill="none"
-              >
-                <path 
-                  d="M 0 160.285 L 0 120.655 C 0 105.983 11.894 94.088 26.567 94.088 L 65.484 94.088 C 80.156 94.088 92.05 82.194 92.05 67.522 L 92.05 26.567 C 92.05 11.894 103.944 0 118.617 0 L 590.662 0 C 605.335 0 617.229 11.894 617.229 26.567 L 617.229 107.94 C 617.229 122.612 605.335 134.506 590.662 134.506 L 518.476 134.506 C 504.022 134.506 492.303 146.224 492.303 160.679 C 492.303 175.134 480.586 186.851 466.132 186.851 L 26.567 186.851 C 11.894 186.851 0 174.957 0 160.285 Z" 
-                  fill="rgb(0, 0, 0)" 
-                  stroke="rgb(0, 0, 0)" 
-                  strokeWidth="0.89"
-                />
-              </svg>
-
-              {/* Icon */}
-              <div 
-                className="absolute"
-                style={{
-                  top: '20px',
-                  left: '20px',
-                  width: '73px',
-                  height: '73px'
-                }}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="73" height="73" fill="none">
-                  <path d="M 36.5 73 C 16.342 73 0 56.658 0 36.5 L 0 36.5 C 0 16.342 16.342 0 36.5 0 L 36.5 0 C 56.658 0 73 16.342 73 36.5 L 73 36.5 C 73 56.658 56.658 73 36.5 73 Z" fill="rgb(0, 0, 0)"></path>
-                  <g transform="translate(16.5 16.5)">
-                    <path d="M 0 40 L 0 0 L 40 0 L 40 40 Z" fill="transparent"></path>
-                    <path d="M 23.962 1.3 L 26.285 3 C 26.667 3.28 27.112 3.465 27.58 3.538 L 30.425 3.975 C 31.832 4.192 33.134 4.852 34.141 5.859 C 35.148 6.866 35.808 8.168 36.025 9.575 L 36.46 12.423 C 36.532 12.89 36.717 13.335 36.997 13.718 L 38.697 16.038 C 39.54 17.187 39.995 18.575 39.995 20 C 39.995 21.425 39.54 22.814 38.697 23.963 L 36.997 26.283 C 36.718 26.666 36.534 27.11 36.46 27.578 L 36.022 30.423 C 35.806 31.831 35.145 33.133 34.138 34.141 C 33.13 35.148 31.828 35.809 30.42 36.025 L 27.575 36.463 C 27.107 36.537 26.663 36.721 26.28 37 L 23.96 38.7 C 22.811 39.543 21.422 39.998 19.997 39.998 C 18.572 39.998 17.184 39.543 16.035 38.7 L 13.715 37 C 13.332 36.721 12.888 36.537 12.42 36.463 L 9.575 36.025 C 8.167 35.808 6.866 35.148 5.859 34.141 C 4.852 33.134 4.192 31.833 3.975 30.425 L 3.537 27.58 C 3.463 27.112 3.279 26.668 3 26.285 L 1.3 23.965 C 0.457 22.816 0.002 21.428 0.002 20.003 C 0.002 18.578 0.457 17.19 1.3 16.04 L 3 13.72 C 3.28 13.338 3.465 12.893 3.537 12.425 L 3.975 9.575 C 4.192 8.168 4.852 6.866 5.859 5.859 C 6.866 4.852 8.167 4.192 9.575 3.975 L 12.422 3.538 C 12.89 3.465 13.335 3.28 13.717 3 L 16.037 1.3 C 17.187 0.457 18.575 0.003 20 0.003 C 21.425 0.003 22.813 0.457 23.962 1.3 Z M 18.257 4.32 L 15.94 6.02 C 15.068 6.658 14.057 7.077 12.99 7.243 L 10.147 7.678 C 9.527 7.773 8.953 8.064 8.51 8.508 C 8.066 8.951 7.775 9.525 7.68 10.145 L 7.245 12.985 C 7.079 14.052 6.66 15.064 6.022 15.935 L 4.322 18.255 C 3.952 18.761 3.753 19.371 3.753 19.998 C 3.753 20.624 3.952 21.235 4.322 21.74 L 6.022 24.058 C 6.662 24.928 7.082 25.94 7.245 27.008 L 7.68 29.85 C 7.875 31.123 8.875 32.123 10.147 32.318 L 12.987 32.753 C 14.054 32.919 15.066 33.338 15.937 33.975 L 18.257 35.675 C 19.292 36.438 20.705 36.438 21.742 35.675 L 24.06 33.975 C 24.931 33.338 25.943 32.919 27.01 32.753 L 29.852 32.318 C 30.473 32.222 31.046 31.932 31.49 31.488 C 31.934 31.044 32.224 30.471 32.32 29.85 L 32.755 27.01 C 32.92 25.943 33.34 24.932 33.977 24.06 L 35.677 21.74 C 36.047 21.235 36.247 20.624 36.247 19.998 C 36.247 19.371 36.047 18.761 35.677 18.255 L 33.977 15.938 C 33.34 15.066 32.92 14.055 32.755 12.988 L 32.32 10.145 C 32.224 9.525 31.934 8.951 31.49 8.508 C 31.046 8.064 30.473 7.773 29.852 7.678 L 27.012 7.243 C 25.945 7.077 24.934 6.658 24.062 6.02 L 21.742 4.32 C 21.237 3.95 20.626 3.751 20 3.751 C 19.373 3.751 18.763 3.95 18.257 4.32 Z M 28.2 16.95 L 18.825 26.325 C 18.473 26.676 17.997 26.874 17.5 26.874 C 17.003 26.874 16.526 26.676 16.175 26.325 L 11.8 21.95 C 11.468 21.595 11.287 21.125 11.296 20.639 C 11.304 20.153 11.501 19.689 11.845 19.345 C 12.188 19.002 12.652 18.805 13.138 18.796 C 13.624 18.788 14.094 18.969 14.45 19.3 L 17.5 22.35 L 25.55 14.3 C 25.905 13.969 26.375 13.788 26.861 13.796 C 27.347 13.805 27.811 14.002 28.155 14.345 C 28.498 14.689 28.695 15.153 28.704 15.639 C 28.712 16.125 28.531 16.595 28.2 16.95 Z" fill="rgb(255,255,255)"></path>
-                  </g>
-                </svg>
-              </div>
-
-              {/* Card Title */}
-              <h3 
-                className="absolute text-white font-medium"
-                style={{
-                  top: 'clamp(15px, 3vw, 20px)',
-                  left: 'clamp(80px, 15vw, 110px)',
-                  right: 'clamp(20px, 4vw, 30px)',
-                  fontFamily: '"Inter Display", Inter, sans-serif',
-                  fontSize: 'clamp(14px, 2.5vw, 20px)',
-                  letterSpacing: '0em',
-                  lineHeight: '1.2',
-                  whiteSpace: 'normal',
-                  wordWrap: 'break-word',
-                  wordBreak: 'break-word',
-                  overflow: 'hidden'
-                }}
-              >
-                A Marketplace for Manufacturers
-              </h3>
-
-              {/* Card Description */}
-              <p 
-                className="absolute text-gray-300"
-                style={{
-                  top: 'clamp(45px, 7vw, 55px)',
-                  left: 'clamp(80px, 15vw, 110px)',
-                  right: 'clamp(20px, 4vw, 30px)',
-                  bottom: 'clamp(20px, 4vw, 30px)',
-                  fontFamily: 'Manrope, sans-serif',
-                  fontWeight: '500',
-                  fontSize: 'clamp(11px, 1.8vw, 14px)',
-                  letterSpacing: '0em',
-                  lineHeight: '1.3',
-                  whiteSpace: 'normal',
-                  wordWrap: 'break-word',
-                  wordBreak: 'break-word',
-                  overflow: 'hidden',
-                  display: '-webkit-box',
-                  WebkitLineClamp: '3',
-                  WebkitBoxOrient: 'vertical'
-                }}
-              >
-                Get discovered by the right buyers and businesses through a targeted digital platform - designed exclusively for Indian manufacturers.
-              </p>
-
-              {/* Decorative Rectangle */}
-              <div 
-                className="absolute border border-black rounded-lg bg-white"
-                style={{
-                  bottom: '0px',
-                  right: '6px',
-                  width: '110px',
-                  height: '45px'
-                }}
-              >
-                <div 
-                  className="absolute bg-black"
-                  style={{
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '76px',
-                    height: '2px'
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Card 5: Find Vendors in Minutes, Not Months */}
-            <div 
-              className="relative w-full max-w-[618px]"
-              style={{
-                height: 'clamp(150px, 25vw, 187px)'
-              }}
-            >
-              {/* Card Background SVG */}
-              <svg 
-                className="absolute inset-0 w-full h-full"
-                xmlns="http://www.w3.org/2000/svg" 
-                viewBox="0 0 617.229 186.851" 
-                fill="none"
-              >
-                <path 
-                  d="M 0 160.285 L 0 120.655 C 0 105.983 11.894 94.088 26.567 94.088 L 65.484 94.088 C 80.156 94.088 92.05 82.194 92.05 67.522 L 92.05 26.567 C 92.05 11.894 103.944 0 118.617 0 L 590.662 0 C 605.335 0 617.229 11.894 617.229 26.567 L 617.229 107.94 C 617.229 122.612 605.335 134.506 590.662 134.506 L 518.476 134.506 C 504.022 134.506 492.303 146.224 492.303 160.679 C 492.303 175.134 480.586 186.851 466.132 186.851 L 26.567 186.851 C 11.894 186.851 0 174.957 0 160.285 Z" 
-                  fill="rgb(0, 0, 0)" 
-                  stroke="rgb(0, 0, 0)" 
-                  strokeWidth="0.89"
-                />
-              </svg>
-
-              {/* Icon */}
-              <div 
-                className="absolute"
-                style={{
-                  top: '20px',
-                  left: '20px',
-                  width: '73px',
-                  height: '73px'
-                }}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="73" height="73" fill="none">
-                  <path d="M 36.5 73 C 16.342 73 0 56.658 0 36.5 L 0 36.5 C 0 16.342 16.342 0 36.5 0 L 36.5 0 C 56.658 0 73 16.342 73 36.5 L 73 36.5 C 73 56.658 56.658 73 36.5 73 Z" fill="rgb(0, 0, 0)"></path>
-                  <g transform="translate(16.5 16.5)">
-                    <path d="M 0 40 L 0 0 L 40 0 L 40 40 Z" fill="transparent"></path>
-                    <path d="M 23.962 1.3 L 26.285 3 C 26.667 3.28 27.112 3.465 27.58 3.538 L 30.425 3.975 C 31.832 4.192 33.134 4.852 34.141 5.859 C 35.148 6.866 35.808 8.168 36.025 9.575 L 36.46 12.423 C 36.532 12.89 36.717 13.335 36.997 13.718 L 38.697 16.038 C 39.54 17.187 39.995 18.575 39.995 20 C 39.995 21.425 39.54 22.814 38.697 23.963 L 36.997 26.283 C 36.718 26.666 36.534 27.11 36.46 27.578 L 36.022 30.423 C 35.806 31.831 35.145 33.133 34.138 34.141 C 33.13 35.148 31.828 35.809 30.42 36.025 L 27.575 36.463 C 27.107 36.537 26.663 36.721 26.28 37 L 23.96 38.7 C 22.811 39.543 21.422 39.998 19.997 39.998 C 18.572 39.998 17.184 39.543 16.035 38.7 L 13.715 37 C 13.332 36.721 12.888 36.537 12.42 36.463 L 9.575 36.025 C 8.167 35.808 6.866 35.148 5.859 34.141 C 4.852 33.134 4.192 31.833 3.975 30.425 L 3.537 27.58 C 3.463 27.112 3.279 26.668 3 26.285 L 1.3 23.965 C 0.457 22.816 0.002 21.428 0.002 20.003 C 0.002 18.578 0.457 17.19 1.3 16.04 L 3 13.72 C 3.28 13.338 3.465 12.893 3.537 12.425 L 3.975 9.575 C 4.192 8.168 4.852 6.866 5.859 5.859 C 6.866 4.852 8.167 4.192 9.575 3.975 L 12.422 3.538 C 12.89 3.465 13.335 3.28 13.717 3 L 16.037 1.3 C 17.187 0.457 18.575 0.003 20 0.003 C 21.425 0.003 22.813 0.457 23.962 1.3 Z M 18.257 4.32 L 15.94 6.02 C 15.068 6.658 14.057 7.077 12.99 7.243 L 10.147 7.678 C 9.527 7.773 8.953 8.064 8.51 8.508 C 8.066 8.951 7.775 9.525 7.68 10.145 L 7.245 12.985 C 7.079 14.052 6.66 15.064 6.022 15.935 L 4.322 18.255 C 3.952 18.761 3.753 19.371 3.753 19.998 C 3.753 20.624 3.952 21.235 4.322 21.74 L 6.022 24.058 C 6.662 24.928 7.082 25.94 7.245 27.008 L 7.68 29.85 C 7.875 31.123 8.875 32.123 10.147 32.318 L 12.987 32.753 C 14.054 32.919 15.066 33.338 15.937 33.975 L 18.257 35.675 C 19.292 36.438 20.705 36.438 21.742 35.675 L 24.06 33.975 C 24.931 33.338 25.943 32.919 27.01 32.753 L 29.852 32.318 C 30.473 32.222 31.046 31.932 31.49 31.488 C 31.934 31.044 32.224 30.471 32.32 29.85 L 32.755 27.01 C 32.92 25.943 33.34 24.932 33.977 24.06 L 35.677 21.74 C 36.047 21.235 36.247 20.624 36.247 19.998 C 36.247 19.371 36.047 18.761 35.677 18.255 L 33.977 15.938 C 33.34 15.066 32.92 14.055 32.755 12.988 L 32.32 10.145 C 32.224 9.525 31.934 8.951 31.49 8.508 C 31.046 8.064 30.473 7.773 29.852 7.678 L 27.012 7.243 C 25.945 7.077 24.934 6.658 24.062 6.02 L 21.742 4.32 C 21.237 3.95 20.626 3.751 20 3.751 C 19.373 3.751 18.763 3.95 18.257 4.32 Z M 28.2 16.95 L 18.825 26.325 C 18.473 26.676 17.997 26.874 17.5 26.874 C 17.003 26.874 16.526 26.676 16.175 26.325 L 11.8 21.95 C 11.468 21.595 11.287 21.125 11.296 20.639 C 11.304 20.153 11.501 19.689 11.845 19.345 C 12.188 19.002 12.652 18.805 13.138 18.796 C 13.624 18.788 14.094 18.969 14.45 19.3 L 17.5 22.35 L 25.55 14.3 C 25.905 13.969 26.375 13.788 26.861 13.796 C 27.347 13.805 27.811 14.002 28.155 14.345 C 28.498 14.689 28.695 15.153 28.704 15.639 C 28.712 16.125 28.531 16.595 28.2 16.95 Z" fill="rgb(255,255,255)"></path>
-                  </g>
-                </svg>
-              </div>
-
-              {/* Card Title */}
-              <h3 
-                className="absolute text-white font-medium"
-                style={{
-                  top: 'clamp(15px, 3vw, 20px)',
-                  left: 'clamp(80px, 15vw, 110px)',
-                  right: 'clamp(20px, 4vw, 30px)',
-                  fontFamily: '"Inter Display", Inter, sans-serif',
-                  fontSize: 'clamp(14px, 2.5vw, 20px)',
-                  letterSpacing: '0em',
-                  lineHeight: '1.2',
-                  whiteSpace: 'normal',
-                  wordWrap: 'break-word',
-                  wordBreak: 'break-word',
-                  overflow: 'hidden'
-                }}
-              >
-                Find Vendors in Minutes, Not Months
-              </h3>
-
-              {/* Card Description */}
-              <p 
-                className="absolute text-gray-300"
-                style={{
-                  top: 'clamp(45px, 7vw, 55px)',
-                  left: 'clamp(80px, 15vw, 110px)',
-                  right: 'clamp(20px, 4vw, 30px)',
-                  bottom: 'clamp(20px, 4vw, 30px)',
-                  fontFamily: 'Manrope, sans-serif',
-                  fontWeight: '500',
-                  fontSize: 'clamp(11px, 1.8vw, 14px)',
-                  letterSpacing: '0em',
-                  lineHeight: '1.3',
-                  whiteSpace: 'normal',
-                  wordWrap: 'break-word',
-                  wordBreak: 'break-word',
-                  overflow: 'hidden',
-                  display: '-webkit-box',
-                  WebkitLineClamp: '3',
-                  WebkitBoxOrient: 'vertical'
-                }}
-              >
-                Easily search by location, materials, manufacturing type, or finished product - compare profiles, certifications, and capabilities at a glance.
-              </p>
-
-              {/* Decorative Rectangle */}
-              <div 
-                className="absolute border border-black rounded-lg bg-white"
-                style={{
-                  bottom: '0px',
-                  right: '6px',
-                  width: '110px',
-                  height: '45px'
-                }}
-              >
-                <div 
-                  className="absolute bg-black"
-                  style={{
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '76px',
-                    height: '2px'
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Card 6: One-Click Digital Business Card */}
-            <div 
-              className="relative w-full max-w-[618px]"
-              style={{
-                height: 'clamp(150px, 25vw, 187px)'
-              }}
-            >
-              {/* Card Background SVG */}
-              <svg 
-                className="absolute inset-0 w-full h-full"
-                xmlns="http://www.w3.org/2000/svg" 
-                viewBox="0 0 617.229 186.851" 
-                fill="none"
-              >
-                <path 
-                  d="M 0 160.285 L 0 120.655 C 0 105.983 11.894 94.088 26.567 94.088 L 65.484 94.088 C 80.156 94.088 92.05 82.194 92.05 67.522 L 92.05 26.567 C 92.05 11.894 103.944 0 118.617 0 L 590.662 0 C 605.335 0 617.229 11.894 617.229 26.567 L 617.229 107.94 C 617.229 122.612 605.335 134.506 590.662 134.506 L 518.476 134.506 C 504.022 134.506 492.303 146.224 492.303 160.679 C 492.303 175.134 480.586 186.851 466.132 186.851 L 26.567 186.851 C 11.894 186.851 0 174.957 0 160.285 Z" 
-                  fill="rgb(0, 0, 0)" 
-                  stroke="rgb(0, 0, 0)" 
-                  strokeWidth="0.89"
-                />
-              </svg>
-
-              {/* Icon */}
-              <div 
-                className="absolute"
-                style={{
-                  top: '20px',
-                  left: '20px',
-                  width: '73px',
-                  height: '73px'
-                }}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="73" height="73" fill="none">
-                  <path d="M 36.5 73 C 16.342 73 0 56.658 0 36.5 L 0 36.5 C 0 16.342 16.342 0 36.5 0 L 36.5 0 C 56.658 0 73 16.342 73 36.5 L 73 36.5 C 73 56.658 56.658 73 36.5 73 Z" fill="rgb(0, 0, 0)"></path>
-                  <g transform="translate(16.5 16.5)">
-                    <path d="M 0 40 L 0 0 L 40 0 L 40 40 Z" fill="transparent"></path>
-                    <path d="M 23.962 1.3 L 26.285 3 C 26.667 3.28 27.112 3.465 27.58 3.538 L 30.425 3.975 C 31.832 4.192 33.134 4.852 34.141 5.859 C 35.148 6.866 35.808 8.168 36.025 9.575 L 36.46 12.423 C 36.532 12.89 36.717 13.335 36.997 13.718 L 38.697 16.038 C 39.54 17.187 39.995 18.575 39.995 20 C 39.995 21.425 39.54 22.814 38.697 23.963 L 36.997 26.283 C 36.718 26.666 36.534 27.11 36.46 27.578 L 36.022 30.423 C 35.806 31.831 35.145 33.133 34.138 34.141 C 33.13 35.148 31.828 35.809 30.42 36.025 L 27.575 36.463 C 27.107 36.537 26.663 36.721 26.28 37 L 23.96 38.7 C 22.811 39.543 21.422 39.998 19.997 39.998 C 18.572 39.998 17.184 39.543 16.035 38.7 L 13.715 37 C 13.332 36.721 12.888 36.537 12.42 36.463 L 9.575 36.025 C 8.167 35.808 6.866 35.148 5.859 34.141 C 4.852 33.134 4.192 31.833 3.975 30.425 L 3.537 27.58 C 3.463 27.112 3.279 26.668 3 26.285 L 1.3 23.965 C 0.457 22.816 0.002 21.428 0.002 20.003 C 0.002 18.578 0.457 17.19 1.3 16.04 L 3 13.72 C 3.28 13.338 3.465 12.893 3.537 12.425 L 3.975 9.575 C 4.192 8.168 4.852 6.866 5.859 5.859 C 6.866 4.852 8.167 4.192 9.575 3.975 L 12.422 3.538 C 12.89 3.465 13.335 3.28 13.717 3 L 16.037 1.3 C 17.187 0.457 18.575 0.003 20 0.003 C 21.425 0.003 22.813 0.457 23.962 1.3 Z M 18.257 4.32 L 15.94 6.02 C 15.068 6.658 14.057 7.077 12.99 7.243 L 10.147 7.678 C 9.527 7.773 8.953 8.064 8.51 8.508 C 8.066 8.951 7.775 9.525 7.68 10.145 L 7.245 12.985 C 7.079 14.052 6.66 15.064 6.022 15.935 L 4.322 18.255 C 3.952 18.761 3.753 19.371 3.753 19.998 C 3.753 20.624 3.952 21.235 4.322 21.74 L 6.022 24.058 C 6.662 24.928 7.082 25.94 7.245 27.008 L 7.68 29.85 C 7.875 31.123 8.875 32.123 10.147 32.318 L 12.987 32.753 C 14.054 32.919 15.066 33.338 15.937 33.975 L 18.257 35.675 C 19.292 36.438 20.705 36.438 21.742 35.675 L 24.06 33.975 C 24.931 33.338 25.943 32.919 27.01 32.753 L 29.852 32.318 C 30.473 32.222 31.046 31.932 31.49 31.488 C 31.934 31.044 32.224 30.471 32.32 29.85 L 32.755 27.01 C 32.92 25.943 33.34 24.932 33.977 24.06 L 35.677 21.74 C 36.047 21.235 36.247 20.624 36.247 19.998 C 36.247 19.371 36.047 18.761 35.677 18.255 L 33.977 15.938 C 33.34 15.066 32.92 14.055 32.755 12.988 L 32.32 10.145 C 32.224 9.525 31.934 8.951 31.49 8.508 C 31.046 8.064 30.473 7.773 29.852 7.678 L 27.012 7.243 C 25.945 7.077 24.934 6.658 24.062 6.02 L 21.742 4.32 C 21.237 3.95 20.626 3.751 20 3.751 C 19.373 3.751 18.763 3.95 18.257 4.32 Z M 28.2 16.95 L 18.825 26.325 C 18.473 26.676 17.997 26.874 17.5 26.874 C 17.003 26.874 16.526 26.676 16.175 26.325 L 11.8 21.95 C 11.468 21.595 11.287 21.125 11.296 20.639 C 11.304 20.153 11.501 19.689 11.845 19.345 C 12.188 19.002 12.652 18.805 13.138 18.796 C 13.624 18.788 14.094 18.969 14.45 19.3 L 17.5 22.35 L 25.55 14.3 C 25.905 13.969 26.375 13.788 26.861 13.796 C 27.347 13.805 27.811 14.002 28.155 14.345 C 28.498 14.689 28.695 15.153 28.704 15.639 C 28.712 16.125 28.531 16.595 28.2 16.95 Z" fill="rgb(255,255,255)"></path>
-                  </g>
-                </svg>
-              </div>
-
-              {/* Card Title */}
-              <h3 
-                className="absolute text-white font-medium"
-                style={{
-                  top: 'clamp(15px, 3vw, 20px)',
-                  left: 'clamp(80px, 15vw, 110px)',
-                  right: 'clamp(20px, 4vw, 30px)',
-                  fontFamily: '"Inter Display", Inter, sans-serif',
-                  fontSize: 'clamp(14px, 2.5vw, 20px)',
-                  letterSpacing: '0em',
-                  lineHeight: '1.2',
-                  whiteSpace: 'normal',
-                  wordWrap: 'break-word',
-                  wordBreak: 'break-word',
-                  overflow: 'hidden'
-                }}
-              >
-                One-Click Digital Business Card
-              </h3>
-
-              {/* Card Description */}
-              <p 
-                className="absolute text-gray-300"
-                style={{
-                  top: 'clamp(45px, 7vw, 55px)',
-                  left: 'clamp(80px, 15vw, 110px)',
-                  right: 'clamp(20px, 4vw, 30px)',
-                  bottom: 'clamp(20px, 4vw, 30px)',
-                  fontFamily: 'Manrope, sans-serif',
-                  fontWeight: '500',
-                  fontSize: 'clamp(11px, 1.8vw, 14px)',
-                  letterSpacing: '0em',
-                  lineHeight: '1.3',
-                  whiteSpace: 'normal',
-                  wordWrap: 'break-word',
-                  wordBreak: 'break-word',
-                  overflow: 'hidden',
-                  display: '-webkit-box',
-                  WebkitLineClamp: '3',
-                  WebkitBoxOrient: 'vertical'
-                }}
-              >
-                Generate a sleek, shareable business card right from your profile - download or send it instantly to clients and vendors, anytime.
-              </p>
-
-              {/* Decorative Rectangle */}
-              <div 
-                className="absolute border border-black rounded-lg bg-white"
-                style={{
-                  bottom: '0px',
-                  right: '6px',
-                  width: '110px',
-                  height: '45px'
-                }}
-              >
-                <div 
-                  className="absolute bg-black"
-                  style={{
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '76px',
-                    height: '2px'
-                  }}
-                />
-              </div>
-            </div>
+            {stackCardsData.map((card) => (
+              <FeatureCard 
+                key={card.id}
+                title={card.title}
+                description={card.description}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -1169,7 +671,7 @@ const LandingPage = ({ onLoginSuccess }) => {
       >
         {/* Container */}
         <div 
-          className="relative flex flex-col items-start max-w-7xl mx-auto"
+          className="relative flex flex-col items-between max-w-full"
           style={{
             gap: '64px',
             width: '100%'
@@ -1184,17 +686,17 @@ const LandingPage = ({ onLoginSuccess }) => {
           >
             {/* Section Tag */}
             <div 
-              className="relative"
+              className="relative flex items-center"
               style={{
                 width: 'fit-content',
                 height: 'fit-content'
               }}
             >
+              <div className="w-4 sm:w-6 md:w-10 h-[4px] bg-white items-center mr-2 md:mr-3"></div>
               <span 
-                className="text-white uppercase tracking-wider"
+                className="text-white uppercase tracking-wider text-lg"
                 style={{
                   fontFamily: 'Inter, sans-serif',
-                  fontSize: '14px',
                   fontWeight: '500',
                   letterSpacing: '0.1em'
                 }}
@@ -1230,7 +732,7 @@ const LandingPage = ({ onLoginSuccess }) => {
           >
             {/* Left Side - Contact Info */}
             <div 
-              className="flex flex-col justify-between items-start w-full lg:w-auto lg:max-w-md"
+              className="flex flex-col justify-between items-start w-full lg:w-auto lg:max-w-full"
               style={{
                 gap: '10px',
                 minHeight: '400px'
@@ -1384,17 +886,14 @@ const LandingPage = ({ onLoginSuccess }) => {
 
             {/* Right Side - Contact Form */}
             <div 
-              className="flex justify-start items-start w-full lg:flex-1"
-              style={{
-                gap: '12px'
-              }}
+              className="flex w-[200px] justify-end items-end w-full lg:flex-1"
             >
               {/* Form Container */}
               <div 
                 className="w-full bg-white rounded-lg border border-gray-200 p-4 sm:p-6"
                 style={{
                   gap: '10px',
-                  maxWidth: '700px',
+                  maxWidth: '1000px',
                   minWidth: 'clamp(300px, 40vw, 500px)'
                 }}
               >
