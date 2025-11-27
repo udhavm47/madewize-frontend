@@ -1,0 +1,5281 @@
+/* MacBook Air - 3 */
+
+position: relative;
+width: 1280px;
+height: 9925px;
+
+background: #000000;
+
+
+/* Bg */
+
+position: absolute;
+width: 8px;
+height: 8345px;
+left: 156px;
+top: 0px;
+
+
+
+/* Line 19 */
+
+position: absolute;
+width: 8345px;
+height: 0px;
+left: 156px;
+top: 0px;
+
+border: 1px dashed rgba(23, 23, 23, 0.9);
+transform: rotate(90deg);
+
+
+/* Line 20 */
+
+position: absolute;
+width: 8345px;
+height: 0px;
+left: 164px;
+top: 0px;
+
+border: 1px dashed #181818;
+transform: rotate(90deg);
+
+
+/* Bg */
+
+position: absolute;
+width: 8px;
+height: 8345px;
+left: 291px;
+top: 0px;
+
+
+
+/* Line 19 */
+
+position: absolute;
+width: 8345px;
+height: 0px;
+left: 291px;
+top: 0px;
+
+border: 1px dashed rgba(23, 23, 23, 0.9);
+transform: rotate(90deg);
+
+
+/* Line 20 */
+
+position: absolute;
+width: 8345px;
+height: 0px;
+left: 299px;
+top: 0px;
+
+border: 1px dashed #181818;
+transform: rotate(90deg);
+
+
+/* Bg */
+
+position: absolute;
+width: 8px;
+height: 8345px;
+left: 427px;
+top: 0px;
+
+
+
+/* Line 19 */
+
+position: absolute;
+width: 8345px;
+height: 0px;
+left: 427px;
+top: 0px;
+
+border: 1px dashed rgba(23, 23, 23, 0.9);
+transform: rotate(90deg);
+
+
+/* Line 20 */
+
+position: absolute;
+width: 8345px;
+height: 0px;
+left: 435px;
+top: 0px;
+
+border: 1px dashed #181818;
+transform: rotate(90deg);
+
+
+/* Bg */
+
+position: absolute;
+width: 8px;
+height: 8345px;
+left: 562px;
+top: 0px;
+
+
+
+/* Line 19 */
+
+position: absolute;
+width: 8345px;
+height: 0px;
+left: 562px;
+top: 0px;
+
+border: 1px dashed rgba(23, 23, 23, 0.9);
+transform: rotate(90deg);
+
+
+/* Line 20 */
+
+position: absolute;
+width: 8345px;
+height: 0px;
+left: 570px;
+top: 0px;
+
+border: 1px dashed #181818;
+transform: rotate(90deg);
+
+
+/* Bg */
+
+position: absolute;
+width: 8px;
+height: 8345px;
+left: 698px;
+top: 0px;
+
+
+
+/* Line 19 */
+
+position: absolute;
+width: 8345px;
+height: 0px;
+left: 698px;
+top: 0px;
+
+border: 1px dashed rgba(23, 23, 23, 0.9);
+transform: rotate(90deg);
+
+
+/* Line 20 */
+
+position: absolute;
+width: 8345px;
+height: 0px;
+left: 706px;
+top: 0px;
+
+border: 1px dashed #181818;
+transform: rotate(90deg);
+
+
+/* Bg */
+
+position: absolute;
+width: 8px;
+height: 8345px;
+left: 833px;
+top: 0px;
+
+
+
+/* Line 19 */
+
+position: absolute;
+width: 8345px;
+height: 0px;
+left: 833px;
+top: 0px;
+
+border: 1px dashed rgba(23, 23, 23, 0.9);
+transform: rotate(90deg);
+
+
+/* Line 20 */
+
+position: absolute;
+width: 8345px;
+height: 0px;
+left: 841px;
+top: 0px;
+
+border: 1px dashed #181818;
+transform: rotate(90deg);
+
+
+/* Bg */
+
+position: absolute;
+width: 8px;
+height: 8345px;
+left: 969px;
+top: 0px;
+
+
+
+/* Line 19 */
+
+position: absolute;
+width: 8345px;
+height: 0px;
+left: 969px;
+top: 0px;
+
+border: 1px dashed rgba(23, 23, 23, 0.9);
+transform: rotate(90deg);
+
+
+/* Line 20 */
+
+position: absolute;
+width: 8345px;
+height: 0px;
+left: 977px;
+top: 0px;
+
+border: 1px dashed #181818;
+transform: rotate(90deg);
+
+
+/* Bg */
+
+position: absolute;
+width: 8px;
+height: 8345px;
+left: 1105px;
+top: 0px;
+
+
+
+/* Line 19 */
+
+position: absolute;
+width: 8345px;
+height: 0px;
+left: 1105px;
+top: 0px;
+
+border: 1px dashed rgba(23, 23, 23, 0.9);
+transform: rotate(90deg);
+
+
+/* Line 20 */
+
+position: absolute;
+width: 8345px;
+height: 0px;
+left: 1113px;
+top: 0px;
+
+border: 1px dashed #181818;
+transform: rotate(90deg);
+
+
+/* Frame 427319018 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 638px;
+
+position: absolute;
+width: 1159px;
+height: 58px;
+left: 60px;
+top: 70px;
+
+
+
+/* madevize */
+
+width: 155px;
+height: 58px;
+
+font-family: 'Baloo 2';
+font-style: normal;
+font-weight: 700;
+font-size: 36px;
+line-height: 58px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Frame 427319017 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 9px;
+
+width: 366px;
+height: 40px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Frame 427319007 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 6px;
+
+width: 116px;
+height: 40px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Search */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 116px;
+height: 40px;
+
+background: #363636;
+border-radius: 47px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* About Us */
+
+width: 68px;
+height: 18px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 15px;
+line-height: 18px;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Frame 427319006 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 6px;
+
+width: 116px;
+height: 40px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Search */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 116px;
+height: 40px;
+
+background: #363636;
+border-radius: 47px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Services */
+
+width: 64px;
+height: 18px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 15px;
+line-height: 18px;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Frame 427319005 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 6px;
+
+width: 116px;
+height: 40px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Search */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 116px;
+height: 40px;
+
+background: #363636;
+border-radius: 47px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Contact */
+
+width: 59px;
+height: 18px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 15px;
+line-height: 18px;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Frame 427319047 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 38px;
+
+position: absolute;
+width: 576px;
+height: 216px;
+left: 60px;
+top: 255px;
+
+
+
+/* Shyaam Industries Pvt. Ltd. */
+
+width: 576px;
+height: 154px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 64px;
+line-height: 77px;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Frame 427319019 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 8px;
+
+width: 232px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* map-pin */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 4.17%;
+bottom: 4.17%;
+
+border: 2px solid #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 29.17%;
+bottom: 45.83%;
+
+border: 2px solid #FFFFFF;
+
+
+/* Gurugram, Haryana */
+
+width: 200px;
+height: 24px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 24px;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Group 2 */
+
+position: absolute;
+width: 249px;
+height: 197px;
+left: 943px;
+top: 265px;
+
+
+
+/* image 9 */
+
+position: absolute;
+width: 162px;
+height: 197px;
+left: 943px;
+top: 265px;
+
+background: url(.png);
+
+
+/* Shyaam Industries */
+
+position: absolute;
+width: 179px;
+height: 76px;
+left: 1013px;
+top: 323px;
+
+font-family: 'Goldman';
+font-style: normal;
+font-weight: 400;
+font-size: 32px;
+line-height: 38px;
+
+color: #FC6500;
+
+
+
+/* SERVICES */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 29px;
+
+position: absolute;
+width: 1156px;
+height: 22px;
+left: calc(50% - 1156px/2 - 2px);
+top: 4957px;
+
+
+
+/* CERTIFICATIONS */
+
+width: 127px;
+height: 22px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Line 7 */
+
+width: 1000px;
+height: 0px;
+
+border: 2px solid #B1B1B1;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* SERVICES */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 29px;
+
+position: absolute;
+width: 1162px;
+height: 22px;
+left: calc(50% - 1162px/2 + 1px);
+top: 1482px;
+
+
+
+/* CLIENTS */
+
+width: 65px;
+height: 22px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Line 7 */
+
+width: 1068px;
+height: 0px;
+
+border: 2px solid #B1B1B1;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* SERVICES */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 29px;
+
+position: absolute;
+width: 1160px;
+height: 22px;
+left: calc(50% - 1160px/2);
+top: 5880px;
+
+
+
+/* MEDIA & VISUALS */
+
+width: 131px;
+height: 22px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Line 7 */
+
+width: 1000px;
+height: 0px;
+
+border: 2px solid #B1B1B1;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Frame 427319046 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 0px;
+gap: 30px;
+
+position: absolute;
+width: 1160px;
+height: 98px;
+left: 60px;
+top: 5078px;
+
+
+
+/* Heading */
+
+width: 905px;
+height: 98px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 40px;
+line-height: 49px;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+box-sizing: border-box;
+
+width: 173px;
+height: 58px;
+
+border: 1px solid #FFFFFF;
+border-radius: 38px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Add More */
+
+position: absolute;
+width: 81px;
+height: 20px;
+left: calc(50% - 81px/2 - 22px);
+top: calc(50% - 20px/2);
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* Default */
+
+position: absolute;
+width: 44.62px;
+height: 44.62px;
+right: 8.38px;
+top: calc(50% - 44.62px/2 + 0.31px);
+
+
+
+/* Ellipse 2 */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #FFFFFF;
+
+
+/* tabler:plus */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: calc(50% - 24px/2 - 0.31px);
+top: calc(50% - 24px/2 - 0.31px);
+
+
+
+/* Vector */
+
+position: absolute;
+left: 20.83%;
+right: 20.83%;
+top: 20.83%;
+bottom: 20.83%;
+
+border: 2px solid #000000;
+
+
+/* Frame 427319049 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 0px;
+gap: 30px;
+
+position: absolute;
+width: 1160px;
+height: 98px;
+left: 60px;
+top: 6762.8px;
+
+
+
+/* Heading */
+
+width: 905px;
+height: 98px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 40px;
+line-height: 49px;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+box-sizing: border-box;
+
+width: 158px;
+height: 58px;
+
+border: 1px solid #FFFFFF;
+border-radius: 38px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Meet All */
+
+position: absolute;
+width: 68px;
+height: 20px;
+left: calc(50% - 68px/2 - 23px);
+top: calc(50% - 20px/2);
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* Default */
+
+position: absolute;
+width: 44.62px;
+height: 44.62px;
+right: 8.38px;
+top: calc(50% - 44.62px/2 + 0.31px);
+
+
+
+/* Ellipse 2 */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #FFFFFF;
+
+
+/* solar:arrow-up-linear */
+
+position: absolute;
+height: 30.33px;
+left: 2.26%;
+right: 29.77%;
+top: 1.01px;
+
+transform: rotate(49.57deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 32.79%;
+right: 17.21%;
+top: 32.34%;
+bottom: 11.64%;
+
+border: 1.3728px solid #000000;
+border-radius: 6.1776px;
+transform: rotate(49.57deg);
+
+
+/* Frame 427319044 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 33px;
+
+position: absolute;
+width: 1452px;
+height: 231px;
+left: calc(50% - 1452px/2 - 23px);
+top: 5265px;
+
+
+
+/* Review 3 */
+
+width: 462px;
+height: 231px;
+
+background: #0C0C0C;
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Line 14 */
+
+position: absolute;
+width: 217px;
+height: 0px;
+left: calc(50% - 217px/2 - 81.5px);
+top: 100px;
+
+border: 1px solid #BDBDBD;
+
+
+/* ISO 9001 */
+
+position: absolute;
+width: 105px;
+height: 29px;
+left: 41px;
+top: 37px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* 2022 */
+
+position: absolute;
+width: 58px;
+height: 29px;
+left: 201px;
+top: 37px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* Quality management system ensuring consistent product quality and customer satisfaction. */
+
+position: absolute;
+width: 232px;
+height: 80px;
+left: 41px;
+top: 134px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 20px;
+
+color: #979797;
+
+
+
+/* Rectangle 15 */
+
+position: absolute;
+width: 144px;
+height: 179px;
+left: 291px;
+top: 31px;
+
+background: url(14583079_5476901);
+border-radius: 5px;
+
+
+/* Review 4 */
+
+width: 462px;
+height: 231px;
+
+background: #0C0C0C;
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Line 14 */
+
+position: absolute;
+width: 217px;
+height: 0px;
+left: calc(50% - 217px/2 - 81.5px);
+top: 100px;
+
+border: 1px solid #BDBDBD;
+
+
+/* IATF 16949 */
+
+position: absolute;
+width: 130px;
+height: 29px;
+left: 41px;
+top: 37px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* 2021 */
+
+position: absolute;
+width: 53px;
+height: 29px;
+left: 201px;
+top: 37px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* Automotive quality management standard for production and service parts */
+
+position: absolute;
+width: 232px;
+height: 80px;
+left: 41px;
+top: 134px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 20px;
+
+color: #979797;
+
+
+
+/* Rectangle 15 */
+
+position: absolute;
+width: 144px;
+height: 179px;
+left: 291px;
+top: 31px;
+
+background: url(192632374_e03a5222-61fb-4255-943b-4dc4374d6f2c);
+border-radius: 5px;
+
+
+/* Review 5 */
+
+width: 462px;
+height: 231px;
+
+background: #0C0C0C;
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Line 14 */
+
+position: absolute;
+width: 217px;
+height: 0px;
+left: calc(50% - 217px/2 - 81.5px);
+top: 100px;
+
+border: 1px solid #BDBDBD;
+
+
+/* AS9100 Rev. D */
+
+position: absolute;
+width: 171px;
+height: 29px;
+left: 41px;
+top: 37px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* Aerospace industry quality management standard emphasizing reliability, safety, and compliance. */
+
+position: absolute;
+width: 232px;
+height: 80px;
+left: 41px;
+top: 134px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 20px;
+
+color: #979797;
+
+
+
+/* Rectangle 15 */
+
+position: absolute;
+width: 144px;
+height: 179px;
+left: 291px;
+top: 31px;
+
+background: url(1530001_3803);
+border-radius: 5px;
+
+
+/* Frame 427319045 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 33px;
+
+position: absolute;
+width: 1947px;
+height: 231px;
+left: calc(50% - 1947px/2 - 0.5px);
+top: 5540px;
+
+
+
+/* Review 3 */
+
+width: 462px;
+height: 231px;
+
+background: #0C0C0C;
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Line 14 */
+
+position: absolute;
+width: 217px;
+height: 0px;
+left: calc(50% - 217px/2 - 81.5px);
+top: 100px;
+
+border: 1px solid #BDBDBD;
+
+
+/* ISO 9001 */
+
+position: absolute;
+width: 105px;
+height: 29px;
+left: 41px;
+top: 37px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* 2022 */
+
+position: absolute;
+width: 58px;
+height: 29px;
+left: 201px;
+top: 37px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* Quality management system ensuring consistent product quality and customer satisfaction. */
+
+position: absolute;
+width: 232px;
+height: 80px;
+left: 41px;
+top: 134px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 20px;
+
+color: #979797;
+
+
+
+/* Rectangle 16 */
+
+position: absolute;
+width: 144px;
+height: 179px;
+left: 291px;
+top: 31px;
+
+background: url(192632374_e03a5222-61fb-4255-943b-4dc4374d6f2c);
+border-radius: 5px;
+
+
+/* Review 4 */
+
+width: 462px;
+height: 231px;
+
+background: #0C0C0C;
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Line 14 */
+
+position: absolute;
+width: 217px;
+height: 0px;
+left: calc(50% - 217px/2 - 81.5px);
+top: 100px;
+
+border: 1px solid #BDBDBD;
+
+
+/* ISO 9001 */
+
+position: absolute;
+width: 105px;
+height: 29px;
+left: 41px;
+top: 37px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* 2022 */
+
+position: absolute;
+width: 58px;
+height: 29px;
+left: 201px;
+top: 37px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* Quality management system ensuring consistent product quality and customer satisfaction. */
+
+position: absolute;
+width: 232px;
+height: 80px;
+left: 41px;
+top: 134px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 20px;
+
+color: #979797;
+
+
+
+/* Rectangle 16 */
+
+position: absolute;
+width: 144px;
+height: 179px;
+left: 291px;
+top: 31px;
+
+background: url(1530001_3803);
+border-radius: 5px;
+
+
+/* Review 5 */
+
+width: 462px;
+height: 231px;
+
+background: #0C0C0C;
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Line 14 */
+
+position: absolute;
+width: 217px;
+height: 0px;
+left: calc(50% - 217px/2 - 81.5px);
+top: 100px;
+
+border: 1px solid #BDBDBD;
+
+
+/* AS9100 Rev. D */
+
+position: absolute;
+width: 171px;
+height: 29px;
+left: 41px;
+top: 37px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* Aerospace industry quality management standard emphasizing reliability, safety, and compliance. */
+
+position: absolute;
+width: 232px;
+height: 80px;
+left: 41px;
+top: 134px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 20px;
+
+color: #979797;
+
+
+
+/* Rectangle 16 */
+
+position: absolute;
+width: 144px;
+height: 179px;
+left: 291px;
+top: 31px;
+
+background: url(14583079_5476901);
+border-radius: 5px;
+
+
+/* Review 6 */
+
+width: 462px;
+height: 231px;
+
+background: #0C0C0C;
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* Line 14 */
+
+position: absolute;
+width: 217px;
+height: 0px;
+left: calc(50% - 217px/2 - 81.5px);
+top: 100px;
+
+border: 1px solid #BDBDBD;
+
+
+/* ISO 9001 */
+
+position: absolute;
+width: 105px;
+height: 29px;
+left: 41px;
+top: 37px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* 2022 */
+
+position: absolute;
+width: 58px;
+height: 29px;
+left: 201px;
+top: 37px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* Quality management system ensuring consistent product quality and customer satisfaction. */
+
+position: absolute;
+width: 232px;
+height: 80px;
+left: 41px;
+top: 134px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 20px;
+
+color: #979797;
+
+
+
+/* Rectangle 15 */
+
+position: absolute;
+width: 144px;
+height: 179px;
+left: 291px;
+top: 31px;
+
+background: #D9D9D9;
+border-radius: 5px;
+
+
+/* Frame 427319056 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 30px;
+
+position: absolute;
+width: 1161px;
+height: 445px;
+left: 60px;
+top: 6959.8px;
+
+
+
+/* Frame 427319053 */
+
+width: 367px;
+height: 445px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Rectangle 27 */
+
+position: absolute;
+width: 367px;
+height: 445px;
+left: 0px;
+top: 0px;
+
+background: url(Busy Middle Aged Business Man Ceo Standing in Office Using Mobile Cell Phone_ Stock Photo - Image of cellphone, device_ 278650282);
+border-radius: 10px;
+
+
+/* Frame 427319050 */
+
+position: absolute;
+width: 367px;
+height: 96px;
+left: calc(50% - 367px/2);
+bottom: 0px;
+
+background: #0C0C0C;
+border-radius: 0px 0px 10px 10px;
+
+
+/* Frame 427319051 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 5px;
+
+position: absolute;
+width: 151px;
+height: 47px;
+left: 17px;
+top: calc(50% - 47px/2 + 0.5px);
+
+
+
+/* Abhijeet Sinha */
+
+width: 151px;
+height: 24px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+line-height: 24px;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* CEO */
+
+width: 151px;
+height: 18px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 15px;
+line-height: 18px;
+
+color: #6E6E6E;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Ellipse 14 */
+
+position: absolute;
+width: 33px;
+height: 33px;
+left: 207px;
+top: calc(50% - 33px/2 + 0.5px);
+
+background: #1F1F1F;
+
+
+/* Path 2520 */
+
+position: absolute;
+left: 59.13%;
+right: 37.17%;
+top: 43.75%;
+bottom: 42.25%;
+
+background: #FFFFFF;
+
+
+/* Ellipse 15 */
+
+position: absolute;
+width: 33px;
+height: 33px;
+left: 257px;
+top: calc(50% - 33px/2 + 0.5px);
+
+background: #1F1F1F;
+
+
+/* Ellipse 16 */
+
+position: absolute;
+width: 33px;
+height: 33px;
+left: 307px;
+top: calc(50% - 33px/2 + 0.5px);
+
+background: #1F1F1F;
+
+
+/* image 10 */
+
+position: absolute;
+width: 23px;
+height: 23px;
+left: 262px;
+top: 37px;
+
+background: url(.png);
+
+
+/* Symbol.png */
+
+position: absolute;
+width: 17px;
+height: 17px;
+left: 315px;
+top: 40px;
+
+background: url();
+
+
+/* Frame 427319054 */
+
+width: 367px;
+height: 445px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Rectangle 28 */
+
+position: absolute;
+width: 367px;
+height: 445px;
+left: 0px;
+top: 0px;
+
+background: url(Corporate employee Photos - Download Free High-Quality Pictures _ Freepik);
+border-radius: 10px;
+
+
+/* Frame 427319051 */
+
+position: absolute;
+width: 367px;
+height: 96px;
+left: calc(50% - 367px/2);
+bottom: 0px;
+
+background: #0C0C0C;
+border-radius: 0px 0px 10px 10px;
+
+
+/* Frame 427319051 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 5px;
+
+position: absolute;
+width: 87px;
+height: 47px;
+left: 17px;
+top: calc(50% - 47px/2 + 0.5px);
+
+
+
+/* Seemrat */
+
+width: 87px;
+height: 24px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+line-height: 24px;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* CEO */
+
+width: 87px;
+height: 18px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 15px;
+line-height: 18px;
+
+color: #6E6E6E;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Ellipse 14 */
+
+position: absolute;
+width: 33px;
+height: 33px;
+left: 207px;
+top: calc(50% - 33px/2 + 0.5px);
+
+background: #1F1F1F;
+
+
+/* Path 2520 */
+
+position: absolute;
+left: 59.13%;
+right: 37.17%;
+top: 42.71%;
+bottom: 43.29%;
+
+background: #FFFFFF;
+
+
+/* Ellipse 15 */
+
+position: absolute;
+width: 33px;
+height: 33px;
+left: 257px;
+top: calc(50% - 33px/2 + 0.5px);
+
+background: #1F1F1F;
+
+
+/* Ellipse 16 */
+
+position: absolute;
+width: 33px;
+height: 33px;
+left: 307px;
+top: calc(50% - 33px/2 + 0.5px);
+
+background: #1F1F1F;
+
+
+/* Symbol.png */
+
+position: absolute;
+width: 17px;
+height: 17px;
+left: 315px;
+top: 40px;
+
+background: url();
+
+
+/* image 10 */
+
+position: absolute;
+width: 23px;
+height: 23px;
+left: 262px;
+top: 37px;
+
+background: url(.png);
+
+
+/* Frame 427319055 */
+
+width: 367px;
+height: 445px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Rectangle 29 */
+
+position: absolute;
+width: 367px;
+height: 445px;
+left: 0px;
+top: 0px;
+
+background: url(Portrait of indian male businessman standing over white background _ Premium Photo);
+border-radius: 10px;
+
+
+/* Frame 427319052 */
+
+position: absolute;
+width: 367px;
+height: 96px;
+left: calc(50% - 367px/2);
+bottom: 0px;
+
+background: #0C0C0C;
+border-radius: 0px 0px 10px 10px;
+
+
+/* Frame 427319051 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 5px;
+
+position: absolute;
+width: 142px;
+height: 47px;
+left: 17px;
+top: calc(50% - 47px/2 + 0.5px);
+
+
+
+/* Rohan Mishra */
+
+width: 142px;
+height: 24px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+line-height: 24px;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* CEO */
+
+width: 142px;
+height: 18px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 15px;
+line-height: 18px;
+
+color: #6E6E6E;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Ellipse 14 */
+
+position: absolute;
+width: 33px;
+height: 33px;
+left: 207px;
+top: calc(50% - 33px/2 + 0.5px);
+
+background: #1F1F1F;
+
+
+/* Path 2520 */
+
+position: absolute;
+left: 59.13%;
+right: 37.17%;
+top: 42.71%;
+bottom: 43.29%;
+
+background: #FFFFFF;
+
+
+/* Ellipse 15 */
+
+position: absolute;
+width: 33px;
+height: 33px;
+left: 257px;
+top: calc(50% - 33px/2 + 0.5px);
+
+background: #1F1F1F;
+
+
+/* Ellipse 16 */
+
+position: absolute;
+width: 33px;
+height: 33px;
+left: 307px;
+top: calc(50% - 33px/2 + 0.5px);
+
+background: #1F1F1F;
+
+
+/* Symbol.png */
+
+position: absolute;
+width: 17px;
+height: 17px;
+left: 315px;
+top: 40px;
+
+background: url();
+
+
+/* image 10 */
+
+position: absolute;
+width: 23px;
+height: 23px;
+left: 262px;
+top: 37px;
+
+background: url(.png);
+
+
+/* Frame 427319048 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 5.98px;
+
+position: absolute;
+width: 92.92px;
+height: 13.8px;
+left: calc(50% - 92.92px/2 - 22.54px);
+top: 6524px;
+
+
+
+/* Ellipse 10 */
+
+width: 13.8px;
+height: 13.8px;
+
+background: #6A6A6A;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Ellipse 11 */
+
+width: 13.8px;
+height: 13.8px;
+
+background: #6A6A6A;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Ellipse 9 */
+
+width: 13.8px;
+height: 13.8px;
+
+background: #FFFFFF;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Ellipse 12 */
+
+width: 13.8px;
+height: 13.8px;
+
+background: #6A6A6A;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* Ellipse 13 */
+
+width: 13.8px;
+height: 13.8px;
+
+background: #6A6A6A;
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+flex-grow: 0;
+
+
+/* Contact */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 29px;
+
+position: absolute;
+width: 1151.5px;
+height: 22px;
+left: calc(50% - 1151.5px/2 - 4.25px);
+top: 6641.8px;
+
+
+
+/* TEAM */
+
+width: 44px;
+height: 22px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Line 7 */
+
+width: 1078.5px;
+height: 0px;
+
+border: 2px solid #B1B1B1;
+transform: rotate(0.01deg);
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Contact */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 29px;
+
+position: absolute;
+width: 1145px;
+height: 22px;
+left: calc(50% - 1145px/2 - 7.5px);
+top: 7509px;
+
+
+
+/* TESTIMONIALS */
+
+width: 114px;
+height: 22px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Line 7 */
+
+width: 1002px;
+height: 0px;
+
+border: 2px solid #B1B1B1;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Frame 427319064 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 0px;
+gap: 121px;
+
+position: absolute;
+width: 1160px;
+height: 103px;
+left: 60px;
+top: 2166px;
+
+
+
+/* More About Us */
+
+width: 246px;
+height: 39px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 32px;
+line-height: 39px;
+/* identical to box height */
+
+color: #929292;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Frame 427319028 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 118px;
+
+width: 793px;
+height: 103px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Frame 427319022 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+width: 115px;
+height: 103px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Experience */
+
+width: 115px;
+height: 24px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 24px;
+
+color: #929292;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* 25+ */
+
+width: 115px;
+height: 59px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 48px;
+line-height: 59px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Frame 427319023 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+width: 144px;
+height: 103px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Established In */
+
+width: 144px;
+height: 24px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 24px;
+
+color: #929292;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 1998 */
+
+width: 110px;
+height: 59px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 48px;
+line-height: 59px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Frame 427319027 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+width: 298px;
+height: 103px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Parts Manufactured Annually */
+
+width: 298px;
+height: 24px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 24px;
+
+color: #929292;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 150M+ */
+
+width: 153px;
+height: 59px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 48px;
+line-height: 59px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Frame 427319024 */
+
+position: absolute;
+width: 1160px;
+height: 530px;
+left: calc(50% - 1160px/2);
+top: 2522px;
+
+background: rgba(33, 33, 33, 0.35);
+border-radius: 30px;
+
+
+/* Frame 427319059 */
+
+position: absolute;
+width: 1160px;
+height: 783px;
+left: calc(50% - 1160px/2);
+top: 595px;
+
+background: rgba(33, 33, 33, 0.35);
+border-radius: 30px;
+
+
+/* From concept to creation, we deliver mechanical components built to perform under pressure and crafted for excellence */
+
+position: absolute;
+width: 896px;
+height: 132px;
+left: calc(50% - 896px/2);
+top: 83px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 36px;
+line-height: 44px;
+text-align: center;
+
+color: #FFFFFF;
+
+
+
+/* Shyaam Industries is a precision engineering company specializing in the design, manufacture, and supply of high-performance mechanical components */
+
+position: absolute;
+width: 553px;
+height: 72px;
+left: 550px;
+top: 378px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 24px;
+
+color: #929292;
+
+
+
+/* We cater to automotive, industrial machinery, agricultural equipment, and aerospace sectors — delivering reliable, scalable, and custom-built solutions that meet global quality standards */
+
+position: absolute;
+width: 553px;
+height: 96px;
+left: 550px;
+top: 473px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 24px;
+
+color: #929292;
+
+
+
+/* Our USP lies in consistent precision, material integrity, and adaptive production, empowering businesses worldwide to move faster, perform better, and build smarter. */
+
+position: absolute;
+width: 553px;
+height: 96px;
+left: 550px;
+top: 592px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 24px;
+
+color: #929292;
+
+
+
+/* Group 1 */
+
+position: absolute;
+width: 987px;
+height: 69px;
+left: calc(50% - 987px/2 - 0.5px);
+top: 2406px;
+
+
+
+/* Line 18 */
+
+position: absolute;
+width: 131px;
+height: 0px;
+left: calc(50% - 131px/2 - 398.5px);
+top: 2475px;
+
+border: 1px solid #FFFFFF;
+
+
+/* Frame 427319021 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 116px;
+
+position: absolute;
+width: 987px;
+height: 53px;
+left: calc(50% - 987px/2 - 0.5px);
+top: 2406px;
+
+
+
+/* Frame 427319020 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 12px 16px;
+gap: 10px;
+
+width: 191px;
+height: 53px;
+
+background: rgba(255, 255, 255, 0.12);
+border-radius: 14px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Raw Material */
+
+width: 159px;
+height: 29px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Machines */
+
+width: 117px;
+height: 29px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Mfg Process */
+
+width: 149px;
+height: 29px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Specializations */
+
+width: 182px;
+height: 29px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* SERVICES */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 29px;
+
+position: absolute;
+width: 1158px;
+height: 22px;
+left: calc(50% - 1158px/2 - 1px);
+top: 3156px;
+
+
+
+/* SERVICES */
+
+width: 76px;
+height: 22px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Line 7 */
+
+width: 1053px;
+height: 0px;
+
+border: 2px solid #B1B1B1;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Frame 427319063 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 22px;
+
+position: absolute;
+width: 1162px;
+height: 119px;
+left: 60px;
+top: 1603px;
+
+
+
+/* Heading */
+
+width: 1162px;
+height: 49px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 40px;
+line-height: 49px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* We collaborate with top-tier vendors who share our passion for precision and performance. Through consistent quality and timely delivery, we help them achieve efficiency, durability, and innovation in every build. */
+
+width: 1162px;
+height: 48px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 24px;
+
+color: #929292;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Frame 427319062 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 0px;
+gap: 30px;
+
+position: absolute;
+width: 1160px;
+height: 98px;
+left: 60px;
+top: 3277px;
+
+
+
+/* Heading */
+
+width: 905px;
+height: 98px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 40px;
+line-height: 49px;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+box-sizing: border-box;
+
+width: 225px;
+height: 58px;
+
+border: 1px solid #FFFFFF;
+border-radius: 38px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* View All Services */
+
+position: absolute;
+width: 139px;
+height: 20px;
+left: calc(50% - 139px/2 - 25px);
+top: calc(50% - 20px/2 - 1px);
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* Default */
+
+position: absolute;
+width: 44.62px;
+height: 44.62px;
+right: 8.38px;
+top: calc(50% - 44.62px/2 + 0.31px);
+
+
+
+/* Ellipse 2 */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #FFFFFF;
+
+
+/* solar:arrow-up-linear */
+
+position: absolute;
+height: 30.33px;
+left: 2.26%;
+right: 29.77%;
+top: 1.01px;
+
+transform: rotate(49.57deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 32.79%;
+right: 17.21%;
+top: 32.34%;
+bottom: 11.64%;
+
+border: 1.3728px solid #000000;
+border-radius: 6.1776px;
+transform: rotate(49.57deg);
+
+
+/* Hovered State */
+
+position: absolute;
+width: 1160px;
+height: 315px;
+left: calc(50% - 1160px/2);
+top: 3441px;
+
+background: #131313;
+border-radius: 30px;
+
+
+/* Product Design & Prototyping */
+
+position: absolute;
+width: 255px;
+height: 58px;
+left: 58px;
+top: 52px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* Button */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 225px;
+height: 58px;
+left: 412px;
+top: 200px;
+
+border: 1px solid #FFFFFF;
+border-radius: 38px;
+
+
+/* Read More */
+
+position: absolute;
+width: 81px;
+height: 22px;
+left: calc(50% - 81px/2 - 54px);
+top: calc(50% - 22px/2);
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* Default */
+
+position: absolute;
+width: 44.62px;
+height: 44.62px;
+right: 8.38px;
+top: calc(50% - 44.62px/2 + 0.31px);
+
+
+
+/* Ellipse 2 */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #FFFFFF;
+
+
+/* solar:arrow-up-linear */
+
+position: absolute;
+height: 30.33px;
+left: 2.26%;
+right: 29.77%;
+top: 1.01px;
+
+transform: rotate(49.57deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 32.79%;
+right: 17.21%;
+top: 32.34%;
+bottom: 11.64%;
+
+border: 1.3728px solid #000000;
+border-radius: 6.1776px;
+transform: rotate(49.57deg);
+
+
+/* From CAD modeling to functional prototypes, enabling faster innovation. */
+
+position: absolute;
+width: 351px;
+height: 72px;
+left: calc(50% - 351px/2 - 11.5px);
+top: 52px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 24px;
+
+color: #FFFFFF;
+
+
+
+/* Rectangle 14 */
+
+position: absolute;
+width: 261px;
+height: 199px;
+left: 862px;
+top: 52px;
+
+background: url(.jpg), #FFFFFF;
+border-radius: 30px;
+
+
+/* Hovered State */
+
+position: absolute;
+width: 1160px;
+height: 315px;
+left: calc(50% - 1160px/2);
+top: 3805px;
+
+background: #131313;
+border-radius: 30px;
+
+
+/* Precision Machining */
+
+position: absolute;
+width: 252px;
+height: 29px;
+left: 58px;
+top: 57px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* Button */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 225px;
+height: 58px;
+left: 412px;
+top: 200px;
+
+border: 1px solid #FFFFFF;
+border-radius: 38px;
+
+
+/* Read More */
+
+position: absolute;
+width: 81px;
+height: 22px;
+left: calc(50% - 81px/2 - 54px);
+top: calc(50% - 22px/2);
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* Default */
+
+position: absolute;
+width: 44.62px;
+height: 44.62px;
+right: 8.38px;
+top: calc(50% - 44.62px/2 + 0.31px);
+
+
+
+/* Ellipse 2 */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #FFFFFF;
+
+
+/* solar:arrow-up-linear */
+
+position: absolute;
+height: 30.33px;
+left: 2.26%;
+right: 29.77%;
+top: 1.01px;
+
+transform: rotate(49.57deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 32.79%;
+right: 17.21%;
+top: 32.34%;
+bottom: 11.64%;
+
+border: 1.3728px solid #000000;
+border-radius: 6.1776px;
+transform: rotate(49.57deg);
+
+
+/* High-tolerance CNC turning, milling, and grinding for complex geometries. */
+
+position: absolute;
+width: 351px;
+height: 72px;
+left: 412px;
+top: 57px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 24px;
+
+color: #FFFFFF;
+
+
+
+/* Rectangle 14 */
+
+position: absolute;
+width: 261px;
+height: 199px;
+left: 862px;
+top: 52px;
+
+background: url(.jpg), #D9D9D9;
+border-radius: 30px;
+
+
+/* Hovered State */
+
+position: absolute;
+width: 1160px;
+height: 315px;
+left: calc(50% - 1160px/2);
+top: 4169px;
+
+background: #131313;
+border-radius: 30px;
+
+
+/* Casting & Forging */
+
+position: absolute;
+width: 222px;
+height: 29px;
+left: 58px;
+top: 57px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* Button */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 225px;
+height: 58px;
+left: 412px;
+top: 200px;
+
+border: 1px solid #FFFFFF;
+border-radius: 38px;
+
+
+/* Read More */
+
+position: absolute;
+width: 81px;
+height: 22px;
+left: calc(50% - 81px/2 - 54px);
+top: calc(50% - 22px/2);
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* Default */
+
+position: absolute;
+width: 44.62px;
+height: 44.62px;
+right: 8.38px;
+top: calc(50% - 44.62px/2 + 0.31px);
+
+
+
+/* Ellipse 2 */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #FFFFFF;
+
+
+/* solar:arrow-up-linear */
+
+position: absolute;
+height: 30.33px;
+left: 2.26%;
+right: 29.77%;
+top: 1.01px;
+
+transform: rotate(49.57deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 32.79%;
+right: 17.21%;
+top: 32.34%;
+bottom: 11.64%;
+
+border: 1.3728px solid #000000;
+border-radius: 6.1776px;
+transform: rotate(49.57deg);
+
+
+/* Aluminium, steel, and iron components produced through sand, die, and investment casting */
+
+position: absolute;
+width: 351px;
+height: 72px;
+left: 412px;
+top: 57px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 24px;
+
+color: #FFFFFF;
+
+
+
+/* Rectangle 14 */
+
+position: absolute;
+width: 261px;
+height: 199px;
+left: 862px;
+top: 52px;
+
+background: url(.jpg), #D9D9D9;
+border-radius: 30px;
+
+
+/* Hovered State */
+
+position: absolute;
+width: 1160px;
+height: 315px;
+left: calc(50% - 1160px/2);
+top: 4533px;
+
+background: #131313;
+border-radius: 30px;
+
+
+/* Fabrication & Welding */
+
+position: absolute;
+width: 276px;
+height: 29px;
+left: 58px;
+top: 57px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* Button */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 225px;
+height: 58px;
+left: 412px;
+top: 200px;
+
+border: 1px solid #FFFFFF;
+border-radius: 38px;
+
+
+/* Read More */
+
+position: absolute;
+width: 81px;
+height: 22px;
+left: calc(50% - 81px/2 - 54px);
+top: calc(50% - 22px/2);
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* Default */
+
+position: absolute;
+width: 44.62px;
+height: 44.62px;
+right: 8.38px;
+top: calc(50% - 44.62px/2 + 0.31px);
+
+
+
+/* Ellipse 2 */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #FFFFFF;
+
+
+/* solar:arrow-up-linear */
+
+position: absolute;
+height: 30.33px;
+left: 2.26%;
+right: 29.77%;
+top: 1.01px;
+
+transform: rotate(49.57deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 32.79%;
+right: 17.21%;
+top: 32.34%;
+bottom: 11.64%;
+
+border: 1.3728px solid #000000;
+border-radius: 6.1776px;
+transform: rotate(49.57deg);
+
+
+/* Custom assemblies using MIG, TIG, and robotic welding for durability and strength. */
+
+position: absolute;
+width: 351px;
+height: 72px;
+left: 412px;
+top: 57px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 24px;
+
+color: #FFFFFF;
+
+
+
+/* Rectangle 14 */
+
+position: absolute;
+width: 261px;
+height: 199px;
+left: 862px;
+top: 52px;
+
+background: url(.jpg), #D9D9D9;
+border-radius: 30px;
+
+
+/* Frame 427319058 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 4.56px;
+
+position: absolute;
+width: 1914.44px;
+height: 154.28px;
+left: calc(50% - 1914.44px/2 + 0.22px);
+top: 1839px;
+
+
+
+/* Vendor 1 */
+
+box-sizing: border-box;
+
+width: 379.24px;
+height: 154.28px;
+
+border: 1.5px solid #616161;
+border-radius: 15.2px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* image 14 */
+
+position: absolute;
+width: 357.5px;
+height: 71.5px;
+left: calc(50% - 357.5px/2 + 0.38px);
+top: calc(50% - 71.5px/2 + 0.38px);
+
+background: url(.png);
+
+
+/* Vendor 2 */
+
+box-sizing: border-box;
+
+width: 379.24px;
+height: 154.28px;
+
+border: 1.5px solid #616161;
+border-radius: 76px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* image 13 */
+
+position: absolute;
+width: 294.1px;
+height: 39.52px;
+left: calc(50% - 294.1px/2 + 0.38px);
+top: calc(50% - 39.52px/2 + 0.38px);
+
+background: url(image);
+
+
+/* Vendor 3 */
+
+box-sizing: border-box;
+
+width: 379.24px;
+height: 154.28px;
+
+border: 1.5px solid #616161;
+border-radius: 15.2px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* image 11 */
+
+position: absolute;
+width: 140.54px;
+height: 37.67px;
+left: calc(50% - 140.54px/2 + 0.38px);
+top: calc(50% - 37.67px/2 + 0.38px);
+
+background: url();
+
+
+/* Vendor 4 */
+
+box-sizing: border-box;
+
+width: 379.24px;
+height: 154.28px;
+
+border: 1.5px solid #616161;
+border-radius: 76px;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* image 12 */
+
+position: absolute;
+width: 251px;
+height: 25.69px;
+left: calc(50% - 251px/2 - 0.3px);
+top: calc(50% - 25.69px/2 + 0.3px);
+
+background: url();
+
+
+/* Vendor 4 */
+
+box-sizing: border-box;
+
+width: 379.24px;
+height: 154.28px;
+
+border: 1.5px solid #616161;
+border-radius: 15.2px;
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+flex-grow: 0;
+
+
+/* Group 4 */
+
+position: absolute;
+width: 208.16px;
+height: 25.31px;
+left: calc(50% - 208.16px/2 + 0.34px);
+top: calc(50% - 25.31px/2 + 0.12px);
+
+
+
+/* Vector */
+
+position: absolute;
+width: 208.16px;
+left: calc(50% - 208.16px/2 + 0.34px);
+top: 41.87%;
+bottom: 41.72%;
+
+background: #E81738;
+
+
+/* Review 3 */
+
+position: absolute;
+width: 390px;
+height: 299px;
+left: -59px;
+top: 7635px;
+
+background: #FFFFFF;
+border-radius: 10px;
+
+
+/* “Top-tier precision and timely delivery — Shyaam Industries has redefined our supply standards.”  */
+
+position: absolute;
+width: 296px;
+height: 140px;
+left: 35px;
+top: 154px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* or 140% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Frame 1417 */
+
+position: absolute;
+width: 69px;
+height: 69px;
+left: 35px;
+top: 33px;
+
+background: url(.jpg), #A3A3A3;
+border-radius: 10px;
+
+
+/* Group 1 */
+
+position: absolute;
+width: 207px;
+height: 63px;
+left: 124px;
+top: 36px;
+
+
+
+/* Rahul Sharma */
+
+position: absolute;
+width: 178px;
+height: 28px;
+left: 124px;
+top: 36px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 28px;
+/* identical to box height, or 117% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Head of Procurement */
+
+position: absolute;
+width: 207px;
+height: 28px;
+left: 124px;
+top: 71px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* identical to box height, or 140% */
+letter-spacing: 0.02em;
+
+color: #6A6A6A;
+
+
+
+/* Line 14 */
+
+position: absolute;
+width: 323px;
+height: 0px;
+left: calc(50% - 323px/2 - 0.5px);
+top: 128px;
+
+border: 1px solid #BDBDBD;
+
+
+/* Frame 427319060 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 24px;
+
+position: absolute;
+width: 1632px;
+height: 299px;
+left: -59px;
+top: 7635px;
+
+
+
+/* Review 5 */
+
+width: 390px;
+height: 299px;
+
+background: #FFFFFF;
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* “Top-tier precision and timely delivery — Shyaam Industries has redefined our supply standards.” */
+
+position: absolute;
+width: 296px;
+height: 112px;
+left: 35px;
+top: 154px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* or 140% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Frame 1417 */
+
+position: absolute;
+width: 69px;
+height: 69px;
+left: 35px;
+top: 33px;
+
+background: url(.jpg), #A3A3A3;
+border-radius: 10px;
+
+
+/* Group 1 */
+
+position: absolute;
+width: 207px;
+height: 63px;
+left: 124px;
+top: 36px;
+
+
+
+/* Rahul Sharma */
+
+position: absolute;
+width: 178px;
+height: 28px;
+left: 124px;
+top: 36px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 28px;
+/* identical to box height, or 117% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Head of Procurement */
+
+position: absolute;
+width: 207px;
+height: 28px;
+left: 124px;
+top: 71px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* identical to box height, or 140% */
+letter-spacing: 0.02em;
+
+color: #6A6A6A;
+
+
+
+/* Line 14 */
+
+position: absolute;
+width: 323px;
+height: 0px;
+left: calc(50% - 323px/2 - 0.5px);
+top: 128px;
+
+border: 1px solid #BDBDBD;
+
+
+/* Review 6 */
+
+width: 390px;
+height: 299px;
+
+background: #FFFFFF;
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* “Unmatched accuracy and reliability — exactly what aerospace demands.” */
+
+position: absolute;
+width: 296px;
+height: 84px;
+left: 35px;
+top: 154px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* or 140% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Frame 1417 */
+
+position: absolute;
+width: 69px;
+height: 69px;
+left: 35px;
+top: 33px;
+
+background: url(.jpg), #A3A3A3;
+border-radius: 10px;
+
+
+/* Group 1 */
+
+position: absolute;
+width: 171px;
+height: 63px;
+left: 124px;
+top: 36px;
+
+
+
+/* Leon D’Souza */
+
+position: absolute;
+width: 171px;
+height: 28px;
+left: 124px;
+top: 36px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 28px;
+/* identical to box height, or 117% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* QA Lead */
+
+position: absolute;
+width: 79px;
+height: 28px;
+left: 124px;
+top: 71px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* identical to box height, or 140% */
+letter-spacing: 0.02em;
+
+color: #6A6A6A;
+
+
+
+/* Line 14 */
+
+position: absolute;
+width: 323px;
+height: 0px;
+left: calc(50% - 323px/2 - 0.5px);
+top: 128px;
+
+border: 1px solid #BDBDBD;
+
+
+/* Review 7 */
+
+width: 390px;
+height: 299px;
+
+background: #FFFFFF;
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* “Adaptive production and flawless quality — perfect for our scaling needs.” */
+
+position: absolute;
+width: 296px;
+height: 84px;
+left: 35px;
+top: 154px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* or 140% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Frame 1417 */
+
+position: absolute;
+width: 69px;
+height: 69px;
+left: 35px;
+top: 33px;
+
+background: url(.jpg), #A3A3A3;
+border-radius: 10px;
+
+
+/* Group 1 */
+
+position: absolute;
+width: 181px;
+height: 63px;
+left: 124px;
+top: 36px;
+
+
+
+/* Vikram Kumar */
+
+position: absolute;
+width: 181px;
+height: 28px;
+left: 124px;
+top: 36px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 28px;
+/* identical to box height, or 117% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Product Manager */
+
+position: absolute;
+width: 168px;
+height: 28px;
+left: 124px;
+top: 71px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* identical to box height, or 140% */
+letter-spacing: 0.02em;
+
+color: #6A6A6A;
+
+
+
+/* Line 14 */
+
+position: absolute;
+width: 323px;
+height: 0px;
+left: calc(50% - 323px/2 - 0.5px);
+top: 128px;
+
+border: 1px solid #BDBDBD;
+
+
+/* Review 4 */
+
+width: 390px;
+height: 299px;
+
+background: #FFFFFF;
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* “Exceptional detail and seamless collaboration. They just get it right every time.” */
+
+position: absolute;
+width: 296px;
+height: 84px;
+left: 35px;
+top: 154px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* or 140% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Frame 1417 */
+
+position: absolute;
+width: 69px;
+height: 69px;
+left: 35px;
+top: 33px;
+
+background: url(.jpg), #A3A3A3;
+border-radius: 10px;
+
+
+/* Group 1 */
+
+position: absolute;
+width: 200px;
+height: 63px;
+left: 124px;
+top: 36px;
+
+
+
+/* Anita Mehta */
+
+position: absolute;
+width: 155px;
+height: 28px;
+left: 124px;
+top: 36px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 28px;
+/* identical to box height, or 117% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Operations Director */
+
+position: absolute;
+width: 200px;
+height: 28px;
+left: 124px;
+top: 71px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* identical to box height, or 140% */
+letter-spacing: 0.02em;
+
+color: #6A6A6A;
+
+
+
+/* Line 14 */
+
+position: absolute;
+width: 323px;
+height: 0px;
+left: calc(50% - 323px/2 - 0.5px);
+top: 128px;
+
+border: 1px solid #BDBDBD;
+
+
+/* Frame 427319061 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 24px;
+
+position: absolute;
+width: 1632px;
+height: 299px;
+left: calc(50% - 1632px/2);
+top: 7956px;
+
+
+
+/* Review 5 */
+
+width: 390px;
+height: 299px;
+
+background: #FFFFFF;
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* “Top-tier precision and timely delivery — Shyaam Industries has redefined our supply standards.” */
+
+position: absolute;
+width: 296px;
+height: 112px;
+left: 35px;
+top: 154px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* or 140% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Frame 1417 */
+
+position: absolute;
+width: 69px;
+height: 69px;
+left: 35px;
+top: 33px;
+
+background: url(.jpg), #A3A3A3;
+border-radius: 10px;
+
+
+/* Group 1 */
+
+position: absolute;
+width: 207px;
+height: 63px;
+left: 124px;
+top: 36px;
+
+
+
+/* Rahul Sharma */
+
+position: absolute;
+width: 178px;
+height: 28px;
+left: 124px;
+top: 36px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 28px;
+/* identical to box height, or 117% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Head of Procurement */
+
+position: absolute;
+width: 207px;
+height: 28px;
+left: 124px;
+top: 71px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* identical to box height, or 140% */
+letter-spacing: 0.02em;
+
+color: #6A6A6A;
+
+
+
+/* Line 14 */
+
+position: absolute;
+width: 323px;
+height: 0px;
+left: calc(50% - 323px/2 - 0.5px);
+top: 128px;
+
+border: 1px solid #BDBDBD;
+
+
+/* Review 6 */
+
+width: 390px;
+height: 299px;
+
+background: #FFFFFF;
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* “From prototype to delivery, their professionalism and precision stand out.” */
+
+position: absolute;
+width: 296px;
+height: 84px;
+left: 35px;
+top: 154px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* or 140% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Frame 1417 */
+
+position: absolute;
+width: 69px;
+height: 69px;
+left: 35px;
+top: 33px;
+
+background: url(.jpg), #A3A3A3;
+border-radius: 10px;
+
+
+/* Group 1 */
+
+position: absolute;
+width: 163px;
+height: 63px;
+left: 124px;
+top: 36px;
+
+
+
+/* Simran Kaur */
+
+position: absolute;
+width: 156px;
+height: 28px;
+left: 124px;
+top: 36px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 28px;
+/* identical to box height, or 117% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Production Head */
+
+position: absolute;
+width: 163px;
+height: 28px;
+left: 124px;
+top: 71px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* identical to box height, or 140% */
+letter-spacing: 0.02em;
+
+color: #6A6A6A;
+
+
+
+/* Line 14 */
+
+position: absolute;
+width: 323px;
+height: 0px;
+left: calc(50% - 323px/2 - 0.5px);
+top: 128px;
+
+border: 1px solid #BDBDBD;
+
+
+/* Review 7 */
+
+width: 390px;
+height: 299px;
+
+background: #FFFFFF;
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* “Adaptive production and flawless quality — perfect for our scaling needs.” */
+
+position: absolute;
+width: 296px;
+height: 84px;
+left: 35px;
+top: 154px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* or 140% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Frame 1417 */
+
+position: absolute;
+width: 69px;
+height: 69px;
+left: 35px;
+top: 33px;
+
+background: url(.jpg), #A3A3A3;
+border-radius: 10px;
+
+
+/* Group 1 */
+
+position: absolute;
+width: 181px;
+height: 63px;
+left: 124px;
+top: 36px;
+
+
+
+/* Vikram Kumar */
+
+position: absolute;
+width: 181px;
+height: 28px;
+left: 124px;
+top: 36px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 28px;
+/* identical to box height, or 117% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Product Manager */
+
+position: absolute;
+width: 168px;
+height: 28px;
+left: 124px;
+top: 71px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* identical to box height, or 140% */
+letter-spacing: 0.02em;
+
+color: #6A6A6A;
+
+
+
+/* Line 14 */
+
+position: absolute;
+width: 323px;
+height: 0px;
+left: calc(50% - 323px/2 - 0.5px);
+top: 128px;
+
+border: 1px solid #BDBDBD;
+
+
+/* Review 4 */
+
+width: 390px;
+height: 299px;
+
+background: #FFFFFF;
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* “Exceptional detail and seamless collaboration. They just get it right every time.” */
+
+position: absolute;
+width: 296px;
+height: 84px;
+left: 35px;
+top: 154px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* or 140% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Frame 1417 */
+
+position: absolute;
+width: 69px;
+height: 69px;
+left: 35px;
+top: 33px;
+
+background: url(.jpg), #A3A3A3;
+border-radius: 10px;
+
+
+/* Group 1 */
+
+position: absolute;
+width: 200px;
+height: 63px;
+left: 124px;
+top: 36px;
+
+
+
+/* Anita Mehta */
+
+position: absolute;
+width: 155px;
+height: 28px;
+left: 124px;
+top: 36px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 28px;
+/* identical to box height, or 117% */
+letter-spacing: 0.02em;
+
+color: #000000;
+
+
+
+/* Operations Director */
+
+position: absolute;
+width: 200px;
+height: 28px;
+left: 124px;
+top: 71px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 28px;
+/* identical to box height, or 140% */
+letter-spacing: 0.02em;
+
+color: #6A6A6A;
+
+
+
+/* Line 14 */
+
+position: absolute;
+width: 323px;
+height: 0px;
+left: calc(50% - 323px/2 - 0.5px);
+top: 128px;
+
+border: 1px solid #BDBDBD;
+
+
+/* Media */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 24px;
+
+position: absolute;
+width: 1399px;
+height: 445px;
+left: calc(50% - 1399px/2 - 0.5px);
+top: calc(50% - 445px/2 + 1261px);
+
+
+
+/* Rectangle 31 */
+
+width: 213px;
+height: 415px;
+
+background: url();
+border-radius: 20px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Rectangle 25 */
+
+width: 281px;
+height: 445px;
+
+background: url(.jpg);
+border-radius: 20px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Rectangle 27 */
+
+width: 315px;
+height: 445px;
+
+background: url(.jpg), #D9D9D9;
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Rectangle 29 */
+
+width: 281px;
+height: 445px;
+
+background: url(.jpg);
+border-radius: 20px;
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* Rectangle 30 */
+
+width: 213px;
+height: 415px;
+
+background: url();
+border-radius: 20px;
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+flex-grow: 0;
+
+
+/* Contact */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 29px;
+
+position: absolute;
+width: 1157.02px;
+height: 22px;
+left: calc(50% - 1157.02px/2 - 1.49px);
+top: 8398px;
+
+
+
+/* ID CARD */
+
+width: 62px;
+height: 22px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Line 7 */
+
+width: 1066.02px;
+height: 0px;
+
+border: 2px solid #B1B1B1;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Contact */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 29px;
+
+position: absolute;
+width: 1159px;
+height: 22px;
+left: calc(50% - 1159px/2 - 0.5px);
+top: 8971px;
+
+
+
+/* CONTACT */
+
+width: 76px;
+height: 22px;
+
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Line 7 */
+
+width: 1054px;
+height: 0px;
+
+border: 2px solid #B1B1B1;
+transform: rotate(0.01deg);
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Group 3 */
+
+position: absolute;
+width: 1103px;
+height: 542.8px;
+left: 60px;
+top: 9066px;
+
+
+
+/* Button */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 158px;
+height: 58px;
+left: 453px;
+top: 9550.8px;
+
+border: 1px solid #FFFFFF;
+border-radius: 38px;
+
+
+/* Submit */
+
+position: absolute;
+width: 61px;
+height: 20px;
+left: calc(50% - 61px/2 - 26.5px);
+top: calc(50% - 20px/2);
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* Default */
+
+position: absolute;
+width: 44.62px;
+height: 44.62px;
+right: 8.38px;
+top: calc(50% - 44.62px/2 + 0.31px);
+
+
+
+/* Ellipse 2 */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #FFFFFF;
+
+
+/* solar:arrow-up-linear */
+
+position: absolute;
+height: 30.33px;
+left: 2.26%;
+right: 29.77%;
+top: 1.01px;
+
+transform: rotate(49.57deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 32.79%;
+right: 17.21%;
+top: 32.34%;
+bottom: 11.64%;
+
+border: 1.3728px solid #000000;
+border-radius: 6.1776px;
+transform: rotate(49.57deg);
+
+
+/* Let’s Work Together */
+
+position: absolute;
+width: 167px;
+height: 20px;
+left: calc(50% - 167px/2 - 496.5px);
+top: calc(50% - 20px/2 + 4113.5px);
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* Anant Kumar */
+
+position: absolute;
+width: 110px;
+height: 20px;
+left: calc(50% - 110px/2 - 132px);
+top: calc(50% - 20px/2 + 4164.5px);
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* anantkumarpvtlimited@gmail.com */
+
+position: absolute;
+width: 288px;
+height: 20px;
+left: calc(50% - 288px/2 - 43px);
+top: calc(50% - 20px/2 + 4297.5px);
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* 85466xxxxx */
+
+position: absolute;
+width: 94px;
+height: 20px;
+left: calc(50% - 94px/2 + 248px);
+top: calc(50% - 20px/2 + 4164.5px);
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* Your Name */
+
+position: absolute;
+width: 138px;
+height: 29px;
+left: calc(50% - 138px/2 - 118px);
+top: calc(50% - 29px/2 + 4118px);
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* Your Email ID */
+
+position: absolute;
+width: 167px;
+height: 29px;
+left: calc(50% - 167px/2 - 103.5px);
+top: calc(50% - 29px/2 + 4251px);
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* Your Query */
+
+position: absolute;
+width: 139px;
+height: 29px;
+left: calc(50% - 139px/2 - 117.5px);
+top: calc(50% - 29px/2 + 4384px);
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* Your Phone */
+
+position: absolute;
+width: 144px;
+height: 29px;
+left: calc(50% - 144px/2 + 273px);
+top: calc(50% - 29px/2 + 4118px);
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 29px;
+
+color: #FFFFFF;
+
+
+
+/* Line 21 */
+
+position: absolute;
+width: 322px;
+height: 0px;
+left: 453px;
+top: 9148px;
+
+border: 1px solid #434343;
+
+
+/* Line 23 */
+
+position: absolute;
+width: 322px;
+height: 0px;
+left: 453px;
+top: 9281px;
+
+border: 1px solid #434343;
+
+
+/* Line 22 */
+
+position: absolute;
+width: 322px;
+height: 0px;
+left: 841px;
+top: 9148px;
+
+border: 1px solid #434343;
+
+
+/* Frame 427319049 */
+
+position: absolute;
+width: 710px;
+height: 130px;
+left: 453px;
+top: 9383px;
+
+background: #131313;
+border-radius: 10px;
+
+
+/* type here..... */
+
+position: absolute;
+width: 96px;
+height: 20px;
+left: calc(50% - 96px/2 - 289px);
+top: calc(50% - 20px/2 - 39px);
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+
+color: #FFFFFF;

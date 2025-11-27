@@ -2,6 +2,18 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Navbar from '../components/Navbar'
 import { authAPI } from '../services/api'
+import cert1 from '../assets/cert.jpg'
+import cert2 from '../assets/cert2.jpg'
+import cert3 from '../assets/cert3.jpg'
+import media from '../assets/media.jpg'
+import media2 from '../assets/media2.jpg'
+import media3 from '../assets/media3.jpg'
+import media4 from '../assets/media4.jpg'
+import media5 from '../assets/media5.jpg'
+import team1 from '../assets/team.jpg'
+import team2 from '../assets/team2.jpg'
+import team3 from '../assets/team3.jpg'
+import testimonialImg from '../assets/testimonial.jpg'
 
 const fadeUp = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }
 const fadeIn = { hidden: { opacity: 0 }, show: { opacity: 1 } }
@@ -37,6 +49,28 @@ const initialMockCompanyData = {
     { url: '/NewBackground.jpeg', publicId: 'plant-1' },
     { url: '/about2.jpeg', publicId: 'plant-2' },
     { url: '/about3.jpeg', publicId: 'plant-3' }
+  ],
+  services: [
+    {
+      title: 'Product Design & Prototyping',
+      description: 'From CAD modeling to functional prototypes, enabling faster innovation.',
+      image: '/NewBackground.jpeg'
+    },
+    {
+      title: 'Precision Machining',
+      description: 'High-accuracy machining services for complex components and tight tolerances.',
+      image: '/about2.jpeg'
+    },
+    {
+      title: 'Casting & Forging',
+      description: 'Tailored manufacturing solutions to meet your unique specifications and requirements.',
+      image: '/about3.jpeg'
+    },
+    {
+      title: 'Fabrication & Welding',
+      description: 'Complete assembly solutions from component integration to final product delivery.',
+      image: '/NewBackground.jpeg'
+    }
   ],
   profileCompletionPercentage: 85
 }
@@ -174,8 +208,8 @@ const DemoCompanyProfilePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white font-montserrat">
-      <div className="w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
+    <div className="min-h-screen bg-black text-white font-montserrat overflow-x-hidden" style={{ overflowX: 'hidden' }}>
+      <div className="w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 overflow-x-hidden" style={{ overflowX: 'hidden' }}>
         <Navbar 
           user={mockUser} 
       onLogout={handleLogout}
@@ -216,10 +250,21 @@ const DemoCompanyProfilePage = () => {
         <Vendors company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} onArrayChange={handleArrayFieldChange} onPartnerFieldChange={handlePartnerFieldChange} onAddItem={handleAddArrayItem} onRemoveItem={handleRemoveArrayItem} />
         <MoreAboutUs company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
         <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+        <SectionSeparator sectionName="OUR SERVICES" />
+        <OurServices company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
+        <SectionSeparator sectionName="CERTIFICATIONS" />
         <Certifications company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
-        <Machines company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} onArrayChange={handleArrayFieldChange} onAddItem={handleAddArrayItem} onRemoveItem={handleRemoveArrayItem} />
-        <Details company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
+        <SectionSeparator sectionName="MEDIA & VISUALS" />
         <Gallery company={company} />
+        {/* <Machines company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} onArrayChange={handleArrayFieldChange} onAddItem={handleAddArrayItem} onRemoveItem={handleRemoveArrayItem} />
+        <Details company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} /> */}
+        <SectionSeparator sectionName="TEAM" />
+        <Team company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
+        <SectionSeparator sectionName="TESTIMONIALS" />
+        <Testimonials company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
+        <SectionSeparator sectionName="ID CARD" />
+        <IdCard company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
+        <SectionSeparator sectionName="CONTACT" />
         <Contact company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
       </div>
     </div>
@@ -378,27 +423,25 @@ function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, on
   const hasDescription = company?.companyDescription && company.companyDescription.trim()
   
   return (
-    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16">
-      <div className="relative mx-auto" style={{ width: '1160px', maxWidth: '95%' }}>
+    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16 lg:py-20">
+      <div className="relative mx-auto px-4 sm:px-6 lg:px-8" style={{ width: '100%', maxWidth: '72.5rem' }}>
         {/* Main Container */}
         <motion.div 
           variants={fadeUp}
-          className="relative mx-auto rounded-[30px]"
+          className="relative mx-auto rounded-[30px] w-full"
           style={{
-            width: '1160px',
-            maxWidth: '100%',
             background: 'rgba(33, 33, 33, 0.35)',
             borderRadius: '30px',
-            padding: '66px 0 60px 0'
+            padding: 'clamp(2rem, 4vw, 4.125rem) clamp(1.5rem, 3vw, 3.75rem)'
           }}
         >
           {/* Company Motto */}
           <div 
             className="relative mx-auto text-center"
             style={{
-              width: '896px',
-              maxWidth: '77%',
-              marginBottom: hasDescription || !hasMotto ? '48px' : '0px'
+              width: '100%',
+              maxWidth: '56rem',
+              marginBottom: hasDescription || !hasMotto ? 'clamp(1.5rem, 3vw, 3rem)' : '0px'
             }}
           >
             {editingFields.companyMottoAbout ? (
@@ -416,9 +459,9 @@ function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, on
                 style={{
                   fontFamily: 'Montserrat, sans-serif',
                   fontWeight: 600,
-                  fontSize: '36px',
-                  lineHeight: '44px',
-                  minHeight: hasMotto ? 'auto' : '44px',
+                  fontSize: 'clamp(1.5rem, 2.5vw, 2.25rem)',
+                  lineHeight: '1.22',
+                  minHeight: hasMotto ? 'auto' : 'clamp(2rem, 2.75vw, 2.75rem)',
                   height: 'auto'
                 }}
                 autoFocus
@@ -435,15 +478,15 @@ function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, on
                   fontFamily: 'Montserrat, sans-serif',
                   fontStyle: 'normal',
                   fontWeight: 600,
-                  fontSize: '36px',
-                  lineHeight: '44px',
+                  fontSize: 'clamp(1.5rem, 2.5vw, 2.25rem)',
+                  lineHeight: '1.22',
                   textAlign: 'center',
                   color: '#FFFFFF',
-                  minHeight: hasMotto ? 'auto' : '44px',
+                  minHeight: hasMotto ? 'auto' : 'clamp(2rem, 2.75vw, 2.75rem)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  padding: hasMotto ? '12px 16px' : '16px'
+                  padding: hasMotto ? 'clamp(0.75rem, 1vw, 1rem) clamp(1rem, 1.5vw, 1.5rem)' : 'clamp(1rem, 1.5vw, 1.5rem)'
                 }}
               >
                 {company?.companyMotto || 'Click to add company motto...'}
@@ -461,10 +504,9 @@ function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, on
 
           {/* Company Description */}
           <div 
-            className="relative mx-auto text-center"
+            className="relative mx-auto text-center w-full"
             style={{
-              width: '818px',
-              maxWidth: '70%'
+              maxWidth: '51.125rem'
             }}
           >
             {editingFields.companyDescriptionAbout ? (
@@ -489,13 +531,13 @@ function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, on
                   fontFamily: 'Montserrat, sans-serif',
                   fontStyle: 'normal',
                   fontWeight: 400,
-                  fontSize: '20px',
-                  lineHeight: '24px',
+                  fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
+                  lineHeight: '1.5',
                   textAlign: 'center',
                   color: '#929292',
-                  minHeight: hasDescription ? 'auto' : '72px',
-                  paddingTop: '16px',
-                  paddingBottom: '16px'
+                  minHeight: hasDescription ? 'auto' : 'clamp(3rem, 4.5vw, 4.5rem)',
+                  paddingTop: 'clamp(1rem, 1.5vw, 1.5rem)',
+                  paddingBottom: 'clamp(1rem, 1.5vw, 1.5rem)'
                 }}
                 autoFocus
               />
@@ -511,16 +553,16 @@ function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, on
                   fontFamily: 'Montserrat, sans-serif',
                   fontStyle: 'normal',
                   fontWeight: 400,
-                  fontSize: '20px',
-                  lineHeight: '24px',
+                  fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
+                  lineHeight: '1.5',
                   textAlign: 'center',
                   color: '#929292',
-                  minHeight: hasDescription ? 'auto' : '72px',
+                  minHeight: hasDescription ? 'auto' : 'clamp(3rem, 4.5vw, 4.5rem)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexDirection: 'column',
-                  padding: hasDescription ? '16px' : '24px 16px'
+                  padding: hasDescription ? 'clamp(1rem, 1.5vw, 1.5rem)' : 'clamp(1.5rem, 2vw, 2rem) clamp(1rem, 1.5vw, 1.5rem)'
                 }}
               >
                 {hasDescription ? (
@@ -561,13 +603,13 @@ function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, on
 function SectionSeparator({ sectionName }) {
   return (
     <div 
-      className="relative w-full flex items-center"
+      className="relative w-full flex items-center px-4 sm:px-6 lg:px-8"
       style={{
-        width: '1162px',
-        maxWidth: '95%',
-        height: '22px',
+        width: '100%',
+        maxWidth: '72.625rem',
+        height: 'clamp(1rem, 1.5vw, 1.375rem)',
         margin: '0 auto',
-        padding: '40px 0'
+        padding: 'clamp(1.5rem, 3vw, 2.5rem) 0'
       }}
     >
       <div
@@ -621,9 +663,9 @@ function Vendors({ company, isEditMode, editingFields, onStartEdit, onStopEdit, 
   const isEditing = editingFields.vendors
 
   return (
-    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16" style={{ marginBottom: '120px' }}>
+    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16" style={{ marginBottom: 'clamp(3rem, 7.5vw, 7.5rem)' }}>
       {/* Header Section */}
-      <div className="relative mx-auto mb-8 sm:mb-10 md:mb-12" style={{ width: '1162px', maxWidth: '95%' }}>
+      <div className="relative mx-auto mb-8 sm:mb-10 md:mb-12" style={{ width: '100%', maxWidth: '72.625rem' }}>
         <motion.div 
           variants={fadeUp}
           style={{
@@ -930,35 +972,25 @@ function MoreAboutUs({ company, isEditMode, editingFields, onStartEdit, onStopEd
   const partsManufactured = company?.partsManufacturedAnnually || '150M'
 
   return (
-    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16" style={{ marginTop: '120px', marginBottom: '120px' }}>
-      <div className="relative mx-auto" style={{ width: '76vw', maxWidth: '100%' }}>
+    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16 lg:py-20" style={{ marginTop: 'clamp(3rem, 7.5vw, 7.5rem)', marginBottom: 'clamp(3rem, 7.5vw, 7.5rem)' }}>
+      <div className="relative mx-auto px-4 sm:px-6 lg:px-8" style={{ width: '100%', maxWidth: '76vw' }}>
         <motion.div 
           variants={fadeUp}
+          className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 md:gap-12 lg:gap-16 xl:gap-20"
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            padding: '0px',
-            gap: '121px',
-            width: '100%',
-            flexWrap: 'wrap'
+            width: '100%'
           }}
         >
           {/* More About Us Title */}
           <div
+            className="flex-shrink-0"
             style={{
-              width: '246px',
-              height: 'auto',
               fontFamily: 'Montserrat, sans-serif',
               fontStyle: 'normal',
               fontWeight: 600,
-              fontSize: '32px',
-              lineHeight: '39px',
-              color: '#929292',
-              flex: 'none',
-              order: 0,
-              flexGrow: 0
+              fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
+              lineHeight: '1.22',
+              color: '#929292'
             }}
           >
             More About Us
@@ -966,48 +998,28 @@ function MoreAboutUs({ company, isEditMode, editingFields, onStartEdit, onStopEd
 
           {/* Stats Container */}
           <div
+            className="flex flex-row items-center gap-8 md:gap-12 lg:gap-16 xl:gap-20 flex-wrap"
             style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              padding: '0px',
-              gap: '118px',
               flex: '1 1 auto',
-              justifyContent: 'flex-start',
-              flexWrap: 'wrap'
+              justifyContent: 'flex-start'
             }}
           >
             {/* Experience Card */}
             <div
+              className="flex flex-col items-start"
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                padding: '0px',
-                gap: '20px',
-                width: '115px',
-                height: 'auto',
-                minHeight: '103px',
-                flex: 'none',
-                order: 0,
-                flexGrow: 0
+                gap: 'clamp(1rem, 1.5vw, 1.25rem)',
+                minWidth: 'fit-content'
               }}
             >
               <div
                 style={{
-                  width: '115px',
-                  height: 'auto',
-                  minHeight: '24px',
                   fontFamily: 'Montserrat, sans-serif',
                   fontStyle: 'normal',
                   fontWeight: 500,
-                  fontSize: '20px',
-                  lineHeight: '24px',
-                  color: '#929292',
-                  flex: 'none',
-                  order: 0,
-                  alignSelf: 'stretch',
-                  flexGrow: 0
+                  fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
+                  lineHeight: '1.2',
+                  color: '#929292'
                 }}
               >
                 Experience
@@ -1028,10 +1040,11 @@ function MoreAboutUs({ company, isEditMode, editingFields, onStartEdit, onStopEd
                     fontFamily: 'Montserrat, sans-serif',
                     fontStyle: 'normal',
                     fontWeight: 600,
-                    fontSize: '48px',
-                    lineHeight: '59px',
+                    fontSize: 'clamp(2rem, 4vw, 3rem)',
+                    lineHeight: '1.23',
                     color: '#FFFFFF',
-                    width: '115px',
+                    width: 'auto',
+                    minWidth: 'fit-content',
                     height: 'auto'
                   }}
                   autoFocus
@@ -1041,14 +1054,12 @@ function MoreAboutUs({ company, isEditMode, editingFields, onStartEdit, onStopEd
                   onClick={() => onStartEdit('experience')}
                   className="cursor-pointer hover:bg-gray-800/30 rounded px-2 py-1 transition-colors"
                   style={{
-                    width: '115px',
-                    height: 'auto',
-                    minHeight: '59px',
+                    minHeight: 'clamp(2.5rem, 4vw, 3.6875rem)',
                     fontFamily: 'Montserrat, sans-serif',
                     fontStyle: 'normal',
                     fontWeight: 600,
-                    fontSize: '48px',
-                    lineHeight: '59px',
+                    fontSize: 'clamp(2rem, 4vw, 3rem)',
+                    lineHeight: '1.23',
                     color: '#FFFFFF',
                     flex: 'none',
                     order: 1,
@@ -1066,34 +1077,20 @@ function MoreAboutUs({ company, isEditMode, editingFields, onStartEdit, onStopEd
 
             {/* Established In Card */}
             <div
+              className="flex flex-col items-start"
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                padding: '0px',
-                gap: '20px',
-                width: '144px',
-                height: 'auto',
-                minHeight: '103px',
-                flex: 'none',
-                order: 1,
-                flexGrow: 0
+                gap: 'clamp(1rem, 1.5vw, 1.25rem)',
+                minWidth: 'fit-content'
               }}
             >
               <div
                 style={{
-                  width: '144px',
-                  height: 'auto',
-                  minHeight: '24px',
                   fontFamily: 'Montserrat, sans-serif',
                   fontStyle: 'normal',
                   fontWeight: 500,
-                  fontSize: '20px',
-                  lineHeight: '24px',
-                  color: '#929292',
-                  flex: 'none',
-                  order: 0,
-                  flexGrow: 0
+                  fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
+                  lineHeight: '1.2',
+                  color: '#929292'
                 }}
               >
                 Established In
@@ -1143,10 +1140,11 @@ function MoreAboutUs({ company, isEditMode, editingFields, onStartEdit, onStopEd
                     fontFamily: 'Montserrat, sans-serif',
                     fontStyle: 'normal',
                     fontWeight: 600,
-                    fontSize: '48px',
-                    lineHeight: '59px',
+                    fontSize: 'clamp(2rem, 4vw, 3rem)',
+                    lineHeight: '1.23',
                     color: '#FFFFFF',
-                    width: '110px',
+                    width: 'auto',
+                    minWidth: 'fit-content',
                     height: 'auto'
                   }}
                   autoFocus
@@ -1158,18 +1156,13 @@ function MoreAboutUs({ company, isEditMode, editingFields, onStartEdit, onStopEd
                   onClick={() => onStartEdit('establishedYear')}
                   className="cursor-pointer hover:bg-gray-800/30 rounded px-2 py-1 transition-colors"
                   style={{
-                    width: '110px',
-                    height: 'auto',
-                    minHeight: '59px',
+                    minHeight: 'clamp(2.5rem, 4vw, 3.6875rem)',
                     fontFamily: 'Montserrat, sans-serif',
                     fontStyle: 'normal',
                     fontWeight: 600,
-                    fontSize: '48px',
-                    lineHeight: '59px',
+                    fontSize: 'clamp(2rem, 4vw, 3rem)',
+                    lineHeight: '1.23',
                     color: '#FFFFFF',
-                    flex: 'none',
-                    order: 1,
-                    flexGrow: 0,
                     display: 'flex',
                     alignItems: 'center'
                   }}
@@ -1182,34 +1175,20 @@ function MoreAboutUs({ company, isEditMode, editingFields, onStartEdit, onStopEd
 
             {/* Parts Manufactured Annually Card */}
             <div
+              className="flex flex-col items-start"
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                padding: '0px',
-                gap: '20px',
-                width: '298px',
-                height: 'auto',
-                minHeight: '103px',
-                flex: 'none',
-                order: 2,
-                flexGrow: 0
+                gap: 'clamp(1rem, 1.5vw, 1.25rem)',
+                minWidth: 'fit-content'
               }}
             >
               <div
                 style={{
-                  width: '298px',
-                  height: 'auto',
-                  minHeight: '24px',
                   fontFamily: 'Montserrat, sans-serif',
                   fontStyle: 'normal',
                   fontWeight: 500,
-                  fontSize: '20px',
-                  lineHeight: '24px',
-                  color: '#929292',
-                  flex: 'none',
-                  order: 0,
-                  flexGrow: 0
+                  fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
+                  lineHeight: '1.2',
+                  color: '#929292'
                 }}
               >
                 Parts Manufactured Annually
@@ -1230,10 +1209,11 @@ function MoreAboutUs({ company, isEditMode, editingFields, onStartEdit, onStopEd
                     fontFamily: 'Montserrat, sans-serif',
                     fontStyle: 'normal',
                     fontWeight: 600,
-                    fontSize: '48px',
-                    lineHeight: '59px',
+                    fontSize: 'clamp(2rem, 4vw, 3rem)',
+                    lineHeight: '1.23',
                     color: '#FFFFFF',
-                    width: '153px',
+                    width: 'auto',
+                    minWidth: 'fit-content',
                     height: 'auto'
                   }}
                   autoFocus
@@ -1243,18 +1223,13 @@ function MoreAboutUs({ company, isEditMode, editingFields, onStartEdit, onStopEd
                   onClick={() => onStartEdit('partsManufacturedAnnually')}
                   className="cursor-pointer hover:bg-gray-800/30 rounded px-2 py-1 transition-colors"
                   style={{
-                    width: '153px',
-                    height: 'auto',
-                    minHeight: '59px',
+                    minHeight: 'clamp(2.5rem, 4vw, 3.6875rem)',
                     fontFamily: 'Montserrat',
                     fontStyle: 'SemiBold',
                     fontWeight: 600,
-                    fontSize: '48px',
-                    lineHeight: '59px',
+                    fontSize: 'clamp(2rem, 4vw, 3rem)',
+                    lineHeight: '1.23',
                     color: '#FFFFFF',
-                    flex: 'none',
-                    order: 1,
-                    flexGrow: 0,
                     display: 'flex',
                     alignItems: 'center'
                   }}
@@ -1276,118 +1251,781 @@ function TabNavigation({ activeTab, onTabChange }) {
   const tabWidths = [191, 117, 149, 182] // Raw Material, Machines, Mfg Process, Specializations
   const gap = 116
 
+  // Data for Raw Material cards
+  const rawMaterialCards = [
+    {
+      title: 'Metals & Alloys',
+      items: ['Steel', 'Iron', 'Nickel', 'Aluminum & Alloy', 'Copper', 'Zinc', 'Lead', 'Titanium']
+    },
+    {
+      title: 'Polymers & Plastics',
+      items: ['Thermoplastics', 'Rubber', 'Engineering Plastics', 'Thermosets']
+    },
+    {
+      title: 'Ceramics & Glass',
+      items: ['Industrial Ceramics', 'Refractories', 'Glass', 'Alumina', 'Silicon Carbide']
+    },
+    {
+      title: 'Composites',
+      items: ['Carbon Fiber Composites', 'Glass Fiber Reinforced Plastics', 'Natural fiber composites']
+    },
+    {
+      title: 'Wood & Natural Materials',
+      items: ['Softwoods', 'Plywood', 'MDF', 'Hardwoods', 'Laminates']
+    },
+    {
+      title: 'Chemicals & Industrial Inputs',
+      items: ['Refractories', 'Glass', 'Alumina', 'Silicon Carbide']
+    }
+  ]
+
+  // Data for Machines cards
+  const machinesCards = [
+    {
+      title: 'CNC Machining',
+      items: ['5-Axis CNC', '3-Axis CNC', 'CNC Milling Center', 'CNC Lathe', 'Swiss CNC', 'CNC Turning']
+    },
+    {
+      title: 'Cutting & Shaping',
+      items: ['Laser Cutting', 'Water Jet Cutting', 'Plasma Cutting', 'EDM Machines', 'Band Saws']
+    },
+    {
+      title: 'Forming & Pressing',
+      items: ['Hydraulic Press', 'Punch Press', 'Bending Machines', 'Stamping Press', 'Roll Forming']
+    },
+    {
+      title: 'Welding & Joining',
+      items: ['TIG Welding', 'MIG Welding', 'Spot Welding', 'Arc Welding', 'Robotic Welding']
+    },
+    {
+      title: 'Quality & Testing',
+      items: ['CMM Machines', 'Coordinate Measuring', 'Hardness Testers', 'Surface Roughness', 'Metrology Lab']
+    },
+    {
+      title: 'Finishing & Coating',
+      items: ['Grinding Machines', 'Polishing Equipment', 'Anodizing Line', 'Powder Coating', 'Plating Systems']
+    }
+  ]
+
+  // Data for Manufacturing Process cards
+  const mfgProcessCards = [
+    {
+      title: 'Metal Forming',
+      items: ['Forging', 'Casting', 'Stamping', 'Extrusion', 'Deep Drawing', 'Roll Forming']
+    },
+    {
+      title: 'Machining Operations',
+      items: ['Milling', 'Turning', 'Drilling', 'Grinding', 'Threading', 'Boring']
+    },
+    {
+      title: 'Assembly & Joining',
+      items: ['Welding', 'Brazing', 'Soldering', 'Riveting', 'Adhesive Bonding', 'Mechanical Fastening']
+    },
+    {
+      title: 'Surface Treatment',
+      items: ['Anodizing', 'Plating', 'Powder Coating', 'Heat Treatment', 'Passivation', 'Painting']
+    },
+    {
+      title: 'Quality Control',
+      items: ['Dimensional Inspection', 'Material Testing', 'NDT Testing', 'Surface Analysis', 'Metrology']
+    },
+    {
+      title: 'Packaging & Shipping',
+      items: ['Custom Packaging', 'Labeling', 'Documentation', 'Logistics', 'Export Compliance']
+    }
+  ]
+
+  // Data for Specializations cards
+  const specializationsCards = [
+    {
+      title: 'Aerospace & Defense',
+      items: ['Aircraft Components', 'Defense Systems', 'Satellite Parts', 'AS9100 Certified', 'Precision Machining']
+    },
+    {
+      title: 'Automotive Industry',
+      items: ['Engine Components', 'Transmission Parts', 'Chassis Components', 'IATF 16949', 'High Volume Production']
+    },
+    {
+      title: 'Medical Devices',
+      items: ['Surgical Instruments', 'Implants', 'Medical Equipment', 'ISO 13485', 'FDA Compliant']
+    },
+    {
+      title: 'Electronics & Semiconductors',
+      items: ['Precision Components', 'Heat Sinks', 'Enclosures', 'Connectors', 'Micro Machining']
+    },
+    {
+      title: 'Energy & Power',
+      items: ['Turbine Components', 'Power Generation', 'Renewable Energy', 'Oil & Gas', 'Nuclear Components']
+    },
+    {
+      title: 'Industrial Equipment',
+      items: ['Heavy Machinery', 'Industrial Automation', 'Material Handling', 'Construction Equipment', 'Custom Solutions']
+    }
+  ]
+
+  // Get cards data based on active tab
+  const getCardsForTab = (tab) => {
+    switch(tab) {
+      case 'Raw Material':
+        return rawMaterialCards
+      case 'Machines':
+        return machinesCards
+      case 'Mfg Process':
+        return mfgProcessCards
+      case 'Specializations':
+        return specializationsCards
+      default:
+        return rawMaterialCards
+    }
+  }
+
+  const currentCards = getCardsForTab(activeTab)
+
   return (
-    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16" style={{ marginTop: '120px', marginBottom: '120px' }}>
-      <div className="relative mx-auto" style={{ width: '987px', maxWidth: '95%', height: '69px' }}>
-        <motion.div 
-          variants={fadeUp}
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            padding: '0px',
-            gap: '116px',
-            width: '100%',
-            height: '53px',
-            position: 'relative'
-          }}
-        >
-          {tabs.map((tab, index) => {
-            const isActive = activeTab === tab
-            return (
-              <div key={tab} style={{ position: 'relative', flex: 'none', order: index, flexGrow: 0 }}>
-                {isActive ? (
-                  <div
-                    onClick={() => onTabChange(tab)}
-                    className="cursor-pointer"
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      padding: '12px 16px',
-                      gap: '10px',
-                      width: 'auto',
-                      height: '53px',
-                      background: 'rgba(255, 255, 255, 0.12)',
-                      borderRadius: '14px',
-                      flex: 'none',
-                      order: 0,
-                      flexGrow: 0
-                    }}
-                  >
+    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16 lg:py-20" style={{ marginTop: 'clamp(3rem, 7.5vw, 7.5rem)', marginBottom: 'clamp(3rem, 7.5vw, 7.5rem)' }}>
+      <div className="relative mx-auto px-4 sm:px-6 lg:px-8" style={{ width: '100%', maxWidth: '72.625rem' }}>
+        {/* Tab Navigation */}
+        <div className="relative mx-auto mb-8 md:mb-12" style={{ width: '100%', maxWidth: '61.6875rem', minHeight: 'clamp(3.5rem, 5vw, 4.3125rem)' }}>
+          <motion.div 
+            variants={fadeUp}
+            className="flex flex-row items-center justify-center flex-wrap gap-4 md:gap-8 lg:gap-12 xl:gap-16"
+            style={{
+              width: '100%',
+              minHeight: 'clamp(2.5rem, 4vw, 3.3125rem)',
+              position: 'relative'
+            }}
+          >
+            {tabs.map((tab, index) => {
+              const isActive = activeTab === tab
+              return (
+                <div key={tab} style={{ position: 'relative', flex: 'none', order: index, flexGrow: 0 }}>
+                  {isActive ? (
                     <div
+                      onClick={() => onTabChange(tab)}
+                      className="cursor-pointer"
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        padding: 'clamp(0.75rem, 1vw, 1rem) clamp(1rem, 1.5vw, 1.5rem)',
+                        gap: 'clamp(0.5rem, 0.75vw, 0.625rem)',
+                        width: 'auto',
+                        minHeight: 'clamp(2.5rem, 4vw, 3.3125rem)',
+                        background: 'rgba(255, 255, 255, 0.12)',
+                        borderRadius: 'clamp(0.75rem, 1vw, 0.875rem)',
+                        flex: 'none',
+                        order: 0,
+                        flexGrow: 0,
+                        position: 'relative'
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontFamily: 'Montserrat, sans-serif',
+                          fontStyle: 'normal',
+                          fontWeight: 500,
+                          fontSize: 'clamp(1rem, 1.75vw, 1.5rem)',
+                          lineHeight: '1.21',
+                          color: '#FFFFFF',
+                          flex: 'none',
+                          order: 0,
+                          flexGrow: 0,
+                          whiteSpace: 'nowrap'
+                        }}
+                      >
+                        {tab}
+                      </div>
+                      {/* Underline centered under the active tab */}
+                      <div
+                        style={{
+                          position: 'absolute',
+                          bottom: 'clamp(-0.5rem, -0.75vw, -0.625rem)',
+                          left: '50%',
+                          transform: 'translateX(-50%)',
+                          width: 'clamp(5rem, 8vw, 8.1875rem)',
+                          height: '1px',
+                          background: '#FFFFFF',
+                          transition: 'all 0.3s ease'
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => onTabChange(tab)}
+                      className="cursor-pointer hover:opacity-80 transition-opacity"
                       style={{
                         fontFamily: 'Montserrat, sans-serif',
                         fontStyle: 'normal',
                         fontWeight: 500,
-                        fontSize: '24px',
-                        lineHeight: '29px',
+                        fontSize: 'clamp(1rem, 1.75vw, 1.5rem)',
+                        lineHeight: '1.21',
                         color: '#FFFFFF',
                         flex: 'none',
-                        order: 0,
+                        order: index,
                         flexGrow: 0,
-                        whiteSpace: 'nowrap'
+                        whiteSpace: 'nowrap',
+                        padding: 'clamp(0.75rem, 1vw, 1rem) 0',
+                        minHeight: 'clamp(2.5rem, 4vw, 3.3125rem)',
+                        display: 'flex',
+                        alignItems: 'center'
                       }}
                     >
                       {tab}
                     </div>
+                  )}
+                </div>
+              )
+            })}
+          </motion.div>
+        </div>
+
+        {/* Cards Grid */}
+        {currentCards.length > 0 && (
+          <motion.div 
+            key={activeTab}
+            initial="hidden"
+            animate="show"
+            variants={fadeUp} 
+            className="relative p-10 bg-[#212121]/35 rounded-xl" 
+            style={{ width: '100%' }}
+          >
+            {/* Cards Container with vertical separators */}
+            <div 
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" 
+              style={{ 
+                position: 'relative',
+                width: '100%'
+              }}
+            >
+              {currentCards.map((card, index) => {
+                const isLastInRow = (index + 1) % 3 === 0
+                const isFirstInRow = index % 3 === 0
+                
+                return (
+                  <div key={index} style={{ position: 'relative' }}>
+                    {/* Vertical dashed line separator */}
+                    {!isLastInRow && (
+                      <div
+                        className="absolute right-0 top-0 bottom-0 pointer-events-none"
+                        style={{
+                          width: '1px',
+                          borderRight: '1px dashed #B1B1B1',
+                          height: '100%',
+                          transform: 'translateX(12px)',
+                          opacity: 0.5
+                        }}
+                      />
+                    )}
+                    
+                    {/* Card */}
+                    <div
+                      className="bg-gray-200 rounded-lg p-6 flex flex-col"
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.7)',
+                        borderRadius: 'clamp(0.75rem, 1.5vw, 1rem)',
+                        padding: 'clamp(1rem, 2vw, 1.5rem)',
+                        minHeight: 'clamp(12rem, 20vw, 17.5rem)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        position: 'relative'
+                      }}
+                    >
+                      {/* Card Title */}
+                      <h3
+                        style={{
+                          fontFamily: 'Montserrat, sans-serif',
+                          fontStyle: 'normal',
+                          fontWeight: 600,
+                          fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
+                          lineHeight: '1.2',
+                          color: '#333333',
+                          marginBottom: 'clamp(1rem, 1.5vw, 1.25rem)'
+                        }}
+                      >
+                        {card.title}
+                      </h3>
+
+                      {/* Card Items */}
+                      <div className="flex flex-wrap mb-4" style={{ flex: 1, gap: 'clamp(0.375rem, 0.75vw, 0.5rem)' }}>
+                        {card.items.map((item, itemIndex) => (
+                          <span
+                            key={itemIndex}
+                            className="inline-flex items-center justify-center text-center rounded-full"
+                            style={{
+                              background: 'transparent',
+                              border: '1px solid',
+                              borderRadius: 'clamp(1rem, 1.5vw, 1.25rem)',
+                              padding: 'clamp(0.375rem, 0.75vw, 0.5rem) clamp(0.75rem, 1vw, 1rem)',
+                              fontFamily: 'Montserrat, sans-serif',
+                              fontStyle: 'normal',
+                              fontWeight: 500,
+                              fontSize: 'clamp(0.75rem, 1vw, 0.875rem)',
+                              lineHeight: '1',
+                              color: '#4A4A4A',
+                              whiteSpace: 'nowrap',
+                              minHeight: 'clamp(1.5rem, 2vw, 1.8125rem)',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              justifyContent: 'center'
+                            }}
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Arrow Icon */}
+                      <div className="flex justify-end mt-auto pt-2">
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          style={{
+                            color: '#4A4A4A'
+                          }}
+                        >
+                          <path
+                            d="M9 18L15 12L9 6"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+                    </div>
                   </div>
-                ) : (
+                )
+              })}
+            </div>
+          </motion.div>
+        )}
+      </div>
+    </motion.section>
+  )
+}
+
+function OurServices({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onFieldChange }) {
+  // Default services if not provided
+  const defaultServices = [
+    {
+      title: 'Product Design & Prototyping',
+      description: 'From CAD modeling to functional prototypes, enabling faster innovation.',
+      image: '/NewBackground.jpeg'
+    },
+    {
+      title: 'Precision Machining',
+      description: 'High-accuracy machining services for complex components and tight tolerances.',
+      image: '/about2.jpeg'
+    },
+    {
+      title: 'Casting & Forging',
+      description: 'Tailored manufacturing solutions to meet your unique specifications and requirements.',
+      image: '/about3.jpeg'
+    },
+    {
+      title: 'Fabrication & Welding',
+      description: 'Complete assembly solutions from component integration to final product delivery.',
+      image: '/NewBackground.jpeg'
+    }
+  ]
+
+  const services = company?.services || defaultServices
+  const isEditing = editingFields.services
+
+  const handleServiceFieldChange = (index, field, value) => {
+    const currentServices = company?.services || services
+    const newServices = [...currentServices]
+    if (typeof newServices[index] === 'string') {
+      // Convert string to object if needed
+      newServices[index] = { title: newServices[index], description: '', image: '' }
+    }
+    newServices[index] = { ...newServices[index], [field]: value }
+    onFieldChange('services', newServices)
+  }
+
+  const handleAddService = () => {
+    if (!isEditing) {
+      onStartEdit('services')
+    }
+    const currentServices = company?.services || services
+    onFieldChange('services', [...currentServices, { title: '', description: '', image: '' }])
+  }
+
+  const handleRemoveService = (index) => {
+    const currentServices = company?.services || services
+    const newServices = currentServices.filter((_, i) => i !== index)
+    onFieldChange('services', newServices)
+  }
+
+  return (
+    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16" style={{ marginBottom: 'clamp(3rem, 7.5vw, 7.5rem)' }}>
+      {/* Header Section with Title and Button */}
+      <div className="relative mx-auto mb-8 sm:mb-10 md:mb-12" style={{ width: '100%', maxWidth: '72.625rem' }}>
+        <motion.div 
+          variants={fadeUp}
+          className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-10"
+          style={{
+            padding: '0px',
+            width: '100%'
+          }}
+        >
+          {/* Two-line Title on Left */}
+          <div
+            className="flex-1"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              gap: '0px'
+            }}
+          >
+            <h2
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] leading-tight"
+              style={{
+                fontFamily: 'Montserrat, sans-serif',
+                fontStyle: 'normal',
+                fontWeight: 600,
+                lineHeight: '1.2',
+                color: '#FFFFFF',
+                margin: 0,
+                textAlign: 'left'
+              }}
+            >
+              Driving Innovation Through Expert
+            </h2>
+            <h2
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] leading-tight"
+              style={{
+                fontFamily: 'Montserrat, sans-serif',
+                fontStyle: 'normal',
+                fontWeight: 600,
+                lineHeight: '1.2',
+                color: '#FFFFFF',
+                margin: 0,
+                textAlign: 'left'
+              }}
+            >
+              Manufacturing Services
+            </h2>
+          </div>
+
+          {/* View All Services Button on Right */}
+          <div
+            className="flex-shrink-0 w-full md:w-auto flex items-center justify-start md:justify-end"
+          >
+            <button
+              onClick={() => {
+                // Scroll to services grid or handle navigation
+                const servicesGrid = document.querySelector('[data-services-grid]')
+                if (servicesGrid) {
+                  servicesGrid.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }
+              }}
+              className="group flex items-center gap-3 px-4 sm:px-6 py-3 border border-white rounded-lg hover:bg-white/10 transition-colors w-full md:w-auto justify-center md:justify-start"
+              style={{
+                background: 'transparent',
+                border: '1px solid #FFFFFF',
+                borderRadius: '8px'
+              }}
+            >
+              <span
+                className="text-sm sm:text-base"
+                style={{
+                  fontFamily: 'Montserrat, sans-serif',
+                  fontStyle: 'normal',
+                  fontWeight: 500,
+                  lineHeight: '20px',
+                  color: '#FFFFFF',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                View All Services
+              </span>
+              <div
+                className="flex items-center justify-center flex-shrink-0"
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                  background: '#FFFFFF',
+                  border: '1px solid #000000',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7 17L17 7M17 7H7M17 7V17"
+                    stroke="#000000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            </button>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Services Content - Cards */}
+      <div className="max-w-6xl mx-auto" data-services-grid>
+        {isEditing ? (
+          <motion.div variants={fadeUp}>
+            <div className="space-y-8">
+              {services && services.length > 0 ? (
+                services.map((service, index) => {
+                  const serviceTitle = typeof service === 'object' ? service.title : service
+                  const serviceDesc = typeof service === 'object' ? service.description : ''
+                  const serviceImage = typeof service === 'object' ? service.image : ''
+                  
+                  return (
+                    <div key={index} className="bg-gray-800 p-6 rounded-2xl">
+                      <div className="flex flex-col gap-4">
+                        <div className="flex-1 space-y-3">
+                          <input
+                            type="text"
+                            value={serviceTitle || ''}
+                            onChange={(e) => handleServiceFieldChange(index, 'title', e.target.value)}
+                            placeholder="Service title"
+                            className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-lg font-semibold focus:outline-none"
+                          />
+                          <textarea
+                            value={serviceDesc || ''}
+                            onChange={(e) => handleServiceFieldChange(index, 'description', e.target.value)}
+                            placeholder="Service description"
+                            className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-sm focus:outline-none resize-y"
+                            rows="2"
+                          />
+                          <input
+                            type="text"
+                            value={serviceImage || ''}
+                            onChange={(e) => handleServiceFieldChange(index, 'image', e.target.value)}
+                            placeholder="Image URL"
+                            className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-sm focus:outline-none"
+                          />
+                        </div>
+                        <button
+                          onClick={() => handleRemoveService(index)}
+                          className="text-red-400 hover:text-red-300 font-bold text-xl w-8 h-8 flex items-center justify-center self-end"
+                          title="Remove service"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    </div>
+                  )
+                })
+              ) : null}
+              <button
+                onClick={handleAddService}
+                className="bg-gray-700 hover:bg-gray-600 p-6 rounded-2xl text-center text-gray-300 border-2 border-dashed border-gray-600 min-h-[100px] flex items-center justify-center text-sm sm:text-base w-full"
+              >
+                + Add Service
+              </button>
+            </div>
+            <div className="mt-6 flex justify-center">
+              <button
+                onClick={() => onStopEdit('services')}
+                className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 text-base"
+              >
+                Done Editing
+              </button>
+            </div>
+          </motion.div>
+        ) : (
+          <div 
+            className="space-y-6" 
+            style={{ 
+              opacity: 1,
+              visibility: 'visible',
+              width: '100%'
+            }}
+          >
+            {services && services.length > 0 ? (
+              services.map((service, index) => {
+                const serviceTitle = typeof service === 'object' && service !== null ? service.title : (service || 'Service Name')
+                const serviceDesc = typeof service === 'object' && service !== null ? service.description : ''
+                const serviceImage = typeof service === 'object' && service !== null ? service.image : '/NewBackground.jpeg'
+                
+                return (
                   <div
-                    onClick={() => onTabChange(tab)}
-                    className="cursor-pointer hover:opacity-80 transition-opacity"
+                    key={index}
+                    className="bg-gray-900 rounded-3xl overflow-hidden"
                     style={{
-                      fontFamily: 'Montserrat, sans-serif',
-                      fontStyle: 'normal',
-                      fontWeight: 500,
-                      fontSize: '24px',
-                      lineHeight: '29px',
-                      color: '#FFFFFF',
-                      flex: 'none',
-                      order: index,
-                      flexGrow: 0,
-                      whiteSpace: 'nowrap',
-                      padding: '12px 0',
-                      height: '53px',
-                      display: 'flex',
-                      alignItems: 'center'
+                      borderRadius: '24px',
+                      background: 'rgba(33, 33, 33, 0.95)',
+                      minHeight: '280px',
+                      width: '100%',
+                      position: 'relative',
+                      zIndex: 1,
+                      display: 'block'
                     }}
                   >
-                    {tab}
+                    {/* Left Content Area - Text and Image */}
+                    <div
+                      className="w-full p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col justify-between"
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        gap: '24px',
+                        width: '100%',
+                        position: 'relative',
+                        zIndex: 2
+                      }}
+                    >
+                      <div className="flex flex-col gap-4 justify-between max-w-[60%]">
+                      <div className="space-y-4 flex justify-between gap-6">
+                        {/* Heading */}
+                        <h3
+                          style={{
+                            fontFamily: 'Montserrat, sans-serif',
+                            fontStyle: 'normal',
+                            fontWeight: 600,
+                            fontSize: '32px',
+                            lineHeight: '39px',
+                            color: '#FFFFFF',
+                            margin: 0
+                          }}
+                          className="text-2xl sm:text-3xl md:text-4xl"
+                        >
+                          {serviceTitle}
+                        </h3>
+                        
+                        {/* Description */}
+                        {serviceDesc && (
+                          <p
+                            style={{
+                              fontFamily: 'Montserrat, sans-serif',
+                              fontStyle: 'normal',
+                              fontWeight: 400,
+                              fontSize: '16px',
+                              lineHeight: '24px',
+                              color: '#FFFFFF',
+                              margin: 0
+                            }}
+                            className="text-sm sm:text-base"
+                          >
+                            {serviceDesc}
+                          </p>
+                        )}
+                      </div>
+                      
+                      {/* Read More Button */}
+                      <button
+                        onClick={() => {
+                          // Handle read more action
+                          console.log('Read more:', serviceTitle)
+                        }}
+                        className="group flex items-center w-fit mt-4 rounded-full border border-white hover:bg-white/10 transition-colors ml-auto mr-40"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          marginTop: '16px',
+                          background: '#000000',
+                          border: '1px solid #FFFFFF',
+                          borderRadius: '9999px',
+                          padding: '0',
+                          gap: '0',
+                          overflow: 'hidden'
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: 'Montserrat, sans-serif',
+                            fontStyle: 'normal',
+                            fontWeight: 500,
+                            fontSize: '16px',
+                            lineHeight: '20px',
+                            color: '#FFFFFF',
+                            padding: '12px 20px 12px 24px',
+                            whiteSpace: 'nowrap'
+                          }}
+                        >
+                          Read More
+                        </span>
+                        <div
+                          className="flex items-center justify-center"
+                          style={{
+                            width: '44px',
+                            height: '44px',
+                            borderRadius: '50%',
+                            background: '#FFFFFF',
+                            border: '1px solid #000000',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                            margin: '2px',
+                            marginLeft: '0'
+                          }}
+                        >
+                          <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M7 17L17 7M17 7H7M17 7V17"
+                              stroke="#000000"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
+                      {/* Image */}
+                    <div
+                        className="w-full"
+                      style={{
+                        position: 'relative',
+                        overflow: 'hidden',
+                        minHeight: '200px',
+                          height: '200px',
+                          width: '350px'
+                      }}
+                    >
+                      <img
+                        src={serviceImage}
+                        alt={serviceTitle}
+                          className="w-full h-full object-cover rounded-lg"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover'
+                        }}
+                        onError={(e) => {
+                          e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
+                        }}
+                      />
+                      </div>
+                    </div>
                   </div>
-                )}
+                )
+              })
+            ) : (
+              <div className="text-center text-gray-400 text-base px-4 py-12">
+                No services listed. Click edit to add services.
               </div>
-            )
-          })}
-        </motion.div>
-        
-        {/* Underline for active tab */}
-        {activeTab && (() => {
-          const activeIndex = tabs.indexOf(activeTab)
-          let offset = 0
-          for (let i = 0; i < activeIndex; i++) {
-            offset += tabWidths[i] + gap
-          }
-          offset += tabWidths[activeIndex] / 2 - 65.5 // Center the line on the active tab (131px / 2 = 65.5px)
-          // Account for container being centered
-          offset -= 493.5 // 987px / 2 = 493.5px
-          
-          return (
-            <div
-              style={{
-                position: 'absolute',
-                width: '131px',
-                height: '0px',
-                left: '50%',
-                top: '63px',
-                transform: `translateX(calc(-50% + ${offset}px))`,
-                border: '1px solid #FFFFFF',
-                transition: 'transform 0.3s ease'
-              }}
-            />
-          )
-        })()}
+            )}
+          </div>
+        )}
       </div>
     </motion.section>
   )
@@ -1419,496 +2057,1206 @@ function Certifications({ company, isEditMode, editingFields, onStartEdit, onSto
   }
 
   return (
-    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="max-w-6xl mx-auto py-16">
-      <motion.div variants={fadeUp} className="text-center mb-12">
-        <div className="flex items-center justify-center gap-3">
-          <h2 className="text-3xl font-bold text-white mb-4">Certifications</h2>
-          {!isEditing && (
+    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16" style={{ marginBottom: 'clamp(3rem, 7.5vw, 7.5rem)' }}>
+      {/* Header Section with Title and Button */}
+      <div className="relative mx-auto mb-8 sm:mb-10 md:mb-12" style={{ width: '100%', maxWidth: '72.625rem' }}>
+        <motion.div 
+          variants={fadeUp}
+          className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-10"
+          style={{
+            padding: '0px',
+            width: '100%'
+          }}
+        >
+          {/* Two-line Title on Left */}
+          <div
+            className="flex-1"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              gap: '0px'
+            }}
+          >
+            <h2
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] leading-tight"
+              style={{
+                fontFamily: 'Montserrat, sans-serif',
+                fontStyle: 'normal',
+                fontWeight: 600,
+                lineHeight: '1.2',
+                color: '#FFFFFF',
+                margin: 0,
+                textAlign: 'left'
+              }}
+            >
+              Setting Global Standards in
+            </h2>
+            <h2
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] leading-tight"
+              style={{
+                fontFamily: 'Montserrat, sans-serif',
+                fontStyle: 'normal',
+                fontWeight: 600,
+                lineHeight: '1.2',
+                color: '#FFFFFF',
+                margin: 0,
+                textAlign: 'left'
+              }}
+            >
+              Quality & Precision
+            </h2>
+          </div>
+
+          {/* Add More Button on Right */}
+          <div
+            className="flex-shrink-0 w-full md:w-auto flex items-center justify-start md:justify-end"
+          >
             <button
               onClick={() => onStartEdit('certifications')}
-              className="text-gray-400 hover:text-[#FC6500] mb-4"
-              title="Edit certifications"
+              className="group flex items-center gap-3 px-4 sm:px-6 py-3 border border-white rounded-lg hover:bg-white/10 transition-colors w-full md:w-auto justify-center md:justify-start"
+              style={{
+                background: 'transparent',
+                border: '1px solid #FFFFFF',
+                borderRadius: '8px'
+              }}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-            </button>
-          )}
-        </div>
-        <p className="text-gray-300">Industry recognized certifications</p>
-      </motion.div>
-      
-      {isEditing ? (
-        <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-          {CERTIFICATION_TYPES.map((cert) => {
-            const isSelected = company?.certifications?.includes(cert)
-            return (
-              <button
-                key={cert}
-                onClick={() => handleCertificationToggle(cert)}
-                className={`p-3 sm:p-4 rounded-lg text-center border-2 transition-colors text-xs sm:text-sm ${
-                  isSelected
-                    ? 'bg-[#FC6500] text-black border-[#FC6500]'
-                    : 'bg-gray-800 text-white border-gray-700 hover:border-gray-600'
-                }`}
+              <span
+                className="text-sm sm:text-base"
+                style={{
+                  fontFamily: 'Montserrat, sans-serif',
+                  fontStyle: 'normal',
+                  fontWeight: 500,
+                  lineHeight: '20px',
+                  color: '#FFFFFF',
+                  whiteSpace: 'nowrap'
+                }}
               >
-                {cert}
+                Add More
+              </span>
+              <div
+                className="flex items-center justify-center flex-shrink-0"
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                  background: '#FFFFFF',
+                  border: '1px solid #000000',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 5V19M5 12H19"
+                    stroke="#000000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+              </svg>
+              </div>
+            </button>
+        </div>
+      </motion.div>
+      </div>
+      
+      {/* Certifications Content */}
+      <div className="max-w-6xl mx-auto">
+      {isEditing ? (
+        <div className="space-y-6" style={{ opacity: 1, visibility: 'visible' }}>
+          <div className="space-y-4">
+            {company?.certifications && company.certifications.length > 0 ? (
+              company.certifications.map((cert, index) => {
+                const certData = typeof cert === 'object' ? cert : { 
+                  title: cert, 
+                  year: '', 
+                  description: '',
+                  image: ''
+                }
+            return (
+                  <div key={index} className="bg-gray-800 p-6 rounded-2xl">
+                    <div className="flex flex-col gap-4">
+                      <div className="flex-1 space-y-3">
+                        <input
+                          type="text"
+                          value={certData.title || ''}
+                          onChange={(e) => {
+                            const currentCerts = company?.certifications || []
+                            const newCerts = [...currentCerts]
+                            newCerts[index] = { ...certData, title: e.target.value }
+                            onFieldChange('certifications', newCerts)
+                          }}
+                          placeholder="Certification Title"
+                          className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-lg font-semibold focus:outline-none"
+                        />
+                        <input
+                          type="text"
+                          value={certData.year || ''}
+                          onChange={(e) => {
+                            const currentCerts = company?.certifications || []
+                            const newCerts = [...currentCerts]
+                            newCerts[index] = { ...certData, year: e.target.value }
+                            onFieldChange('certifications', newCerts)
+                          }}
+                          placeholder="Year (e.g., 2022)"
+                          className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-sm focus:outline-none"
+                        />
+                        <textarea
+                          value={certData.description || ''}
+                          onChange={(e) => {
+                            const currentCerts = company?.certifications || []
+                            const newCerts = [...currentCerts]
+                            newCerts[index] = { ...certData, description: e.target.value }
+                            onFieldChange('certifications', newCerts)
+                          }}
+                          placeholder="Description"
+                          className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-sm focus:outline-none resize-y"
+                          rows="3"
+                        />
+                        <input
+                          type="text"
+                          value={certData.image || ''}
+                          onChange={(e) => {
+                            const currentCerts = company?.certifications || []
+                            const newCerts = [...currentCerts]
+                            newCerts[index] = { ...certData, image: e.target.value }
+                            onFieldChange('certifications', newCerts)
+                          }}
+                          placeholder="Image URL (optional)"
+                          className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-sm focus:outline-none"
+                        />
+                      </div>
+              <button
+                        onClick={() => {
+                          const currentCerts = company?.certifications || []
+                          const newCerts = currentCerts.filter((_, i) => i !== index)
+                          onFieldChange('certifications', newCerts)
+                        }}
+                        className="text-red-400 hover:text-red-300 font-bold text-xl w-8 h-8 flex items-center justify-center self-end"
+                        title="Remove certification"
+                      >
+                        ×
               </button>
-            )
-          })}
+                    </div>
+                  </div>
+                )
+              })
+            ) : (
+              <div className="text-center text-gray-400 text-base px-4 py-8">
+                No certifications yet. Click "Add New Certification" to add one.
+              </div>
+            )}
+            <button
+              onClick={() => {
+                const currentCerts = company?.certifications || []
+                onFieldChange('certifications', [...currentCerts, { title: '', year: '', description: '', image: '' }])
+              }}
+              className="bg-gray-700 hover:bg-gray-600 p-6 rounded-2xl text-center text-gray-300 border-2 border-dashed border-gray-600 min-h-[100px] flex items-center justify-center text-sm sm:text-base w-full"
+            >
+              + Add New Certification
+            </button>
+          </div>
+          <div className="mt-6 flex justify-center">
           <button
             onClick={() => onStopEdit('certifications')}
-            className="col-span-full bg-green-600 text-white px-4 sm:px-6 py-2 rounded-lg font-semibold hover:bg-green-700 text-sm sm:text-base"
+              className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 text-base"
           >
             Done Editing
           </button>
-        </motion.div>
+          </div>
+        </div>
       ) : (
-        <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+        <div className="flex flex-col gap-6 overflow-hidden w-full" style={{ padding: '0 20px' }}>
+          {/* First Row - Infinite Scrolling Left */}
+          <div className="relative w-full overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
+            <div className="flex animate-scroll-left gap-6" style={{ width: 'max-content' }}>
+              {/* Duplicate content for seamless loop */}
+              {[...Array(3)].map((_, loopIndex) => (
+                <div key={`loop-${loopIndex}`} className="flex gap-6">
           {company?.certifications && company.certifications.length > 0 ? (
-            company.certifications.map((cert, index) => (
-              <div key={index} className="bg-gray-800 p-4 sm:p-5 md:p-6 rounded-lg text-center">
-                <h3 className="text-base sm:text-lg font-semibold text-white mb-2">{cert}</h3>
-                <p className="text-sm sm:text-base text-gray-300">Certified</p>
+                    company.certifications.map((cert, index) => {
+                      const certImages = [cert1, cert2, cert3]
+                      const certImage = certImages[index % certImages.length]
+                      const certData = typeof cert === 'object' ? cert : { 
+                        title: cert, 
+                        year: '2022', 
+                        description: 'Quality management system ensuring consistent product quality and customer satisfaction.',
+                        image: certImage
+                      }
+                      return (
+                        <div
+                          key={`${loopIndex}-${index}`}
+                          className="bg-gray-800 rounded-lg p-4 flex-shrink-0 h-20"
+                          style={{
+                            width: '400px',
+                            minHeight: '220px',
+                            height: '220px',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            gap: '20px',
+                            background: 'rgba(33, 33, 33, 0.8)',
+                            borderRadius: '12px'
+                          }}
+                        >
+                          {/* Left Content */}
+                          <div className="flex flex-col justify-between flex-1" style={{ minWidth: '200px' }}>
+                            <div>
+                              <h3 className="text-2xl font-bold text-white mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                {certData.title}
+                              </h3>
+                              <p className="text-white text-lg mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                {certData.year || '2022'}
+                              </p>
+                              <div className="w-full h-px bg-gray-600 mb-2"></div>
+                              <p className="text-sm text-gray-300 leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                {certData.description || 'Quality management system ensuring consistent product quality and customer satisfaction.'}
+                              </p>
               </div>
-            ))
-          ) : (
-            <div className="col-span-full text-center text-gray-400 text-sm sm:text-base px-4">
+                          </div>
+                          {/* Right - Certificate Image */}
+                          <div className="flex-shrink-0" style={{ width: '150px', height: '180px' }}>
+                            <img
+                              src={certData.image || certImage}
+                              alt={certData.title}
+                              className="w-full h-full object-cover rounded"
+                              style={{ borderRadius: '8px' }}
+                              onError={(e) => {
+                                e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
+                              }}
+                            />
+                          </div>
+                        </div>
+                      )
+                    })
+                  ) : (
+                    <div className="text-center text-gray-400 text-base px-4 py-12" style={{ width: '400px' }}>
               No certifications listed. Click edit to add certifications.
             </div>
           )}
-        </motion.div>
-      )}
-    </motion.section>
-  )
-}
-
-function Machines({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onFieldChange, onArrayChange, onAddItem, onRemoveItem }) {
-  const isEditing = editingFields.machines
-
-  return (
-    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="max-w-6xl mx-auto py-8 sm:py-12 md:py-16">
-      <motion.div variants={fadeUp} className="text-center mb-8 sm:mb-10 md:mb-12">
-        <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2 sm:mb-4">Our Machines</h2>
-          {!isEditing && (
-            <button
-              onClick={() => onStartEdit('machines')}
-              className="text-gray-400 hover:text-[#FC6500] mb-2 sm:mb-4"
-              title="Edit machines"
-            >
-              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-            </button>
-          )}
-        </div>
-        <p className="text-sm sm:text-base text-gray-300">Production equipment and capabilities</p>
-      </motion.div>
-      
-      {isEditing ? (
-        <motion.div variants={fadeUp}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {company?.machines && company.machines.length > 0 ? (
-            company.machines.map((machine, index) => (
-              <div key={index} className="bg-gray-800 p-4 sm:p-5 md:p-6 rounded-lg">
-                <div className="flex items-center gap-2">
-                  <input
-                    type="text"
-                    value={machine}
-                    onChange={(e) => onArrayChange('machines', index, e.target.value)}
-                    className="flex-1 bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-sm sm:text-base focus:outline-none"
-                    autoFocus={index === company.machines.length - 1 && machine === ''}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        e.target.blur()
-                      }
-                    }}
-                  />
-                  <button
-                    onClick={() => onRemoveItem('machines', index)}
-                    className="text-red-400 hover:text-red-300 font-bold text-lg sm:text-xl w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center flex-shrink-0"
-                    title="Remove machine"
-                  >
-                    ×
-                  </button>
                 </div>
-              </div>
-            ))
-          ) : null}
-            <button
-              onClick={() => onAddItem('machines')}
-              className="bg-gray-700 hover:bg-gray-600 p-4 sm:p-5 md:p-6 rounded-lg text-center text-gray-300 border-2 border-dashed border-gray-600 min-h-[60px] sm:min-h-[80px] flex items-center justify-center text-sm sm:text-base"
-            >
-              + Add Machine
-            </button>
-          </div>
-          <div className="mt-4 flex justify-center">
-            <button
-              onClick={() => onStopEdit('machines')}
-              className="bg-green-600 text-white px-4 sm:px-6 py-2 rounded-lg font-semibold hover:bg-green-700 text-sm sm:text-base"
-            >
-              Done Editing
-            </button>
-          </div>
-        </motion.div>
-      ) : (
-        <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {company?.machines && company.machines.length > 0 ? (
-            company.machines.map((machine, index) => (
-              <div key={index} className="bg-gray-800 p-4 sm:p-5 md:p-6 rounded-lg">
-                <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">{machine}</h3>
-              </div>
-            ))
-          ) : (
-            <div className="col-span-full text-center text-gray-400 text-sm sm:text-base px-4">
-              No machines listed. Click edit to add machines.
+              ))}
             </div>
-          )}
-        </motion.div>
+          </div>
+
+          {/* Second Row - Infinite Scrolling Right */}
+          <div className="relative w-full overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
+            <div className="flex animate-scroll-right gap-6" style={{ width: 'max-content' }}>
+              {/* Duplicate content for seamless loop */}
+              {[...Array(3)].map((_, loopIndex) => (
+                <div key={`loop-reverse-${loopIndex}`} className="flex gap-6">
+                  {company?.certifications && company.certifications.length > 0 ? (
+                    [...company.certifications].reverse().map((cert, index) => {
+                      const certImages = [cert1, cert2, cert3]
+                      const certImage = certImages[index % certImages.length]
+                      const certData = typeof cert === 'object' ? cert : { 
+                        title: cert, 
+                        year: '2021', 
+                        description: 'Quality management system ensuring consistent product quality and customer satisfaction.',
+                        image: certImage
+                      }
+                      return (
+                        <div
+                          key={`reverse-${loopIndex}-${index}`}
+                          className="bg-gray-800 rounded-lg p-4 flex-shrink-0 h-20"
+                          style={{
+                            width: '400px',
+                            minHeight: '220px',
+                            height: '220px',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            gap: '20px',
+                            background: 'rgba(33, 33, 33, 0.8)',
+                            borderRadius: '12px'
+                          }}
+                        >
+                          {/* Left Content */}
+                          <div className="flex flex-col justify-between flex-1" style={{ minWidth: '200px' }}>
+                            <div>
+                              <h3 className="text-2xl font-bold text-white mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                {certData.title}
+                              </h3>
+                              <p className="text-white text-lg mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                {certData.year || '2021'}
+                              </p>
+                              <div className="w-full h-px bg-gray-600 mb-2"></div>
+                              <p className="text-sm text-gray-300 leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                {certData.description || 'Quality management system ensuring consistent product quality and customer satisfaction.'}
+                              </p>
+                            </div>
+                          </div>
+                          {/* Right - Certificate Image */}
+                          <div className="flex-shrink-0" style={{ width: '150px', height: '180px' }}>
+                            <img
+                              src={certData.image || certImage}
+                              alt={certData.title}
+                              className="w-full h-full object-cover rounded"
+                              style={{ borderRadius: '8px' }}
+                              onError={(e) => {
+                                e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
+                              }}
+                            />
+                          </div>
+                        </div>
+                      )
+                    })
+                  ) : (
+                    <div className="text-center text-gray-400 text-base px-4 py-12" style={{ width: '400px' }}>
+                      No certifications listed. Click edit to add certifications.
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       )}
+      </div>
     </motion.section>
   )
 }
 
-function Details({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onFieldChange }) {
-  const editingAnyDetail = editingFields.companyMotto || editingFields.establishedOn || editingFields.plantLocation || editingFields.officialEmail || editingFields.gstinNumber
-
-  return (
-    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="max-w-6xl mx-auto py-8 sm:py-12 md:py-16">
-      <motion.div variants={fadeUp}>
-        <div className="flex items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white text-center">Company Details</h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-          <div className="bg-gray-800 p-4 sm:p-5 md:p-6 rounded-lg">
-            <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 sm:mb-3">Company Motto</h3>
-            <div className="text-gray-300">
-              {editingFields.companyMotto ? (
-                <input
-                  type="text"
-                  value={company?.companyMotto || ''}
-                  onChange={(e) => onFieldChange('companyMotto', e.target.value)}
-                  onBlur={() => onStopEdit('companyMotto')}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === 'Escape') {
-                      onStopEdit('companyMotto')
-                    }
-                  }}
-                  maxLength={200}
-                  placeholder="Enter company motto"
-                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white w-full text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
-                  autoFocus
-                />
-              ) : (
-                <span
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    onStartEdit('companyMotto')
-                  }}
-                  className="cursor-pointer hover:bg-gray-700/50 rounded px-2 py-1 transition-colors inline-block group relative w-full block min-h-[24px] text-sm sm:text-base"
-                  title="Click to edit"
-                >
-                  {company?.companyMotto || 'Not set'}
-                  <svg 
-                    className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                  </svg>
-                </span>
-              )}
-            </div>
-          </div>
-          <div className="bg-gray-800 p-4 sm:p-5 md:p-6 rounded-lg">
-            <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 sm:mb-3">Established On</h3>
-            <div className="text-gray-300">
-              {editingFields.establishedOn ? (
-                <input
-                  type="date"
-                  value={company?.establishedOn ? company.establishedOn.split('T')[0] : ''}
-                  onChange={(e) => {
-                    // Convert YYYY-MM-DD to ISO string
-                    const dateValue = e.target.value
-                    if (dateValue) {
-                      const isoString = new Date(dateValue + 'T00:00:00').toISOString()
-                      onFieldChange('establishedOn', isoString)
-                    } else {
-                      onFieldChange('establishedOn', '')
-                    }
-                  }}
-                  onBlur={() => onStopEdit('establishedOn')}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Escape') {
-                      onStopEdit('establishedOn')
-                    }
-                  }}
-                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white w-full text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
-                  autoFocus
-                />
-              ) : (
-                <span
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    onStartEdit('establishedOn')
-                  }}
-                  className="cursor-pointer hover:bg-gray-700/50 rounded px-2 py-1 transition-colors inline-block group relative w-full block min-h-[24px] text-sm sm:text-base"
-                  title="Click to edit"
-                >
-                  {company?.establishedOn ? new Date(company.establishedOn).toLocaleDateString() : 'Not set'}
-                  <svg 
-                    className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                  </svg>
-                </span>
-              )}
-            </div>
-          </div>
-          <div className="bg-gray-800 p-4 sm:p-5 md:p-6 rounded-lg">
-            <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 sm:mb-3">Plant Location</h3>
-            <div className="text-gray-300">
-              {editingFields.plantLocation ? (
-                <input
-                  type="text"
-                  value={company?.plantLocation || ''}
-                  onChange={(e) => onFieldChange('plantLocation', e.target.value)}
-                  onBlur={() => onStopEdit('plantLocation')}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === 'Escape') {
-                      onStopEdit('plantLocation')
-                    }
-                  }}
-                  placeholder="Enter plant location"
-                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white w-full text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
-                  autoFocus
-                />
-              ) : (
-                <span
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    onStartEdit('plantLocation')
-                  }}
-                  className="cursor-pointer hover:bg-gray-700/50 rounded px-2 py-1 transition-colors inline-block group relative w-full block min-h-[24px] text-sm sm:text-base"
-                  title="Click to edit"
-                >
-                  {company?.plantLocation || 'Not set'}
-                  <svg 
-                    className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                  </svg>
-                </span>
-              )}
-            </div>
-          </div>
-          <div className="bg-gray-800 p-4 sm:p-5 md:p-6 rounded-lg">
-            <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 sm:mb-3">Official Email</h3>
-            <div className="text-gray-300">
-              {editingFields.officialEmail ? (
-                <input
-                  type="email"
-                  value={company?.officialEmail || ''}
-                  onChange={(e) => onFieldChange('officialEmail', e.target.value)}
-                  onBlur={() => onStopEdit('officialEmail')}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === 'Escape') {
-                      onStopEdit('officialEmail')
-                    }
-                  }}
-                  placeholder="Enter official email"
-                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white w-full text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
-                  autoFocus
-                />
-              ) : (
-                <span
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    onStartEdit('officialEmail')
-                  }}
-                  className="cursor-pointer hover:bg-gray-700/50 rounded px-2 py-1 transition-colors inline-block group relative w-full block min-h-[24px] text-sm sm:text-base"
-                  title="Click to edit"
-                >
-                  {company?.officialEmail || 'Not set'}
-                  <svg 
-                    className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                  </svg>
-                </span>
-              )}
-            </div>
-          </div>
-          <div className="bg-gray-800 p-4 sm:p-5 md:p-6 rounded-lg">
-            <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 sm:mb-3">GSTIN Number</h3>
-            <div className="text-gray-300">
-              {editingFields.gstinNumber ? (
-                <input
-                  type="text"
-                  value={company?.gstinNumber || ''}
-                  onChange={(e) => onFieldChange('gstinNumber', e.target.value)}
-                  onBlur={() => onStopEdit('gstinNumber')}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === 'Escape') {
-                      onStopEdit('gstinNumber')
-                    }
-                  }}
-                  placeholder="Enter GSTIN number"
-                  className="bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white w-full text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
-                  autoFocus
-                />
-              ) : (
-                <span
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    onStartEdit('gstinNumber')
-                  }}
-                  className="cursor-pointer hover:bg-gray-700/50 rounded px-2 py-1 transition-colors inline-block group relative w-full block min-h-[24px] text-sm sm:text-base"
-                  title="Click to edit"
-                >
-                  {company?.gstinNumber || 'Not set'}
-                  <svg 
-                    className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                  </svg>
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </motion.section>
-  )
-}
 
 function Gallery({ company }) {
-  const plantImages = []
+  const [currentIndex, setCurrentIndex] = useState(2) // Start at center (index 2)
   
-  if (company?.plantImages && company.plantImages.length > 0) {
-    company.plantImages.forEach((image) => {
-      if (image.url) {
-        plantImages.push({
-          url: image.url,
-          type: 'plant',
-          alt: 'Plant image'
-        })
-      }
-    })
+  // Default media images - always use these for demo
+  const defaultMediaImages = [media, media2, media3, media4, media5]
+  
+  // Always use default images for now
+  const mediaImages = defaultMediaImages
+  
+  console.log('Gallery images:', mediaImages)
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % mediaImages.length)
+  }
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + mediaImages.length) % mediaImages.length)
+  }
+
+  const goToSlide = (index) => {
+    setCurrentIndex(index)
   }
 
   return (
-    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="max-w-6xl mx-auto py-8 sm:py-12 md:py-16">
-      <motion.div variants={fadeUp} className="text-center mb-8 sm:mb-10 md:mb-12">
-        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">Our Gallery</h2>
-        <p className="text-sm sm:text-base text-gray-300">See our work in action</p>
+    <motion.section 
+      initial="hidden" 
+      whileInView="show" 
+      viewport={{ once: true, amount: 0.2 }} 
+      className="relative w-full py-8 sm:py-12 md:py-16 lg:py-20 overflow-x-hidden"
+      style={{ marginBottom: 'clamp(3rem, 7.5vw, 7.5rem)', overflowX: 'hidden' }}
+    >
+      <div className="relative mx-auto px-4 sm:px-6 lg:px-8" style={{ width: '100%', maxWidth: '72.625rem', overflowX: 'hidden', position: 'relative', isolation: 'isolate' }}>
+        {/* Gallery Container with clipping */}
+        <div className="relative w-full overflow-x-hidden" style={{ overflowX: 'hidden', position: 'relative', width: '100%', maxWidth: '100%' }}>
+          <div className="relative flex items-center justify-center overflow-x-hidden" style={{ height: 'clamp(20rem, 40vw, 31.25rem)', perspective: 'clamp(50rem, 100vw, 75rem)', overflowX: 'hidden', overflowY: 'visible', width: '100%', position: 'relative', maxWidth: '100%' }}>
+            <div className="relative flex items-center justify-center overflow-x-hidden" style={{ width: '100%', height: '100%', overflowX: 'hidden', overflowY: 'visible', position: 'relative', maxWidth: '100%' }}>
+            {mediaImages && mediaImages.length > 0 ? mediaImages.map((image, index) => {
+              const offset = index - currentIndex
+              const isCenter = offset === 0
+              
+              // Calculate position, rotation, and scale - responsive spacing
+              const baseSpacing = typeof window !== 'undefined' ? Math.min(window.innerWidth * 0.15, 280) : 280
+              let translateX = offset * baseSpacing
+              let rotationY = 0
+              let scale = 1
+              let opacity = 1
+              let zIndex = mediaImages.length - Math.abs(offset)
+              
+              if (!isCenter) {
+                // Tilt images that are not in center
+                rotationY = offset > 0 ? 25 : -25 // Tilt right if ahead, left if behind
+                scale = 0.75
+                opacity = 0.5
+              } else {
+                scale = 1
+                opacity = 1
+                zIndex = 100
+              }
+
+              return (
+                <div
+                  key={index}
+                  className="absolute cursor-pointer transition-all duration-700 ease-in-out"
+                  style={{
+                    width: 'clamp(16rem, 30vw, 25rem)',
+                    height: 'clamp(18rem, 33vw, 28.125rem)',
+                    transform: `translateX(${translateX}px) rotateY(${rotationY}deg) scale(${scale})`,
+                    opacity: opacity,
+                    zIndex: zIndex,
+                    transformStyle: 'preserve-3d',
+                    backfaceVisibility: 'hidden'
+                  }}
+                  onClick={() => goToSlide(index)}
+                >
+                  <div 
+                    className="w-full h-full rounded-2xl overflow-hidden"
+                    style={{
+                      borderRadius: '16px',
+                      boxShadow: isCenter 
+                        ? '0 25px 50px rgba(0, 0, 0, 0.6)' 
+                        : '0 10px 25px rgba(0, 0, 0, 0.4)',
+                      transition: 'box-shadow 0.7s ease-in-out'
+                    }}
+                  >
+                    <img
+                      src={image}
+                      alt={`Gallery image ${index + 1}`}
+                      className="w-full h-full object-cover"
+                      style={{
+                        transition: 'all 0.7s ease-in-out'
+                      }}
+                      onError={(e) => {
+                        e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
+                      }}
+                    />
+                </div>
+              </div>
+              )
+            }) : (
+              <div className="text-white">No images available</div>
+            )}
+            </div>
+          </div>
+        </div>
+
+        {/* Navigation Dots */}
+        <div className="flex justify-center items-center gap-2 mt-12">
+          {mediaImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className="transition-all duration-300 rounded-full"
+              style={{
+                width: index === currentIndex ? '12px' : '8px',
+                height: index === currentIndex ? '12px' : '8px',
+                backgroundColor: index === currentIndex ? '#FFFFFF' : '#666666',
+                border: 'none',
+                cursor: 'pointer'
+              }}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Navigation Arrows */}
+        <button
+          onClick={handlePrev}
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-3 transition-all duration-300 z-20"
+          style={{ backdropFilter: 'blur(10px)' }}
+          aria-label="Previous image"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+            </button>
+            <button
+          onClick={handleNext}
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-3 transition-all duration-300 z-20"
+          style={{ backdropFilter: 'blur(10px)' }}
+          aria-label="Next image"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 18L15 12L9 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+            </button>
+          </div>
+    </motion.section>
+  )
+}
+
+function Testimonials({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onFieldChange }) {
+  // Default testimonials if not provided
+  const defaultTestimonials = [
+    {
+      quote: 'Outstanding quality and precision in every project. Their manufacturing capabilities exceeded our expectations.',
+      author: 'John Smith',
+      company: 'Tech Industries Inc.',
+      rating: 5
+    },
+    {
+      quote: 'Professional team with exceptional attention to detail. Highly recommend their services.',
+      author: 'Emily Davis',
+      company: 'Global Solutions Ltd.',
+      rating: 5
+    },
+    {
+      quote: 'Reliable partner for all our manufacturing needs. Consistent quality and on-time delivery.',
+      author: 'Michael Brown',
+      company: 'Innovation Corp.',
+      rating: 5
+    },
+    {
+      quote: 'Excellent service and superior craftsmanship. They truly understand our requirements.',
+      author: 'Sarah Wilson',
+      company: 'Advanced Manufacturing Co.',
+      rating: 5
+    },
+    {
+      quote: 'Top-notch quality and professional service. Our go-to manufacturing partner.',
+      author: 'David Lee',
+      company: 'Precision Engineering Group',
+      rating: 5
+    }
+  ]
+
+  const testimonials = company?.testimonials || defaultTestimonials
+
+  return (
+    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16" style={{ marginBottom: 'clamp(3rem, 7.5vw, 7.5rem)' }}>
+      {/* Testimonials Content */}
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col gap-6 overflow-hidden w-full" style={{ padding: '0 20px' }}>
+          {/* First Row - Infinite Scrolling Left */}
+          <div className="relative w-full overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
+            <div className="flex animate-scroll-left gap-6" style={{ width: 'max-content' }}>
+              {/* Duplicate content for seamless loop */}
+              {[...Array(3)].map((_, loopIndex) => (
+                <div key={`loop-${loopIndex}`} className="flex gap-6">
+                  {testimonials && testimonials.length > 0 ? (
+                    testimonials.map((testimonial, index) => {
+                      const testimonialData = typeof testimonial === 'object' ? testimonial : { 
+                        quote: testimonial, 
+                        author: 'Client',
+                        company: 'Company Name',
+                        rating: 5
+                      }
+                      return (
+                        <div
+                          key={`${loopIndex}-${index}`}
+                          className="bg-gray-800 rounded-lg p-4 flex-shrink-0"
+                          style={{
+                            width: '400px',
+                            minHeight: '220px',
+                            height: '220px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '16px',
+                            background: 'rgba(33, 33, 33, 0.8)',
+                            borderRadius: '12px'
+                          }}
+                        >
+                          {/* Name and Image Section */}
+                          <div className="flex items-center gap-3">
+                            {/* User Image */}
+                            <div className="flex-shrink-0" style={{ width: '50px', height: '50px' }}>
+                              <img
+                                src={testimonialImg}
+                                alt={testimonialData.author || 'Client'}
+                                className="w-full h-full object-cover rounded-full"
+                                style={{
+                                  borderRadius: '50%',
+                                  objectPosition: 'center top'
+                                }}
+                                onError={(e) => {
+                                  e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
+                                }}
+                              />
+                            </div>
+                            {/* Name and Company */}
+                            <div className="flex-1">
+                              <h3 className="text-lg font-bold text-white mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                {testimonialData.author || 'Client Name'}
+                              </h3>
+                              <p className="text-sm text-gray-400" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                {testimonialData.company || 'Company Name'}
+                              </p>
+                            </div>
+                          </div>
+                          
+                          {/* Separator */}
+                          <div className="w-full h-px bg-gray-600"></div>
+                          
+                          {/* Quote */}
+                          <div className="flex-1">
+                            <p className="text-sm text-gray-300 leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                              "{testimonialData.quote || 'Great service and quality products.'}"
+                            </p>
+                          </div>
+                        </div>
+                      )
+                    })
+                  ) : (
+                    <div className="text-center text-gray-400 text-base px-4 py-12" style={{ width: '400px' }}>
+                      No testimonials listed.
+                    </div>
+              )}
+            </div>
+              ))}
+          </div>
+          </div>
+
+          {/* Second Row - Infinite Scrolling Right */}
+          <div className="relative w-full overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
+            <div className="flex animate-scroll-right gap-6" style={{ width: 'max-content' }}>
+              {/* Duplicate content for seamless loop */}
+              {[...Array(3)].map((_, loopIndex) => (
+                <div key={`loop-reverse-${loopIndex}`} className="flex gap-6">
+                  {testimonials && testimonials.length > 0 ? (
+                    [...testimonials].reverse().map((testimonial, index) => {
+                      const testimonialData = typeof testimonial === 'object' ? testimonial : { 
+                        quote: testimonial, 
+                        author: 'Client',
+                        company: 'Company Name',
+                        rating: 5
+                      }
+                      return (
+                        <div
+                          key={`reverse-${loopIndex}-${index}`}
+                          className="bg-gray-800 rounded-lg p-4 flex-shrink-0"
+                          style={{
+                            width: '400px',
+                            minHeight: '220px',
+                            height: '220px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '16px',
+                            background: 'rgba(33, 33, 33, 0.8)',
+                            borderRadius: '12px'
+                          }}
+                        >
+                          {/* Name and Image Section */}
+                          <div className="flex items-center gap-3">
+                            {/* User Image */}
+                            <div className="flex-shrink-0" style={{ width: '50px', height: '50px' }}>
+                              <img
+                                src={testimonialImg}
+                                alt={testimonialData.author || 'Client'}
+                                className="w-full h-full object-cover rounded-full"
+                                style={{
+                                  borderRadius: '50%',
+                                  objectPosition: 'center top'
+                                }}
+                                onError={(e) => {
+                                  e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
+                                }}
+                              />
+                            </div>
+                            {/* Name and Company */}
+                            <div className="flex-1">
+                              <h3 className="text-lg font-bold text-white mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                {testimonialData.author || 'Client Name'}
+                              </h3>
+                              <p className="text-sm text-gray-400" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                {testimonialData.company || 'Company Name'}
+                              </p>
+                            </div>
+                          </div>
+                          
+                          {/* Separator */}
+                          <div className="w-full h-px bg-gray-600"></div>
+                          
+                          {/* Quote */}
+                          <div className="flex-1">
+                            <p className="text-sm text-gray-300 leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                              "{testimonialData.quote || 'Great service and quality products.'}"
+                            </p>
+                          </div>
+                        </div>
+                      )
+                    })
+                  ) : (
+                    <div className="text-center text-gray-400 text-base px-4 py-12" style={{ width: '400px' }}>
+                      No testimonials listed.
+                    </div>
+              )}
+            </div>
+              ))}
+          </div>
+          </div>
+        </div>
+      </div>
+    </motion.section>
+  )
+}
+
+function Team({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onFieldChange }) {
+  return (
+    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16" style={{ marginBottom: 'clamp(3rem, 7.5vw, 7.5rem)' }}>
+      {/* Header Section with Title and Button */}
+      <div className="relative mx-auto mb-8 sm:mb-10 md:mb-12" style={{ width: '100%', maxWidth: '72.625rem' }}>
+        <motion.div 
+          variants={fadeUp}
+          className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-10"
+          style={{
+            padding: '0px',
+            width: '100%'
+          }}
+        >
+          {/* Title on Left */}
+          <div
+            className="flex-1"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              gap: '0px'
+            }}
+          >
+            <h2
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] leading-tight"
+              style={{
+                fontFamily: 'Montserrat, sans-serif',
+                fontStyle: 'normal',
+                fontWeight: 600,
+                lineHeight: '1.2',
+                color: '#FFFFFF',
+                margin: 0,
+                textAlign: 'left'
+              }}
+            >
+              The Faces Behind Precision and Performance
+            </h2>
+            </div>
+
+          {/* Button on Right */}
+          <div
+            className="flex-shrink-0 w-full md:w-auto flex items-center justify-start md:justify-end"
+          >
+            <button
+              onClick={() => {
+                // Handle button action
+                console.log('Team button clicked')
+              }}
+              className="group flex items-center w-fit rounded-full border border-white hover:bg-white/10 transition-colors"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                background: '#000000',
+                border: '1px solid #FFFFFF',
+                borderRadius: '9999px',
+                padding: '0',
+                gap: '0',
+                overflow: 'hidden'
+              }}
+            >
+                <span
+                style={{
+                  fontFamily: 'Montserrat, sans-serif',
+                  fontStyle: 'normal',
+                  fontWeight: 500,
+                  fontSize: '16px',
+                  lineHeight: '20px',
+                  color: '#FFFFFF',
+                  padding: '12px 20px 12px 24px',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                View Team
+                </span>
+              <div
+                className="flex items-center justify-center"
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  borderRadius: '50%',
+                  background: '#FFFFFF',
+                  border: '1px solid #000000',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  margin: '2px',
+                  marginLeft: '0'
+                }}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                    viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7 17L17 7M17 7H7M17 7V17"
+                    stroke="#000000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  </svg>
+            </div>
+            </button>
+          </div>
+        </motion.div>
+        </div>
+
+      {/* Team Content */}
+      <div className="max-w-6xl mx-auto">
+        <motion.div variants={fadeUp} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {/* Demo Team Members */}
+          <TeamMemberCard
+            name="Abhijeet Sinha"
+            title="CEO"
+            image={team1}
+            linkedin="#"
+            twitter="#"
+            facebook="#"
+          />
+          <TeamMemberCard
+            name="Sarah Johnson"
+            title="CTO"
+            image={team2}
+            linkedin="#"
+            twitter="#"
+            facebook="#"
+          />
+          <TeamMemberCard
+            name="Michael Chen"
+            title="Head of Operations"
+            image={team3}
+            linkedin="#"
+            twitter="#"
+            facebook="#"
+          />
       </motion.div>
-      
-      {plantImages.length > 0 ? (
-        <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {plantImages.map((image, index) => (
-            <div key={index} className="relative group bg-gray-800 rounded-lg overflow-hidden h-40 sm:h-48 md:h-56">
-              <img 
-                src={image.url} 
-                alt={image.alt}
+      </div>
+    </motion.section>
+  )
+}
+
+// Team Member Card Component
+function TeamMemberCard({ name, title, image, linkedin, twitter, facebook }) {
+  return (
+    <div
+      className="bg-transparent rounded-lg overflow-hidden"
+      style={{
+        borderRadius: '12px',
+        overflow: 'hidden'
+      }}
+    >
+      {/* Profile Image */}
+      <div
+        className="w-full"
+        style={{
+          height: '350px',
+          overflow: 'hidden',
+          position: 'relative'
+        }}
+      >
+        <img
+          src={image}
+          alt={name}
                 className="w-full h-full object-cover"
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+            width: '100%',
+            height: '100%'
+          }}
                 onError={(e) => {
                   e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
                 }}
               />
             </div>
-          ))}
-        </motion.div>
-      ) : (
-        <motion.div variants={fadeUp} className="text-center">
-          <div className="bg-gray-800 h-32 sm:h-40 md:h-48 rounded-lg flex items-center justify-center">
-            <span className="text-gray-400 text-sm sm:text-base px-4">No images uploaded yet</span>
+
+      {/* Information Section */}
+      <div
+        className="bg-[#0C0C0C] p-4 sm:p-5 md:p-6"
+        style={{
+          background: '#0C0C0C',
+          borderRadius: '0 0 12px 12px',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '16px'
+        }}
+      >
+        {/* Name and Title */}
+        <div className="flex-1">
+          <h3
+            style={{
+              fontFamily: 'Montserrat, sans-serif',
+              fontStyle: 'normal',
+              fontWeight: 600,
+              fontSize: '20px',
+              lineHeight: '28px',
+              color: '#FFFFFF',
+              margin: 0,
+              marginBottom: '4px'
+            }}
+          >
+            {name}
+          </h3>
+          <p
+            style={{
+              fontFamily: 'Montserrat, sans-serif',
+              fontStyle: 'normal',
+              fontWeight: 400,
+              fontSize: '14px',
+              lineHeight: '20px',
+              color: '#9CA3AF',
+              margin: 0
+            }}
+          >
+            {title}
+          </p>
           </div>
-        </motion.div>
-      )}
+
+        {/* Social Media Icons */}
+        <div className="flex items-center gap-2 flex-shrink-0">
+          {linkedin && (
+            <a
+              href={linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-80 transition-opacity"
+              style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '4px',
+                background: '#000000',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '1px solid #333333'
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill="#FFFFFF"/>
+              </svg>
+            </a>
+          )}
+          {twitter && (
+            <a
+              href={twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-80 transition-opacity"
+              style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                background: '#000000',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '1px solid #333333'
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#FFFFFF"/>
+              </svg>
+            </a>
+          )}
+          {facebook && (
+            <a
+              href={facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-80 transition-opacity"
+              style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                background: '#000000',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '1px solid #333333'
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#FFFFFF"/>
+              </svg>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function IdCard({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onFieldChange }) {
+  return (
+    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16" style={{ marginBottom: 'clamp(3rem, 7.5vw, 7.5rem)' }}>
+      {/* ID Card Content */}
+      <div className="max-w-6xl mx-auto">
+        {/* ID Card content will go here */}
+      </div>
     </motion.section>
   )
 }
 
 function Contact({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onFieldChange }) {
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    query: ''
+  })
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // Handle form submission
+    console.log('Form submitted:', formData)
+  }
+
   return (
-    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="max-w-6xl mx-auto py-8 sm:py-12 md:py-16">
-      <motion.div variants={fadeUp} className="text-center mb-8 sm:mb-10 md:mb-12">
-        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">Contact Us</h2>
-        <p className="text-sm sm:text-base text-gray-300">Get in touch for your next project</p>
-      </motion.div>
-      
-      <motion.div variants={fadeUp} className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-        <div>
-          <h3 className="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4">Get in Touch</h3>
-          <div className="space-y-3 sm:space-y-4">
-            <p className="text-sm sm:text-base text-gray-300">
-              <span className="font-semibold">Email:</span>{' '}
-              <EditableField
-                value={company?.officialEmail}
-                fieldName="officialEmail"
-                isEditing={editingFields.officialEmail}
-                onStartEdit={onStartEdit}
-                onStopEdit={onStopEdit}
-                onChange={onFieldChange}
-                type="email"
-                placeholder="Enter official email"
-                className="inline-block ml-2"
-              />
-            </p>
-            <p className="text-sm sm:text-base text-gray-300">
-              <span className="font-semibold">Location:</span>{' '}
-              <EditableField
-                value={company?.plantLocation}
-                fieldName="plantLocation"
-                isEditing={editingFields.plantLocation}
-                onStartEdit={onStartEdit}
-                onStopEdit={onStopEdit}
-                onChange={onFieldChange}
-                placeholder="Enter plant location"
-                className="inline-block ml-2"
-              />
-            </p>
+    <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div variants={fadeUp} className="flex flex-col md:flex-row gap-4 md:gap-32 lg:gap-48">
+          {/* Left Side - Title */}
+          <span className="text-xl sm:text-3xl md:text-xl font-bold text-white" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+            Let's Work Together
+          </span>
+
+          {/* Right Side - Form */}
+          <div className="flex-1">
+            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+              {/* Top Row: Your Name and Your Phone side by side */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                {/* Your Name */}
+                <div className="flex flex-col">
+                  <label className="text-white text-sm sm:text-base mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full bg-transparent text-white text-sm sm:text-base pb-2 focus:outline-none border-b border-white"
+                    style={{ fontFamily: 'Montserrat, sans-serif' }}
+                    placeholder=""
+                  />
+                </div>
+
+                {/* Your Phone */}
+                <div className="flex flex-col">
+                  <label className="text-white text-sm sm:text-base mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                    Your Phone
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full bg-transparent text-white text-sm sm:text-base pb-2 focus:outline-none border-b border-white"
+                    style={{ fontFamily: 'Montserrat, sans-serif' }}
+                    placeholder=""
+                  />
           </div>
         </div>
-        <div>
-          <h3 className="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4">Send Message</h3>
-          <form className="space-y-3 sm:space-y-4">
-            <input 
-              type="text" 
-              placeholder="Your Name" 
-              className="w-full p-2.5 sm:p-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
-            />
+
+              {/* Your Email - Below Your Name field */}
+              <div className="flex flex-col md:w-1/2">
+                <label className="text-white text-sm sm:text-base mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                  Your Email ID
+                </label>
             <input 
               type="email" 
-              placeholder="Your Email" 
-              className="w-full p-2.5 sm:p-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#FC6500]"
-            />
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full bg-transparent text-white text-sm sm:text-base pb-2 focus:outline-none border-b border-white"
+                  style={{ fontFamily: 'Montserrat, sans-serif' }}
+                  placeholder=""
+                />
+              </div>
+
+              {/* Your Query - Textarea */}
+              <div className="flex flex-col">
+                <label className="text-white text-sm sm:text-base mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                  Your Query
+                </label>
             <textarea 
-              placeholder="Your Message" 
-              rows="4"
-              className="w-full p-2.5 sm:p-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#FC6500] resize-y"
-            ></textarea>
-            <button className="w-full bg-[#FC6500] text-black py-2.5 sm:py-3 rounded-lg font-semibold text-sm sm:text-base hover:bg-[#e55a00] transition-colors">
-              Send Message
+                  name="query"
+                  value={formData.query}
+                  onChange={handleInputChange}
+                  rows="6"
+                  className="w-full bg-[#131313] text-white text-sm sm:text-base p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/20 resize-y"
+                  style={{ fontFamily: 'Montserrat, sans-serif' }}
+                  placeholder="type here....."
+                />
+              </div>
+
+              {/* Submit Button - Styled like Read More button */}
+              <div className="flex justify-start mt-8">
+                <button
+                  type="submit"
+                  className="group flex items-center w-fit rounded-full border border-white hover:bg-white/10 transition-colors"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    background: '#000000',
+                    border: '1px solid #FFFFFF',
+                    borderRadius: '9999px',
+                    padding: '0',
+                    gap: '0',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: 'Montserrat, sans-serif',
+                      fontStyle: 'normal',
+                      fontWeight: 500,
+                      fontSize: '16px',
+                      lineHeight: '20px',
+                      color: '#FFFFFF',
+                      padding: '12px 20px 12px 24px',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    Submit
+                  </span>
+                  <div
+                    className="flex items-center justify-center"
+                    style={{
+                      width: '44px',
+                      height: '44px',
+                      borderRadius: '50%',
+                      background: '#FFFFFF',
+                      border: '1px solid #000000',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      margin: '2px',
+                      marginLeft: '0'
+                    }}
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M7 17L17 7M17 7H7M17 7V17"
+                        stroke="#000000"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
             </button>
+              </div>
           </form>
         </div>
       </motion.div>
+      </div>
     </motion.section>
   )
 }
