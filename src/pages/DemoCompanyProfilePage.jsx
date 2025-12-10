@@ -14,6 +14,11 @@ import team1 from '../assets/team.jpg'
 import team2 from '../assets/team2.jpg'
 import team3 from '../assets/team3.jpg'
 import testimonialImg from '../assets/testimonial.jpg'
+import logoImage from '../assets/image.png'
+import service1 from '../assets/service.jpg'
+import service2 from '../assets/service2.jpg'
+import service3 from '../assets/service3.jpg'
+import service4 from '../assets/service4.jpg'
 
 const fadeUp = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }
 const fadeIn = { hidden: { opacity: 0 }, show: { opacity: 1 } }
@@ -21,7 +26,7 @@ const fadeIn = { hidden: { opacity: 0 }, show: { opacity: 1 } }
 // Mock data based on backend structure
 const initialMockCompanyData = {
   id: 'demo-company-123',
-  companyName: 'Advanced Manufacturing Solutions',
+  companyName: 'Shyaam Industries Pvt. Ltd.',
   companyDescription: 'We are a leading precision manufacturing company specializing in CNC machining, fabrication, and assembly services. With over 20 years of experience, we deliver high-quality components for aerospace, automotive, and medical industries.',
   companyMotto: 'Excellence in Every Component',
   vendors: [
@@ -54,22 +59,22 @@ const initialMockCompanyData = {
     {
       title: 'Product Design & Prototyping',
       description: 'From CAD modeling to functional prototypes, enabling faster innovation.',
-      image: '/NewBackground.jpeg'
+      image: service1
     },
     {
       title: 'Precision Machining',
       description: 'High-accuracy machining services for complex components and tight tolerances.',
-      image: '/about2.jpeg'
+      image: service2
     },
     {
       title: 'Casting & Forging',
       description: 'Tailored manufacturing solutions to meet your unique specifications and requirements.',
-      image: '/about3.jpeg'
+      image: service3
     },
     {
       title: 'Fabrication & Welding',
       description: 'Complete assembly solutions from component integration to final product delivery.',
-      image: '/NewBackground.jpeg'
+      image: service4
     }
   ],
   profileCompletionPercentage: 85
@@ -100,7 +105,7 @@ const DemoCompanyProfilePage = () => {
       delete newFields[fieldName]
       return newFields
     })
-    
+
     // If no more fields are being edited, turn off edit mode
     const remainingFields = Object.keys(editingFields).filter(f => f !== fieldName)
     if (remainingFields.length === 1) { // Only the one we're removing
@@ -153,12 +158,12 @@ const DemoCompanyProfilePage = () => {
     if (!editingFields[fieldName]) {
       startEditing(fieldName)
     }
-    
+
     // Add new empty item - check if vendors use object format
     setCompany(prev => {
       const existingItems = prev[fieldName] || []
       const isObjectFormat = existingItems.length > 0 && typeof existingItems[0] === 'object' && existingItems[0] !== null && !Array.isArray(existingItems[0])
-      
+
       return {
         ...prev,
         [fieldName]: [...existingItems, isObjectFormat ? { name: '', location: '' } : '']
@@ -176,18 +181,18 @@ const DemoCompanyProfilePage = () => {
   const handleSave = async () => {
     setSaving(true)
     setSaveMessage('')
-    
+
     try {
       // In demo mode, we'll simulate saving
       // In real implementation, you would call: await authAPI.updateProfile(company)
-      
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000))
-      
+
       setSaveMessage('✅ Changes saved successfully! (Demo Mode)')
       setIsEditMode(false)
       setEditingFields({})
-      
+
       setTimeout(() => setSaveMessage(''), 3000)
     } catch (error) {
       setSaveMessage('❌ Failed to save changes. Please try again.')
@@ -210,13 +215,13 @@ const DemoCompanyProfilePage = () => {
   return (
     <div className="min-h-screen bg-black text-white font-montserrat overflow-x-hidden" style={{ overflowX: 'hidden' }}>
       <div className="w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 overflow-x-hidden" style={{ overflowX: 'hidden' }}>
-        <Navbar 
-          user={mockUser} 
-      onLogout={handleLogout}
-      onUpdateUser={handleUpdateUser}
+        <Navbar
+          user={mockUser}
+          onLogout={handleLogout}
+          onUpdateUser={handleUpdateUser}
           showDebugButtons={false}
         />
-        
+
         {/* Edit Mode Banner */}
         {/* {isEditMode && (
           <div className="max-w-6xl mx-auto mt-4 mb-4 p-4 bg-yellow-600/20 border border-yellow-500 rounded-lg flex items-center justify-between">
@@ -237,9 +242,8 @@ const DemoCompanyProfilePage = () => {
         )} */}
 
         {saveMessage && (
-          <div className={`max-w-6xl mx-auto mt-2 mb-4 p-3 rounded-lg ${
-            saveMessage.includes('✅') ? 'bg-green-600/20 border border-green-500 text-green-300' : 'bg-red-600/20 border border-red-500 text-red-300'
-          }`}>
+          <div className={`max-w-6xl mx-auto mt-2 mb-4 p-3 rounded-lg ${saveMessage.includes('✅') ? 'bg-green-600/20 border border-green-500 text-green-300' : 'bg-red-600/20 border border-red-500 text-red-300'
+            }`}>
             {saveMessage}
           </div>
         )}
@@ -272,13 +276,13 @@ const DemoCompanyProfilePage = () => {
 }
 
 // Editable field component
-const EditableField = ({ 
-  value, 
-  fieldName, 
-  isEditing, 
-  onStartEdit, 
-  onStopEdit, 
-  onChange, 
+const EditableField = ({
+  value,
+  fieldName,
+  isEditing,
+  onStartEdit,
+  onStopEdit,
+  onChange,
   type = 'text',
   placeholder = '',
   className = '',
@@ -336,16 +340,16 @@ const EditableField = ({
   }
 
   return (
-    <div 
+    <div
       onClick={handleClick}
       className={`cursor-pointer hover:bg-gray-800/50 rounded px-2 py-1 transition-colors group relative ${className} ${!value ? 'text-gray-500 italic' : ''}`}
       title="Click to edit"
     >
       {value || <span className="text-gray-500 italic">{placeholder || 'Click to add...'}</span>}
-      <svg 
-        className="w-4 h-4 text-gray-500 absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity" 
-        fill="none" 
-        stroke="currentColor" 
+      <svg
+        className="w-4 h-4 text-gray-500 absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+        fill="none"
+        stroke="currentColor"
         viewBox="0 0 24 24"
       >
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -360,8 +364,8 @@ function Hero({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onF
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-center">
         <motion.div variants={fadeUp} className="md:col-span-2 order-2 md:order-1">
           <div className="space-y-4 sm:space-y-6">
-            <div>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
+            <div className="flex flex-col items-start justify-between">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-7xl font-bold text-white mb-3 sm:mb-4">
                 {editingFields.companyName ? (
                   <input
                     type="text"
@@ -383,10 +387,10 @@ function Hero({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onF
                     title="Click to edit"
                   >
                     {company?.companyName || 'Company Name'}
-                    <svg 
-                      className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity ml-2" 
-                      fill="none" 
-                      stroke="currentColor" 
+                    <svg
+                      className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity ml-2"
+                      fill="none"
+                      stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -394,22 +398,32 @@ function Hero({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onF
                   </span>
                 )}
               </h1>
+              {/* Location Display */}
+              <div className="flex items-center gap-2 mt-2 p-1 sm:mt-3">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="text-white text-base sm:text-md md:text-lg font-medium">
+                  Gurugram, Haryana
+                </span>
+              </div>
             </div>
           </div>
         </motion.div>
 
-        <motion.aside variants={fadeUp} className="flex justify-center order-1 md:order-2 mb-6 md:mb-0">
-          {company?.avatar && company.avatar.url ? (
-            <img 
-              src={company.avatar.url} 
+        <motion.aside variants={fadeUp} className="flex justify-end order-1 md:order-2 mb-6 md:mb-0">
+          {company?.avatar && company.avatar.url && company.avatar.url !== '/madevize.svg' ? (
+            <img
+              src={company.avatar.url}
               alt={`${company.companyName} logo`}
-              className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 object-contain"
+              className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-contain"
             />
           ) : (
-            <img 
-              src="/madevize.svg" 
+            <img
+              src={logoImage}
               alt="Default logo"
-              className="w-24 h-24 sm:w-32 sm:h-32"
+              className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-contain"
             />
           )}
         </motion.aside>
@@ -421,12 +435,12 @@ function Hero({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onF
 function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onFieldChange }) {
   const hasMotto = company?.companyMotto && company.companyMotto.trim()
   const hasDescription = company?.companyDescription && company.companyDescription.trim()
-  
+
   return (
     <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16 lg:py-20">
       <div className="relative mx-auto px-4 sm:px-6 lg:px-8" style={{ width: '100%', maxWidth: '72.5rem' }}>
         {/* Main Container */}
-        <motion.div 
+        <motion.div
           variants={fadeUp}
           className="relative mx-auto rounded-[30px] w-full"
           style={{
@@ -436,7 +450,7 @@ function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, on
           }}
         >
           {/* Company Motto */}
-          <div 
+          <div
             className="relative mx-auto text-center"
             style={{
               width: '100%',
@@ -490,10 +504,10 @@ function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, on
                 }}
               >
                 {company?.companyMotto || 'Click to add company motto...'}
-                <svg 
-                  className="w-5 h-5 text-gray-500 ml-3 opacity-0 group-hover:opacity-100 transition-opacity absolute right-4" 
-                  fill="none" 
-                  stroke="currentColor" 
+                <svg
+                  className="w-5 h-5 text-gray-500 ml-3 opacity-0 group-hover:opacity-100 transition-opacity absolute right-4"
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -503,7 +517,7 @@ function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, on
           </div>
 
           {/* Company Description */}
-          <div 
+          <div
             className="relative mx-auto text-center w-full"
             style={{
               maxWidth: '51.125rem'
@@ -566,13 +580,13 @@ function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, on
                 }}
               >
                 {hasDescription ? (
-                  <div style={{ 
+                  <div style={{
                     whiteSpace: 'pre-wrap',
                     width: '100%',
                     lineHeight: '1.6'
                   }}>
                     {company.companyDescription.split('\n\n').filter(p => p.trim()).map((paragraph, index, arr) => (
-                      <p key={index} style={{ 
+                      <p key={index} style={{
                         marginBottom: index < arr.length - 1 ? '16px' : '0px',
                         marginTop: '0px'
                       }}>
@@ -583,10 +597,10 @@ function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, on
                 ) : (
                   <span>Click to add company description (2-3 paragraphs)...</span>
                 )}
-                <svg 
-                  className="w-4 h-4 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity absolute right-4 top-3" 
-                  fill="none" 
-                  stroke="currentColor" 
+                <svg
+                  className="w-4 h-4 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity absolute right-4 top-3"
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -602,7 +616,7 @@ function About({ company, isEditMode, editingFields, onStartEdit, onStopEdit, on
 
 function SectionSeparator({ sectionName }) {
   return (
-    <div 
+    <div
       className="relative w-full flex items-center px-4 sm:px-6 lg:px-8"
       style={{
         width: '100%',
@@ -642,7 +656,7 @@ function SectionSeparator({ sectionName }) {
         >
           {sectionName}
         </div>
-        
+
         {/* Line */}
         <div
           style={{
@@ -666,7 +680,7 @@ function Vendors({ company, isEditMode, editingFields, onStartEdit, onStopEdit, 
     <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16" style={{ marginBottom: 'clamp(3rem, 7.5vw, 7.5rem)' }}>
       {/* Header Section */}
       <div className="relative mx-auto mb-8 sm:mb-10 md:mb-12" style={{ width: '100%', maxWidth: '72.625rem' }}>
-        <motion.div 
+        <motion.div
           variants={fadeUp}
           style={{
             display: 'flex',
@@ -721,7 +735,7 @@ function Vendors({ company, isEditMode, editingFields, onStartEdit, onStopEdit, 
               </button>
             )}
           </div>
-          
+
           {/* Description Text */}
           <p
             style={{
@@ -754,7 +768,7 @@ function Vendors({ company, isEditMode, editingFields, onStartEdit, onStopEdit, 
                 company.vendors.map((vendor, index) => {
                   const vendorName = typeof vendor === 'object' && vendor !== null ? vendor.name : vendor
                   const vendorLocation = typeof vendor === 'object' && vendor !== null ? vendor.location : ''
-                  
+
                   return (
                     <div key={index} className="bg-gray-800 p-4 rounded-lg">
                       <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
@@ -828,13 +842,13 @@ function Vendors({ company, isEditMode, editingFields, onStartEdit, onStopEdit, 
         ) : (
           <motion.div variants={fadeUp}>
             {company?.vendors && company.vendors.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6" style={{ maxWidth: '100vw', margin: '0 auto', width: '100%' }}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6" style={{ maxWidth: '100%', width: '50%' }}>
                 {company.vendors.map((vendor, index) => {
                   const vendorName = typeof vendor === 'object' && vendor !== null ? vendor.name : vendor
                   const vendorLocation = typeof vendor === 'object' && vendor !== null ? vendor.location : ''
-                  
+
                   return (
-                    <div 
+                    <div
                       key={index}
                       style={{
                         display: 'flex',
@@ -866,7 +880,7 @@ function Vendors({ company, isEditMode, editingFields, onStartEdit, onStopEdit, 
                       >
                         {vendorName || 'Partner Name'}
                       </div>
-                      
+
                       {/* Location with Map Pin */}
                       {vendorLocation ? (
                         <div
@@ -912,7 +926,7 @@ function Vendors({ company, isEditMode, editingFields, onStartEdit, onStopEdit, 
                               fill="none"
                             />
                           </svg>
-                          
+
                           {/* Location Text */}
                           <div
                             style={{
@@ -974,7 +988,7 @@ function MoreAboutUs({ company, isEditMode, editingFields, onStartEdit, onStopEd
   return (
     <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16 lg:py-20" style={{ marginTop: 'clamp(3rem, 7.5vw, 7.5rem)', marginBottom: 'clamp(3rem, 7.5vw, 7.5rem)' }}>
       <div className="relative mx-auto px-4 sm:px-6 lg:px-8" style={{ width: '100%', maxWidth: '76vw' }}>
-        <motion.div 
+        <motion.div
           variants={fadeUp}
           className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 md:gap-12 lg:gap-16 xl:gap-20"
           style={{
@@ -1339,11 +1353,11 @@ function TabNavigation({ activeTab, onTabChange }) {
   const specializationsCards = [
     {
       title: 'Aerospace & Defense',
-      items: ['Aircraft Components', 'Defense Systems', 'Satellite Parts', 'AS9100 Certified', 'Precision Machining']
+      items: ['Aircraft Components', 'Defense Systems', 'Satellite Parts', 'AS9100 Certified']
     },
     {
       title: 'Automotive Industry',
-      items: ['Engine Components', 'Transmission Parts', 'Chassis Components', 'IATF 16949', 'High Volume Production']
+      items: ['Engine Components', 'Chassis Components', 'IATF 16949']
     },
     {
       title: 'Medical Devices',
@@ -1355,17 +1369,17 @@ function TabNavigation({ activeTab, onTabChange }) {
     },
     {
       title: 'Energy & Power',
-      items: ['Turbine Components', 'Power Generation', 'Renewable Energy', 'Oil & Gas', 'Nuclear Components']
+      items: [ 'Power Generation', 'Renewable Energy', 'Oil & Gas', 'Nuclear Components']
     },
     {
       title: 'Industrial Equipment',
-      items: ['Heavy Machinery', 'Industrial Automation', 'Material Handling', 'Construction Equipment', 'Custom Solutions']
+      items: ['Heavy Machinery', 'Industrial Automation', 'Material Handling']
     }
   ]
 
   // Get cards data based on active tab
   const getCardsForTab = (tab) => {
-    switch(tab) {
+    switch (tab) {
       case 'Raw Material':
         return rawMaterialCards
       case 'Machines':
@@ -1386,7 +1400,7 @@ function TabNavigation({ activeTab, onTabChange }) {
       <div className="relative mx-auto px-4 sm:px-6 lg:px-8" style={{ width: '100%', maxWidth: '72.625rem' }}>
         {/* Tab Navigation */}
         <div className="relative mx-auto mb-8 md:mb-12" style={{ width: '100%', maxWidth: '61.6875rem', minHeight: 'clamp(3.5rem, 5vw, 4.3125rem)' }}>
-          <motion.div 
+          <motion.div
             variants={fadeUp}
             className="flex flex-row items-center justify-center flex-wrap gap-4 md:gap-8 lg:gap-12 xl:gap-16"
             style={{
@@ -1482,18 +1496,18 @@ function TabNavigation({ activeTab, onTabChange }) {
 
         {/* Cards Grid */}
         {currentCards.length > 0 && (
-          <motion.div 
+          <motion.div
             key={activeTab}
             initial="hidden"
             animate="show"
-            variants={fadeUp} 
-            className="relative p-10 bg-[#212121]/35 rounded-xl" 
+            variants={fadeUp}
+            className="relative p-10 bg-[#212121]/35 rounded-xl"
             style={{ width: '100%' }}
           >
             {/* Cards Container with vertical separators */}
-            <div 
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" 
-              style={{ 
+            <div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              style={{
                 position: 'relative',
                 width: '100%'
               }}
@@ -1502,6 +1516,18 @@ function TabNavigation({ activeTab, onTabChange }) {
                 const isLastInRow = (index + 1) % 3 === 0
                 const isFirstInRow = index % 3 === 0
                 
+                // Calculate dynamic gap based on number of items
+                // More items = smaller gap to fit within same card height
+                const itemCount = card.items.length
+                let dynamicGap = 'clamp(0.375rem, 0.75vw, 0.5rem)' // default gap (6px-8px)
+                if (itemCount > 10) {
+                  dynamicGap = 'clamp(0.2rem, 0.4vw, 0.3rem)' // very small gap for many items (3px-5px)
+                } else if (itemCount > 8) {
+                  dynamicGap = 'clamp(0.25rem, 0.5vw, 0.375rem)' // small gap (4px-6px)
+                } else if (itemCount > 6) {
+                  dynamicGap = 'clamp(0.3rem, 0.6vw, 0.4rem)' // medium gap (5px-6px)
+                }
+
                 return (
                   <div key={index} style={{ position: 'relative' }}>
                     {/* Vertical dashed line separator */}
@@ -1517,19 +1543,20 @@ function TabNavigation({ activeTab, onTabChange }) {
                         }}
                       />
                     )}
-                    
+
                     {/* Card */}
                     <div
-                      className="bg-gray-200 rounded-lg p-6 flex flex-col"
+                      className="bg-[#ffffff/70] rounded-[30px] p-6 flex flex-col"
                       style={{
                         background: 'rgba(255, 255, 255, 0.7)',
                         borderRadius: 'clamp(0.75rem, 1.5vw, 1rem)',
                         padding: 'clamp(1rem, 2vw, 1.5rem)',
-                        minHeight: 'clamp(12rem, 20vw, 17.5rem)',
+                        height: 'clamp(12rem, 20vw, 17.5rem)',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
-                        position: 'relative'
+                        position: 'relative',
+                        overflow: 'hidden'
                       }}
                     >
                       {/* Card Title */}
@@ -1540,30 +1567,32 @@ function TabNavigation({ activeTab, onTabChange }) {
                           fontWeight: 600,
                           fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
                           lineHeight: '1.2',
-                          color: '#333333',
-                          marginBottom: 'clamp(1rem, 1.5vw, 1.25rem)'
+                          color: '#000000',
+                          marginBottom: 'clamp(1rem, 1.5vw, 1.25rem)',
+                          flexShrink: 0
                         }}
                       >
                         {card.title}
                       </h3>
 
                       {/* Card Items */}
-                      <div className="flex flex-wrap mb-4" style={{ flex: 1, gap: 'clamp(0.375rem, 0.75vw, 0.5rem)' }}>
+                      <div className="flex flex-wrap mb-4" style={{ flex: 1, gap: dynamicGap, minHeight: 0, alignContent: 'flex-start' }}>
                         {card.items.map((item, itemIndex) => (
                           <span
                             key={itemIndex}
                             className="inline-flex items-center justify-center text-center rounded-full"
                             style={{
                               background: 'transparent',
-                              border: '1px solid',
-                              borderRadius: 'clamp(1rem, 1.5vw, 1.25rem)',
-                              padding: 'clamp(0.375rem, 0.75vw, 0.5rem) clamp(0.75rem, 1vw, 1rem)',
+                              border: '1px solid #3A3A3A',
+                              borderRadius: '14px',
+                              padding: '12px 16px 12px 16px',
+                              gap: '10px',
                               fontFamily: 'Montserrat, sans-serif',
                               fontStyle: 'normal',
                               fontWeight: 500,
                               fontSize: 'clamp(0.75rem, 1vw, 0.875rem)',
                               lineHeight: '1',
-                              color: '#4A4A4A',
+                              color: '#000000',
                               whiteSpace: 'nowrap',
                               minHeight: 'clamp(1.5rem, 2vw, 1.8125rem)',
                               display: 'inline-flex',
@@ -1577,24 +1606,10 @@ function TabNavigation({ activeTab, onTabChange }) {
                       </div>
 
                       {/* Arrow Icon */}
-                      <div className="flex justify-end mt-auto pt-2">
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          style={{
-                            color: '#4A4A4A'
-                          }}
-                        >
-                          <path
-                            d="M9 18L15 12L9 6"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
+                      <div className="flex justify-start pt-2" style={{ flexShrink: 0 }}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M5 12H19" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M12 5L19 12L12 19" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       </div>
                     </div>
@@ -1615,22 +1630,22 @@ function OurServices({ company, isEditMode, editingFields, onStartEdit, onStopEd
     {
       title: 'Product Design & Prototyping',
       description: 'From CAD modeling to functional prototypes, enabling faster innovation.',
-      image: '/NewBackground.jpeg'
+      image: service1
     },
     {
       title: 'Precision Machining',
       description: 'High-accuracy machining services for complex components and tight tolerances.',
-      image: '/about2.jpeg'
+      image: service2
     },
     {
       title: 'Casting & Forging',
       description: 'Tailored manufacturing solutions to meet your unique specifications and requirements.',
-      image: '/about3.jpeg'
+      image: service3
     },
     {
       title: 'Fabrication & Welding',
       description: 'Complete assembly solutions from component integration to final product delivery.',
-      image: '/NewBackground.jpeg'
+      image: service4
     }
   ]
 
@@ -1666,7 +1681,7 @@ function OurServices({ company, isEditMode, editingFields, onStartEdit, onStopEd
     <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16" style={{ marginBottom: 'clamp(3rem, 7.5vw, 7.5rem)' }}>
       {/* Header Section with Title and Button */}
       <div className="relative mx-auto mb-8 sm:mb-10 md:mb-12" style={{ width: '100%', maxWidth: '72.625rem' }}>
-        <motion.div 
+        <motion.div
           variants={fadeUp}
           className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-10"
           style={{
@@ -1790,7 +1805,7 @@ function OurServices({ company, isEditMode, editingFields, onStartEdit, onStopEd
                   const serviceTitle = typeof service === 'object' ? service.title : service
                   const serviceDesc = typeof service === 'object' ? service.description : ''
                   const serviceImage = typeof service === 'object' ? service.image : ''
-                  
+
                   return (
                     <div key={index} className="bg-gray-800 p-6 rounded-2xl">
                       <div className="flex flex-col gap-4">
@@ -1846,9 +1861,9 @@ function OurServices({ company, isEditMode, editingFields, onStartEdit, onStopEd
             </div>
           </motion.div>
         ) : (
-          <div 
-            className="space-y-6" 
-            style={{ 
+          <div
+            className="space-y-6"
+            style={{
               opacity: 1,
               visibility: 'visible',
               width: '100%'
@@ -1858,8 +1873,8 @@ function OurServices({ company, isEditMode, editingFields, onStartEdit, onStopEd
               services.map((service, index) => {
                 const serviceTitle = typeof service === 'object' && service !== null ? service.title : (service || 'Service Name')
                 const serviceDesc = typeof service === 'object' && service !== null ? service.description : ''
-                const serviceImage = typeof service === 'object' && service !== null ? service.image : '/NewBackground.jpeg'
-                
+                const serviceImage = typeof service === 'object' && service !== null ? service.image : service1
+
                 return (
                   <div
                     key={index}
@@ -1874,28 +1889,33 @@ function OurServices({ company, isEditMode, editingFields, onStartEdit, onStopEd
                       display: 'block'
                     }}
                   >
-                    {/* Left Content Area - Text and Image */}
+                    {/* 3-Column Layout */}
                     <div
-                      className="w-full p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col justify-between"
+                      className="w-full p-6 sm:p-8 md:p-10 lg:p-12 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-6 lg:gap-6"
                       style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        gap: '24px',
                         width: '100%',
                         position: 'relative',
-                        zIndex: 2
+                        zIndex: 2,
+                        alignItems: 'stretch'
                       }}
                     >
-                      <div className="flex flex-col gap-4 justify-between max-w-[60%]">
-                      <div className="space-y-4 flex justify-between gap-6">
-                        {/* Heading */}
+                      {/* Column 1: Service Name */}
+                      <div
+                        className="flex items-start"
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'flex-start',
+                          alignItems: 'flex-start'
+                        }}
+                      >
                         <h3
                           style={{
                             fontFamily: 'Montserrat, sans-serif',
                             fontStyle: 'normal',
                             fontWeight: 600,
-                            fontSize: '32px',
-                            lineHeight: '39px',
+                            fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
+                            lineHeight: '1.22',
                             color: '#FFFFFF',
                             margin: 0
                           }}
@@ -1903,7 +1923,19 @@ function OurServices({ company, isEditMode, editingFields, onStartEdit, onStopEd
                         >
                           {serviceTitle}
                         </h3>
-                        
+                      </div>
+
+                      {/* Column 2: Description and Read More Button */}
+                      <div
+                        className="flex flex-col justify-between"
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'space-between',
+                          alignItems: 'flex-start',
+                          gap: '1rem'
+                        }}
+                      >
                         {/* Description */}
                         {serviceDesc && (
                           <p
@@ -1911,109 +1943,122 @@ function OurServices({ company, isEditMode, editingFields, onStartEdit, onStopEd
                               fontFamily: 'Montserrat, sans-serif',
                               fontStyle: 'normal',
                               fontWeight: 400,
-                              fontSize: '16px',
-                              lineHeight: '24px',
+                              fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
+                              lineHeight: '1.5',
                               color: '#FFFFFF',
                               margin: 0
                             }}
-                            className="text-sm sm:text-base"
+                            className="text-xl sm:text-base"
                           >
                             {serviceDesc}
                           </p>
                         )}
+
+                        {/* Read More Button */}
+                        <button
+                          onClick={() => {
+                            // Handle read more action
+                            console.log('Read more:', serviceTitle)
+                          }}
+                          className="group flex items-center w-fit rounded-full border border-white hover:bg-white/10 transition-colors mt-auto"
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            background: '#000000',
+                            border: '1px solid #FFFFFF',
+                            borderRadius: '9999px',
+                            padding: '0',
+                            gap: '0',
+                            overflow: 'hidden',
+                            marginTop: 'auto'
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontFamily: 'Montserrat, sans-serif',
+                              fontStyle: 'normal',
+                              fontWeight: 500,
+                              fontSize: 'clamp(0.875rem, 1.2vw, 1rem)',
+                              lineHeight: '1.25',
+                              color: '#FFFFFF',
+                              padding: 'clamp(0.75rem, 1vw, 0.875rem) clamp(1rem, 1.5vw, 1.25rem) clamp(0.75rem, 1vw, 0.875rem) clamp(1.25rem, 1.75vw, 1.5rem)',
+                              whiteSpace: 'nowrap'
+                            }}
+                          >
+                            Read More
+                          </span>
+                          <div
+                            className="flex items-center justify-center"
+                            style={{
+                              width: 'clamp(36px, 4vw, 44px)',
+                              height: 'clamp(36px, 4vw, 44px)',
+                              borderRadius: '50%',
+                              background: '#FFFFFF',
+                              border: '1px solid #000000',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              flexShrink: 0,
+                              margin: '2px',
+                              marginLeft: '0'
+                            }}
+                          >
+                            <svg
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7 17L17 7M17 7H7M17 7V17"
+                                stroke="#000000"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </div>
+                        </button>
                       </div>
-                      
-                      {/* Read More Button */}
-                      <button
-                        onClick={() => {
-                          // Handle read more action
-                          console.log('Read more:', serviceTitle)
-                        }}
-                        className="group flex items-center w-fit mt-4 rounded-full border border-white hover:bg-white/10 transition-colors ml-auto mr-40"
+
+                      {/* Column 3: Image */}
+                      <div
+                        className="flex items-center justify-center md:justify-end w-full md:w-auto"
                         style={{
                           display: 'flex',
+                          justifyContent: 'center',
                           alignItems: 'center',
-                          marginTop: '16px',
-                          background: '#000000',
-                          border: '1px solid #FFFFFF',
-                          borderRadius: '9999px',
-                          padding: '0',
-                          gap: '0',
+                          position: 'relative',
                           overflow: 'hidden'
                         }}
                       >
-                        <span
-                          style={{
-                            fontFamily: 'Montserrat, sans-serif',
-                            fontStyle: 'normal',
-                            fontWeight: 500,
-                            fontSize: '16px',
-                            lineHeight: '20px',
-                            color: '#FFFFFF',
-                            padding: '12px 20px 12px 24px',
-                            whiteSpace: 'nowrap'
-                          }}
-                        >
-                          Read More
-                        </span>
                         <div
-                          className="flex items-center justify-center"
+                          className="w-full md:w-auto"
                           style={{
-                            width: '44px',
-                            height: '44px',
-                            borderRadius: '50%',
-                            background: '#FFFFFF',
-                            border: '1px solid #000000',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            flexShrink: 0,
-                            margin: '2px',
-                            marginLeft: '0'
+                            position: 'relative',
+                            overflow: 'hidden',
+                            width: '100%',
+                            maxWidth: 'clamp(200px, 25vw, 260px)',
+                            height: 'clamp(180px, 22vw, 200px)',
+                            borderRadius: '16px'
                           }}
                         >
-                          <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M7 17L17 7M17 7H7M17 7V17"
-                              stroke="#000000"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
+                          <img
+                            src={serviceImage}
+                            alt={serviceTitle}
+                            className="w-full h-full object-cover"
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                              borderRadius: '16px'
+                            }}
+                            onError={(e) => {
+                              e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
+                            }}
+                          />
                         </div>
-                      </button>
-                    </div>
-                      {/* Image */}
-                    <div
-                        className="w-full"
-                      style={{
-                        position: 'relative',
-                        overflow: 'hidden',
-                        minHeight: '200px',
-                          height: '200px',
-                          width: '350px'
-                      }}
-                    >
-                      <img
-                        src={serviceImage}
-                        alt={serviceTitle}
-                          className="w-full h-full object-cover rounded-lg"
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover'
-                        }}
-                        onError={(e) => {
-                          e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
-                        }}
-                      />
                       </div>
                     </div>
                   </div>
@@ -2060,7 +2105,7 @@ function Certifications({ company, isEditMode, editingFields, onStartEdit, onSto
     <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16" style={{ marginBottom: 'clamp(3rem, 7.5vw, 7.5rem)' }}>
       {/* Header Section with Title and Button */}
       <div className="relative mx-auto mb-8 sm:mb-10 md:mb-12" style={{ width: '100%', maxWidth: '72.625rem' }}>
-        <motion.div 
+        <motion.div
           variants={fadeUp}
           className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-10"
           style={{
@@ -2161,263 +2206,263 @@ function Certifications({ company, isEditMode, editingFields, onStartEdit, onSto
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
-              </svg>
+                </svg>
               </div>
             </button>
-        </div>
-      </motion.div>
+          </div>
+        </motion.div>
       </div>
-      
+
       {/* Certifications Content */}
       <div className="max-w-6xl mx-auto">
-      {isEditing ? (
-        <div className="space-y-6" style={{ opacity: 1, visibility: 'visible' }}>
-          <div className="space-y-4">
-            {company?.certifications && company.certifications.length > 0 ? (
-              company.certifications.map((cert, index) => {
-                const certData = typeof cert === 'object' ? cert : { 
-                  title: cert, 
-                  year: '', 
-                  description: '',
-                  image: ''
-                }
-            return (
-                  <div key={index} className="bg-gray-800 p-6 rounded-2xl">
-                    <div className="flex flex-col gap-4">
-                      <div className="flex-1 space-y-3">
-                        <input
-                          type="text"
-                          value={certData.title || ''}
-                          onChange={(e) => {
-                            const currentCerts = company?.certifications || []
-                            const newCerts = [...currentCerts]
-                            newCerts[index] = { ...certData, title: e.target.value }
-                            onFieldChange('certifications', newCerts)
-                          }}
-                          placeholder="Certification Title"
-                          className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-lg font-semibold focus:outline-none"
-                        />
-                        <input
-                          type="text"
-                          value={certData.year || ''}
-                          onChange={(e) => {
-                            const currentCerts = company?.certifications || []
-                            const newCerts = [...currentCerts]
-                            newCerts[index] = { ...certData, year: e.target.value }
-                            onFieldChange('certifications', newCerts)
-                          }}
-                          placeholder="Year (e.g., 2022)"
-                          className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-sm focus:outline-none"
-                        />
-                        <textarea
-                          value={certData.description || ''}
-                          onChange={(e) => {
-                            const currentCerts = company?.certifications || []
-                            const newCerts = [...currentCerts]
-                            newCerts[index] = { ...certData, description: e.target.value }
-                            onFieldChange('certifications', newCerts)
-                          }}
-                          placeholder="Description"
-                          className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-sm focus:outline-none resize-y"
-                          rows="3"
-                        />
-                        <input
-                          type="text"
-                          value={certData.image || ''}
-                          onChange={(e) => {
-                            const currentCerts = company?.certifications || []
-                            const newCerts = [...currentCerts]
-                            newCerts[index] = { ...certData, image: e.target.value }
-                            onFieldChange('certifications', newCerts)
-                          }}
-                          placeholder="Image URL (optional)"
-                          className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-sm focus:outline-none"
-                        />
-                      </div>
-              <button
-                        onClick={() => {
-                          const currentCerts = company?.certifications || []
-                          const newCerts = currentCerts.filter((_, i) => i !== index)
-                          onFieldChange('certifications', newCerts)
-                        }}
-                        className="text-red-400 hover:text-red-300 font-bold text-xl w-8 h-8 flex items-center justify-center self-end"
-                        title="Remove certification"
-                      >
-                        ×
-              </button>
-                    </div>
-                  </div>
-                )
-              })
-            ) : (
-              <div className="text-center text-gray-400 text-base px-4 py-8">
-                No certifications yet. Click "Add New Certification" to add one.
-              </div>
-            )}
-            <button
-              onClick={() => {
-                const currentCerts = company?.certifications || []
-                onFieldChange('certifications', [...currentCerts, { title: '', year: '', description: '', image: '' }])
-              }}
-              className="bg-gray-700 hover:bg-gray-600 p-6 rounded-2xl text-center text-gray-300 border-2 border-dashed border-gray-600 min-h-[100px] flex items-center justify-center text-sm sm:text-base w-full"
-            >
-              + Add New Certification
-            </button>
-          </div>
-          <div className="mt-6 flex justify-center">
-          <button
-            onClick={() => onStopEdit('certifications')}
-              className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 text-base"
-          >
-            Done Editing
-          </button>
-          </div>
-        </div>
-      ) : (
-        <div className="flex flex-col gap-6 overflow-hidden w-full" style={{ padding: '0 20px' }}>
-          {/* First Row - Infinite Scrolling Left */}
-          <div className="relative w-full overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
-            <div className="flex animate-scroll-left gap-6" style={{ width: 'max-content' }}>
-              {/* Duplicate content for seamless loop */}
-              {[...Array(3)].map((_, loopIndex) => (
-                <div key={`loop-${loopIndex}`} className="flex gap-6">
-          {company?.certifications && company.certifications.length > 0 ? (
-                    company.certifications.map((cert, index) => {
-                      const certImages = [cert1, cert2, cert3]
-                      const certImage = certImages[index % certImages.length]
-                      const certData = typeof cert === 'object' ? cert : { 
-                        title: cert, 
-                        year: '2022', 
-                        description: 'Quality management system ensuring consistent product quality and customer satisfaction.',
-                        image: certImage
-                      }
-                      return (
-                        <div
-                          key={`${loopIndex}-${index}`}
-                          className="bg-gray-800 rounded-lg p-4 flex-shrink-0 h-20"
-                          style={{
-                            width: '400px',
-                            minHeight: '220px',
-                            height: '220px',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            gap: '20px',
-                            background: 'rgba(33, 33, 33, 0.8)',
-                            borderRadius: '12px'
-                          }}
-                        >
-                          {/* Left Content */}
-                          <div className="flex flex-col justify-between flex-1" style={{ minWidth: '200px' }}>
-                            <div>
-                              <h3 className="text-2xl font-bold text-white mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                                {certData.title}
-                              </h3>
-                              <p className="text-white text-lg mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                                {certData.year || '2022'}
-                              </p>
-                              <div className="w-full h-px bg-gray-600 mb-2"></div>
-                              <p className="text-sm text-gray-300 leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                                {certData.description || 'Quality management system ensuring consistent product quality and customer satisfaction.'}
-                              </p>
-              </div>
-                          </div>
-                          {/* Right - Certificate Image */}
-                          <div className="flex-shrink-0" style={{ width: '150px', height: '180px' }}>
-                            <img
-                              src={certData.image || certImage}
-                              alt={certData.title}
-                              className="w-full h-full object-cover rounded"
-                              style={{ borderRadius: '8px' }}
-                              onError={(e) => {
-                                e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
-                              }}
-                            />
-                          </div>
+        {isEditing ? (
+          <div className="space-y-6" style={{ opacity: 1, visibility: 'visible' }}>
+            <div className="space-y-4">
+              {company?.certifications && company.certifications.length > 0 ? (
+                company.certifications.map((cert, index) => {
+                  const certData = typeof cert === 'object' ? cert : {
+                    title: cert,
+                    year: '',
+                    description: '',
+                    image: ''
+                  }
+                  return (
+                    <div key={index} className="bg-gray-800 p-6 rounded-2xl">
+                      <div className="flex flex-col gap-4">
+                        <div className="flex-1 space-y-3">
+                          <input
+                            type="text"
+                            value={certData.title || ''}
+                            onChange={(e) => {
+                              const currentCerts = company?.certifications || []
+                              const newCerts = [...currentCerts]
+                              newCerts[index] = { ...certData, title: e.target.value }
+                              onFieldChange('certifications', newCerts)
+                            }}
+                            placeholder="Certification Title"
+                            className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-lg font-semibold focus:outline-none"
+                          />
+                          <input
+                            type="text"
+                            value={certData.year || ''}
+                            onChange={(e) => {
+                              const currentCerts = company?.certifications || []
+                              const newCerts = [...currentCerts]
+                              newCerts[index] = { ...certData, year: e.target.value }
+                              onFieldChange('certifications', newCerts)
+                            }}
+                            placeholder="Year (e.g., 2022)"
+                            className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-sm focus:outline-none"
+                          />
+                          <textarea
+                            value={certData.description || ''}
+                            onChange={(e) => {
+                              const currentCerts = company?.certifications || []
+                              const newCerts = [...currentCerts]
+                              newCerts[index] = { ...certData, description: e.target.value }
+                              onFieldChange('certifications', newCerts)
+                            }}
+                            placeholder="Description"
+                            className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-sm focus:outline-none resize-y"
+                            rows="3"
+                          />
+                          <input
+                            type="text"
+                            value={certData.image || ''}
+                            onChange={(e) => {
+                              const currentCerts = company?.certifications || []
+                              const newCerts = [...currentCerts]
+                              newCerts[index] = { ...certData, image: e.target.value }
+                              onFieldChange('certifications', newCerts)
+                            }}
+                            placeholder="Image URL (optional)"
+                            className="w-full bg-gray-700 border-2 border-[#FC6500] rounded p-2 text-white text-sm focus:outline-none"
+                          />
                         </div>
-                      )
-                    })
-                  ) : (
-                    <div className="text-center text-gray-400 text-base px-4 py-12" style={{ width: '400px' }}>
-              No certifications listed. Click edit to add certifications.
-            </div>
-          )}
+                        <button
+                          onClick={() => {
+                            const currentCerts = company?.certifications || []
+                            const newCerts = currentCerts.filter((_, i) => i !== index)
+                            onFieldChange('certifications', newCerts)
+                          }}
+                          className="text-red-400 hover:text-red-300 font-bold text-xl w-8 h-8 flex items-center justify-center self-end"
+                          title="Remove certification"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    </div>
+                  )
+                })
+              ) : (
+                <div className="text-center text-gray-400 text-base px-4 py-8">
+                  No certifications yet. Click "Add New Certification" to add one.
                 </div>
-              ))}
+              )}
+              <button
+                onClick={() => {
+                  const currentCerts = company?.certifications || []
+                  onFieldChange('certifications', [...currentCerts, { title: '', year: '', description: '', image: '' }])
+                }}
+                className="bg-gray-700 hover:bg-gray-600 p-6 rounded-2xl text-center text-gray-300 border-2 border-dashed border-gray-600 min-h-[100px] flex items-center justify-center text-sm sm:text-base w-full"
+              >
+                + Add New Certification
+              </button>
+            </div>
+            <div className="mt-6 flex justify-center">
+              <button
+                onClick={() => onStopEdit('certifications')}
+                className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 text-base"
+              >
+                Done Editing
+              </button>
             </div>
           </div>
-
-          {/* Second Row - Infinite Scrolling Right */}
-          <div className="relative w-full overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
-            <div className="flex animate-scroll-right gap-6" style={{ width: 'max-content' }}>
-              {/* Duplicate content for seamless loop */}
-              {[...Array(3)].map((_, loopIndex) => (
-                <div key={`loop-reverse-${loopIndex}`} className="flex gap-6">
-                  {company?.certifications && company.certifications.length > 0 ? (
-                    [...company.certifications].reverse().map((cert, index) => {
-                      const certImages = [cert1, cert2, cert3]
-                      const certImage = certImages[index % certImages.length]
-                      const certData = typeof cert === 'object' ? cert : { 
-                        title: cert, 
-                        year: '2021', 
-                        description: 'Quality management system ensuring consistent product quality and customer satisfaction.',
-                        image: certImage
-                      }
-                      return (
-                        <div
-                          key={`reverse-${loopIndex}-${index}`}
-                          className="bg-gray-800 rounded-lg p-4 flex-shrink-0 h-20"
-                          style={{
-                            width: '400px',
-                            minHeight: '220px',
-                            height: '220px',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            gap: '20px',
-                            background: 'rgba(33, 33, 33, 0.8)',
-                            borderRadius: '12px'
-                          }}
-                        >
-                          {/* Left Content */}
-                          <div className="flex flex-col justify-between flex-1" style={{ minWidth: '200px' }}>
-                            <div>
-                              <h3 className="text-2xl font-bold text-white mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                                {certData.title}
-                              </h3>
-                              <p className="text-white text-lg mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                                {certData.year || '2021'}
-                              </p>
-                              <div className="w-full h-px bg-gray-600 mb-2"></div>
-                              <p className="text-sm text-gray-300 leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                                {certData.description || 'Quality management system ensuring consistent product quality and customer satisfaction.'}
-                              </p>
+        ) : (
+          <div className="flex flex-col gap-6 overflow-hidden w-full" style={{ padding: '0 20px' }}>
+            {/* First Row - Infinite Scrolling Left */}
+            <div className="relative w-full overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
+              <div className="flex animate-scroll-left gap-6" style={{ width: 'max-content' }}>
+                {/* Duplicate content for seamless loop */}
+                {[...Array(3)].map((_, loopIndex) => (
+                  <div key={`loop-${loopIndex}`} className="flex gap-6">
+                    {company?.certifications && company.certifications.length > 0 ? (
+                      company.certifications.map((cert, index) => {
+                        const certImages = [cert1, cert2, cert3]
+                        const certImage = certImages[index % certImages.length]
+                        const certData = typeof cert === 'object' ? cert : {
+                          title: cert,
+                          year: '2022',
+                          description: 'Quality management system ensuring consistent product quality and customer satisfaction.',
+                          image: certImage
+                        }
+                        return (
+                          <div
+                            key={`${loopIndex}-${index}`}
+                            className="bg-gray-800 rounded-lg p-4 flex-shrink-0 h-20"
+                            style={{
+                              width: '400px',
+                              minHeight: '220px',
+                              height: '220px',
+                              display: 'flex',
+                              flexDirection: 'row',
+                              gap: '20px',
+                              background: 'rgba(33, 33, 33, 0.8)',
+                              borderRadius: '12px'
+                            }}
+                          >
+                            {/* Left Content */}
+                            <div className="flex flex-col justify-between flex-1" style={{ minWidth: '200px' }}>
+                              <div>
+                                <h3 className="text-2xl font-bold text-white mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                  {certData.title}
+                                </h3>
+                                <p className="text-white text-lg mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                  {certData.year || '2022'}
+                                </p>
+                                <div className="w-full h-px bg-gray-600 mb-2"></div>
+                                <p className="text-sm text-gray-300 leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                  {certData.description || 'Quality management system ensuring consistent product quality and customer satisfaction.'}
+                                </p>
+                              </div>
+                            </div>
+                            {/* Right - Certificate Image */}
+                            <div className="flex-shrink-0" style={{ width: '150px', height: '180px' }}>
+                              <img
+                                src={certData.image || certImage}
+                                alt={certData.title}
+                                className="w-full h-full object-cover rounded"
+                                style={{ borderRadius: '8px' }}
+                                onError={(e) => {
+                                  e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
+                                }}
+                              />
                             </div>
                           </div>
-                          {/* Right - Certificate Image */}
-                          <div className="flex-shrink-0" style={{ width: '150px', height: '180px' }}>
-                            <img
-                              src={certData.image || certImage}
-                              alt={certData.title}
-                              className="w-full h-full object-cover rounded"
-                              style={{ borderRadius: '8px' }}
-                              onError={(e) => {
-                                e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
-                              }}
-                            />
+                        )
+                      })
+                    ) : (
+                      <div className="text-center text-gray-400 text-base px-4 py-12" style={{ width: '400px' }}>
+                        No certifications listed. Click edit to add certifications.
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Second Row - Infinite Scrolling Right */}
+            <div className="relative w-full overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
+              <div className="flex animate-scroll-right gap-6" style={{ width: 'max-content' }}>
+                {/* Duplicate content for seamless loop */}
+                {[...Array(3)].map((_, loopIndex) => (
+                  <div key={`loop-reverse-${loopIndex}`} className="flex gap-6">
+                    {company?.certifications && company.certifications.length > 0 ? (
+                      [...company.certifications].reverse().map((cert, index) => {
+                        const certImages = [cert1, cert2, cert3]
+                        const certImage = certImages[index % certImages.length]
+                        const certData = typeof cert === 'object' ? cert : {
+                          title: cert,
+                          year: '2021',
+                          description: 'Quality management system ensuring consistent product quality and customer satisfaction.',
+                          image: certImage
+                        }
+                        return (
+                          <div
+                            key={`reverse-${loopIndex}-${index}`}
+                            className="bg-gray-800 rounded-lg p-4 flex-shrink-0 h-20"
+                            style={{
+                              width: '400px',
+                              minHeight: '220px',
+                              height: '220px',
+                              display: 'flex',
+                              flexDirection: 'row',
+                              gap: '20px',
+                              background: 'rgba(33, 33, 33, 0.8)',
+                              borderRadius: '12px'
+                            }}
+                          >
+                            {/* Left Content */}
+                            <div className="flex flex-col justify-between flex-1" style={{ minWidth: '200px' }}>
+                              <div>
+                                <h3 className="text-2xl font-bold text-white mb-1" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                  {certData.title}
+                                </h3>
+                                <p className="text-white text-lg mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                  {certData.year || '2021'}
+                                </p>
+                                <div className="w-full h-px bg-gray-600 mb-2"></div>
+                                <p className="text-sm text-gray-300 leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                  {certData.description || 'Quality management system ensuring consistent product quality and customer satisfaction.'}
+                                </p>
+                              </div>
+                            </div>
+                            {/* Right - Certificate Image */}
+                            <div className="flex-shrink-0" style={{ width: '150px', height: '180px' }}>
+                              <img
+                                src={certData.image || certImage}
+                                alt={certData.title}
+                                className="w-full h-full object-cover rounded"
+                                style={{ borderRadius: '8px' }}
+                                onError={(e) => {
+                                  e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
+                                }}
+                              />
+                            </div>
                           </div>
-                        </div>
-                      )
-                    })
-                  ) : (
-                    <div className="text-center text-gray-400 text-base px-4 py-12" style={{ width: '400px' }}>
-                      No certifications listed. Click edit to add certifications.
-                    </div>
-                  )}
-                </div>
-              ))}
+                        )
+                      })
+                    ) : (
+                      <div className="text-center text-gray-400 text-base px-4 py-12" style={{ width: '400px' }}>
+                        No certifications listed. Click edit to add certifications.
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
       </div>
     </motion.section>
   )
@@ -2426,13 +2471,13 @@ function Certifications({ company, isEditMode, editingFields, onStartEdit, onSto
 
 function Gallery({ company }) {
   const [currentIndex, setCurrentIndex] = useState(2) // Start at center (index 2)
-  
+
   // Default media images - always use these for demo
   const defaultMediaImages = [media, media2, media3, media4, media5]
-  
+
   // Always use default images for now
   const mediaImages = defaultMediaImages
-  
+
   console.log('Gallery images:', mediaImages)
 
   const handleNext = () => {
@@ -2448,10 +2493,10 @@ function Gallery({ company }) {
   }
 
   return (
-    <motion.section 
-      initial="hidden" 
-      whileInView="show" 
-      viewport={{ once: true, amount: 0.2 }} 
+    <motion.section
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
       className="relative w-full py-8 sm:py-12 md:py-16 lg:py-20 overflow-x-hidden"
       style={{ marginBottom: 'clamp(3rem, 7.5vw, 7.5rem)', overflowX: 'hidden' }}
     >
@@ -2460,71 +2505,71 @@ function Gallery({ company }) {
         <div className="relative w-full overflow-x-hidden" style={{ overflowX: 'hidden', position: 'relative', width: '100%', maxWidth: '100%' }}>
           <div className="relative flex items-center justify-center overflow-x-hidden" style={{ height: 'clamp(20rem, 40vw, 31.25rem)', perspective: 'clamp(50rem, 100vw, 75rem)', overflowX: 'hidden', overflowY: 'visible', width: '100%', position: 'relative', maxWidth: '100%' }}>
             <div className="relative flex items-center justify-center overflow-x-hidden" style={{ width: '100%', height: '100%', overflowX: 'hidden', overflowY: 'visible', position: 'relative', maxWidth: '100%' }}>
-            {mediaImages && mediaImages.length > 0 ? mediaImages.map((image, index) => {
-              const offset = index - currentIndex
-              const isCenter = offset === 0
-              
-              // Calculate position, rotation, and scale - responsive spacing
-              const baseSpacing = typeof window !== 'undefined' ? Math.min(window.innerWidth * 0.15, 280) : 280
-              let translateX = offset * baseSpacing
-              let rotationY = 0
-              let scale = 1
-              let opacity = 1
-              let zIndex = mediaImages.length - Math.abs(offset)
-              
-              if (!isCenter) {
-                // Tilt images that are not in center
-                rotationY = offset > 0 ? 25 : -25 // Tilt right if ahead, left if behind
-                scale = 0.75
-                opacity = 0.5
-              } else {
-                scale = 1
-                opacity = 1
-                zIndex = 100
-              }
+              {mediaImages && mediaImages.length > 0 ? mediaImages.map((image, index) => {
+                const offset = index - currentIndex
+                const isCenter = offset === 0
 
-              return (
-                <div
-                  key={index}
-                  className="absolute cursor-pointer transition-all duration-700 ease-in-out"
-                  style={{
-                    width: 'clamp(16rem, 30vw, 25rem)',
-                    height: 'clamp(18rem, 33vw, 28.125rem)',
-                    transform: `translateX(${translateX}px) rotateY(${rotationY}deg) scale(${scale})`,
-                    opacity: opacity,
-                    zIndex: zIndex,
-                    transformStyle: 'preserve-3d',
-                    backfaceVisibility: 'hidden'
-                  }}
-                  onClick={() => goToSlide(index)}
-                >
-                  <div 
-                    className="w-full h-full rounded-2xl overflow-hidden"
+                // Calculate position, rotation, and scale - responsive spacing
+                const baseSpacing = typeof window !== 'undefined' ? Math.min(window.innerWidth * 0.15, 280) : 280
+                let translateX = offset * baseSpacing
+                let rotationY = 0
+                let scale = 1
+                let opacity = 1
+                let zIndex = mediaImages.length - Math.abs(offset)
+
+                if (!isCenter) {
+                  // Tilt images that are not in center
+                  rotationY = offset > 0 ? 25 : -25 // Tilt right if ahead, left if behind
+                  scale = 0.75
+                  opacity = 0.5
+                } else {
+                  scale = 1
+                  opacity = 1
+                  zIndex = 100
+                }
+
+                return (
+                  <div
+                    key={index}
+                    className="absolute cursor-pointer transition-all duration-700 ease-in-out"
                     style={{
-                      borderRadius: '16px',
-                      boxShadow: isCenter 
-                        ? '0 25px 50px rgba(0, 0, 0, 0.6)' 
-                        : '0 10px 25px rgba(0, 0, 0, 0.4)',
-                      transition: 'box-shadow 0.7s ease-in-out'
+                      width: 'clamp(16rem, 30vw, 25rem)',
+                      height: 'clamp(18rem, 33vw, 28.125rem)',
+                      transform: `translateX(${translateX}px) rotateY(${rotationY}deg) scale(${scale})`,
+                      opacity: opacity,
+                      zIndex: zIndex,
+                      transformStyle: 'preserve-3d',
+                      backfaceVisibility: 'hidden'
                     }}
+                    onClick={() => goToSlide(index)}
                   >
-                    <img
-                      src={image}
-                      alt={`Gallery image ${index + 1}`}
-                      className="w-full h-full object-cover"
+                    <div
+                      className="w-full h-full rounded-2xl overflow-hidden"
                       style={{
-                        transition: 'all 0.7s ease-in-out'
+                        borderRadius: '16px',
+                        boxShadow: isCenter
+                          ? '0 25px 50px rgba(0, 0, 0, 0.6)'
+                          : '0 10px 25px rgba(0, 0, 0, 0.4)',
+                        transition: 'box-shadow 0.7s ease-in-out'
                       }}
-                      onError={(e) => {
-                        e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
-                      }}
-                    />
-                </div>
-              </div>
-              )
-            }) : (
-              <div className="text-white">No images available</div>
-            )}
+                    >
+                      <img
+                        src={image}
+                        alt={`Gallery image ${index + 1}`}
+                        className="w-full h-full object-cover"
+                        style={{
+                          transition: 'all 0.7s ease-in-out'
+                        }}
+                        onError={(e) => {
+                          e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
+                        }}
+                      />
+                    </div>
+                  </div>
+                )
+              }) : (
+                <div className="text-white">No images available</div>
+              )}
             </div>
           </div>
         </div>
@@ -2556,20 +2601,20 @@ function Gallery({ company }) {
           aria-label="Previous image"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-            </button>
-            <button
+        </button>
+        <button
           onClick={handleNext}
           className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-3 transition-all duration-300 z-20"
           style={{ backdropFilter: 'blur(10px)' }}
           aria-label="Next image"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 18L15 12L9 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M9 18L15 12L9 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-            </button>
-          </div>
+        </button>
+      </div>
     </motion.section>
   )
 }
@@ -2624,8 +2669,8 @@ function Testimonials({ company, isEditMode, editingFields, onStartEdit, onStopE
                 <div key={`loop-${loopIndex}`} className="flex gap-6">
                   {testimonials && testimonials.length > 0 ? (
                     testimonials.map((testimonial, index) => {
-                      const testimonialData = typeof testimonial === 'object' ? testimonial : { 
-                        quote: testimonial, 
+                      const testimonialData = typeof testimonial === 'object' ? testimonial : {
+                        quote: testimonial,
                         author: 'Client',
                         company: 'Company Name',
                         rating: 5
@@ -2672,10 +2717,10 @@ function Testimonials({ company, isEditMode, editingFields, onStartEdit, onStopE
                               </p>
                             </div>
                           </div>
-                          
+
                           {/* Separator */}
                           <div className="w-full h-px bg-gray-600"></div>
-                          
+
                           {/* Quote */}
                           <div className="flex-1">
                             <p className="text-sm text-gray-300 leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
@@ -2689,10 +2734,10 @@ function Testimonials({ company, isEditMode, editingFields, onStartEdit, onStopE
                     <div className="text-center text-gray-400 text-base px-4 py-12" style={{ width: '400px' }}>
                       No testimonials listed.
                     </div>
-              )}
-            </div>
+                  )}
+                </div>
               ))}
-          </div>
+            </div>
           </div>
 
           {/* Second Row - Infinite Scrolling Right */}
@@ -2703,8 +2748,8 @@ function Testimonials({ company, isEditMode, editingFields, onStartEdit, onStopE
                 <div key={`loop-reverse-${loopIndex}`} className="flex gap-6">
                   {testimonials && testimonials.length > 0 ? (
                     [...testimonials].reverse().map((testimonial, index) => {
-                      const testimonialData = typeof testimonial === 'object' ? testimonial : { 
-                        quote: testimonial, 
+                      const testimonialData = typeof testimonial === 'object' ? testimonial : {
+                        quote: testimonial,
                         author: 'Client',
                         company: 'Company Name',
                         rating: 5
@@ -2751,10 +2796,10 @@ function Testimonials({ company, isEditMode, editingFields, onStartEdit, onStopE
                               </p>
                             </div>
                           </div>
-                          
+
                           {/* Separator */}
                           <div className="w-full h-px bg-gray-600"></div>
-                          
+
                           {/* Quote */}
                           <div className="flex-1">
                             <p className="text-sm text-gray-300 leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
@@ -2768,10 +2813,10 @@ function Testimonials({ company, isEditMode, editingFields, onStartEdit, onStopE
                     <div className="text-center text-gray-400 text-base px-4 py-12" style={{ width: '400px' }}>
                       No testimonials listed.
                     </div>
-              )}
-            </div>
+                  )}
+                </div>
               ))}
-          </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2784,7 +2829,7 @@ function Team({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onF
     <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="relative w-full py-8 sm:py-12 md:py-16" style={{ marginBottom: 'clamp(3rem, 7.5vw, 7.5rem)' }}>
       {/* Header Section with Title and Button */}
       <div className="relative mx-auto mb-8 sm:mb-10 md:mb-12" style={{ width: '100%', maxWidth: '72.625rem' }}>
-        <motion.div 
+        <motion.div
           variants={fadeUp}
           className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-10"
           style={{
@@ -2816,7 +2861,7 @@ function Team({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onF
             >
               The Faces Behind Precision and Performance
             </h2>
-            </div>
+          </div>
 
           {/* Button on Right */}
           <div
@@ -2839,7 +2884,7 @@ function Team({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onF
                 overflow: 'hidden'
               }}
             >
-                <span
+              <span
                 style={{
                   fontFamily: 'Montserrat, sans-serif',
                   fontStyle: 'normal',
@@ -2852,7 +2897,7 @@ function Team({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onF
                 }}
               >
                 View Team
-                </span>
+              </span>
               <div
                 className="flex items-center justify-center"
                 style={{
@@ -2872,7 +2917,7 @@ function Team({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onF
                 <svg
                   width="18"
                   height="18"
-                    viewBox="0 0 24 24"
+                  viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -2883,12 +2928,12 @@ function Team({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onF
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
-                  </svg>
-            </div>
+                </svg>
+              </div>
             </button>
           </div>
         </motion.div>
-        </div>
+      </div>
 
       {/* Team Content */}
       <div className="max-w-6xl mx-auto">
@@ -2918,7 +2963,7 @@ function Team({ company, isEditMode, editingFields, onStartEdit, onStopEdit, onF
             twitter="#"
             facebook="#"
           />
-      </motion.div>
+        </motion.div>
       </div>
     </motion.section>
   )
@@ -2946,18 +2991,18 @@ function TeamMemberCard({ name, title, image, linkedin, twitter, facebook }) {
         <img
           src={image}
           alt={name}
-                className="w-full h-full object-cover"
+          className="w-full h-full object-cover"
           style={{
             objectFit: 'cover',
             objectPosition: 'center',
             width: '100%',
             height: '100%'
           }}
-                onError={(e) => {
-                  e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
-                }}
-              />
-            </div>
+          onError={(e) => {
+            e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzc0MTUxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZhaWxlZCB0byBsb2FkPC90ZXh0Pjwvc3ZnPg=='
+          }}
+        />
+      </div>
 
       {/* Information Section */}
       <div
@@ -3001,7 +3046,7 @@ function TeamMemberCard({ name, title, image, linkedin, twitter, facebook }) {
           >
             {title}
           </p>
-          </div>
+        </div>
 
         {/* Social Media Icons */}
         <div className="flex items-center gap-2 flex-shrink-0">
@@ -3023,7 +3068,7 @@ function TeamMemberCard({ name, title, image, linkedin, twitter, facebook }) {
               }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill="#FFFFFF"/>
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill="#FFFFFF" />
               </svg>
             </a>
           )}
@@ -3045,7 +3090,7 @@ function TeamMemberCard({ name, title, image, linkedin, twitter, facebook }) {
               }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#FFFFFF"/>
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#FFFFFF" />
               </svg>
             </a>
           )}
@@ -3067,7 +3112,7 @@ function TeamMemberCard({ name, title, image, linkedin, twitter, facebook }) {
               }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#FFFFFF"/>
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#FFFFFF" />
               </svg>
             </a>
           )}
@@ -3154,16 +3199,16 @@ function Contact({ company, isEditMode, editingFields, onStartEdit, onStopEdit, 
                     style={{ fontFamily: 'Montserrat, sans-serif' }}
                     placeholder=""
                   />
-          </div>
-        </div>
+                </div>
+              </div>
 
               {/* Your Email - Below Your Name field */}
               <div className="flex flex-col md:w-1/2">
                 <label className="text-white text-sm sm:text-base mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                   Your Email ID
                 </label>
-            <input 
-              type="email" 
+                <input
+                  type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
@@ -3178,7 +3223,7 @@ function Contact({ company, isEditMode, editingFields, onStartEdit, onStopEdit, 
                 <label className="text-white text-sm sm:text-base mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                   Your Query
                 </label>
-            <textarea 
+                <textarea
                   name="query"
                   value={formData.query}
                   onChange={handleInputChange}
@@ -3251,11 +3296,11 @@ function Contact({ company, isEditMode, editingFields, onStartEdit, onStopEdit, 
                       />
                     </svg>
                   </div>
-            </button>
+                </button>
               </div>
-          </form>
-        </div>
-      </motion.div>
+            </form>
+          </div>
+        </motion.div>
       </div>
     </motion.section>
   )
