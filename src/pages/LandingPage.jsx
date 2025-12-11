@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
+import { CheckCircleIcon } from '@heroicons/react/24/outline'
 import RegistrationForm from '../components/RegistrationForm'
 import LoginForm from '../components/LoginForm'
 import AnimatedText from '../components/AnimatedText'
@@ -19,8 +21,174 @@ const LandingPage = ({ onLoginSuccess }) => {
   const [counter2, setCounter2] = useState(0)
   const [counter3, setCounter3] = useState(0)
   const [counter4, setCounter4] = useState(0)
+  
+  // Contact form state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phoneNumber: '',
+    businessType: '',
+    otherBusinessType: '',
+    businessDescription: ''
+  })
+  const [formErrors, setFormErrors] = useState({})
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [showContactFormModal, setShowContactFormModal] = useState(false)
+  
+  // Contact form modal state (separate from contact us form)
+  const [modalFormData, setModalFormData] = useState({
+    name: '',
+    email: '',
+    phoneNumber: '',
+    businessType: '',
+    otherBusinessType: '',
+    businessDescription: ''
+  })
+  const [modalFormErrors, setModalFormErrors] = useState({})
+  
+  // Business types for dropdown
+  const businessTypes = [
+    'Manufacturing',
+    'Machining',
+    'Casting',
+    'Forging',
+    'Fabrication',
+    'Plating & Surface Treatment',
+    'Assembly',
+    'Tooling & Molds',
+    'Quality Control & Testing',
+    'Trading & Distribution',
+    'Others'
+  ]
+  
+  // Handle form input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+    // Clear error for this field when user starts typing
+    if (formErrors[name]) {
+      setFormErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }))
+    }
+  }
+  
+  // Validate form
+  const validateForm = () => {
+    const errors = {}
+    
+    if (!formData.name.trim()) {
+      errors.name = 'Name is required'
+    }
+    
+    if (!formData.email.trim()) {
+      errors.email = 'Email is required'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = 'Please enter a valid email address'
+    }
+    
+    if (!formData.businessDescription.trim()) {
+      errors.businessDescription = 'Business description is required'
+    }
+    
+    if (formData.businessType === 'Others' && !formData.otherBusinessType.trim()) {
+      errors.otherBusinessType = 'Please specify your business type'
+    }
+    
+    setFormErrors(errors)
+    return Object.keys(errors).length === 0
+  }
+  
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    
+    if (validateForm()) {
+      // Here you can add your form submission logic
+      console.log('Form submitted:', formData)
+      // Reset form after successful submission
+      setFormData({
+        name: '',
+        email: '',
+        phoneNumber: '',
+        businessType: '',
+        otherBusinessType: '',
+        businessDescription: ''
+      })
+      // Show success modal
+      setShowSuccessModal(true)
+    }
+  }
+  
+  // Handle modal form input changes
+  const handleModalInputChange = (e) => {
+    const { name, value } = e.target
+    setModalFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+    // Clear error for this field when user starts typing
+    if (modalFormErrors[name]) {
+      setModalFormErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }))
+    }
+  }
+  
+  // Validate modal form
+  const validateModalForm = () => {
+    const errors = {}
+    
+    if (!modalFormData.name.trim()) {
+      errors.name = 'Name is required'
+    }
+    
+    if (!modalFormData.email.trim()) {
+      errors.email = 'Email is required'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(modalFormData.email)) {
+      errors.email = 'Please enter a valid email address'
+    }
+    
+    if (!modalFormData.businessDescription.trim()) {
+      errors.businessDescription = 'Business description is required'
+    }
+    
+    if (modalFormData.businessType === 'Others' && !modalFormData.otherBusinessType.trim()) {
+      errors.otherBusinessType = 'Please specify your business type'
+    }
+    
+    setModalFormErrors(errors)
+    return Object.keys(errors).length === 0
+  }
+  
+  // Handle modal form submission
+  const handleModalSubmit = (e) => {
+    e.preventDefault()
+    
+    if (validateModalForm()) {
+      // Here you can add your form submission logic
+      console.log('Modal form submitted:', modalFormData)
+      // Reset form after successful submission
+      setModalFormData({
+        name: '',
+        email: '',
+        phoneNumber: '',
+        businessType: '',
+        otherBusinessType: '',
+        businessDescription: ''
+      })
+      // Close modal and show success modal
+      setShowContactFormModal(false)
+      setShowSuccessModal(true)
+    }
+  }
 
-  // Intersection Observer for "This is what Madevise fixes" section
+  // Intersection Observer for "This is what Madevize fixes" section
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -192,6 +360,16 @@ const LandingPage = ({ onLoginSuccess }) => {
     }
   }, [isHowItWorksSectionVisible])
 
+  // Smooth scroll to How It Works section
+  const scrollToHowItWorks = () => {
+    if (howItWorksSectionRef.current) {
+      howItWorksSectionRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  }
+
   return (
     <div className="min-h-screen">
       {/* Hero Section Container with Background */}
@@ -231,6 +409,7 @@ const LandingPage = ({ onLoginSuccess }) => {
                 ABOUT
           </button>
               <button 
+                onClick={scrollToHowItWorks}
                 className="text-white font-semibold text-[14px] xl:text-base hover:text-gray-300 transition-colors duration-200 relative z-30"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
@@ -254,7 +433,7 @@ const LandingPage = ({ onLoginSuccess }) => {
           {/* Right - CTA Button */}
           <div className="flex items-center">
           <button 
-            onClick={() => setShowRegistration(true)}
+            onClick={() => setShowContactFormModal(true)}
               className="px-6 xl:px-6 py-4 xl:py-2.5 bg-white text-black hover:bg-gray-100 rounded-[15px] transition-all duration-200 font-semibold text-sm xl:text-base"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
@@ -284,6 +463,10 @@ const LandingPage = ({ onLoginSuccess }) => {
               ABOUT
             </button>
             <button 
+              onClick={() => {
+                scrollToHowItWorks()
+                setShowMobileMenu(false)
+              }}
               className="px-4 py-2 sm:py-2.5 text-white font-bold hover:text-gray-300 transition-colors text-center text-sm sm:text-base"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
@@ -303,7 +486,7 @@ const LandingPage = ({ onLoginSuccess }) => {
             </button>
             <button 
               onClick={() => {
-                setShowRegistration(true)
+                setShowContactFormModal(true)
                 setShowMobileMenu(false)
               }}
               className="px-4 py-2 sm:py-2.5 bg-white text-black hover:bg-gray-100 rounded-full transition-all duration-200 text-center font-medium text-sm sm:text-base mt-4"
@@ -364,7 +547,7 @@ const LandingPage = ({ onLoginSuccess }) => {
           {/* CTA Buttons Row */}
           <div className="flex flex-row items-center gap-3 md:gap-4">
           <button 
-            onClick={() => setShowRegistration(true)}
+            onClick={() => setShowContactFormModal(true)}
               className="px-4 py-2 h-[47px] w-[160px] md:w-[170px] lg:w-[180px] bg-white text-black hover:bg-gray-100 rounded-[15px] transition-all duration-200 font-semibold text-sm md:text-base"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
@@ -476,7 +659,7 @@ const LandingPage = ({ onLoginSuccess }) => {
         </div>
       </section>
 
-      {/* This is what Madevise fixes Section */}
+      {/* This is what Madevize fixes Section */}
       <section 
         ref={fixesSectionRef}
         className="relative bg-black flex items-center justify-center w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-20 sm:py-24 md:py-28 lg:py-32 xl:py-36 2xl:py-40"
@@ -491,7 +674,7 @@ const LandingPage = ({ onLoginSuccess }) => {
             lineHeight: '1.2'
           }}
         >
-          {'This is what Madevise fixes'.split(' ').map((word, index, array) => (
+          {'This is what Madevize fixes'.split(' ').map((word, index, array) => (
             <span
               key={index}
               style={{
@@ -511,7 +694,7 @@ const LandingPage = ({ onLoginSuccess }) => {
         </h2>
       </section>
 
-      {/* The Madevise Platform Section */}
+      {/* The Madevize Platform Section */}
       <section className="relative bg-white flex flex-col items-center w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 2xl:py-32">
         <h2 
           className="text-black text-center mb-6 md:mb-8 lg:mb-10"
@@ -523,7 +706,7 @@ const LandingPage = ({ onLoginSuccess }) => {
             lineHeight: '1.2'
           }}
         >
-          The Madevise Platform
+          The Madevize Platform
         </h2>
 
         {/* Cards Container */}
@@ -667,6 +850,7 @@ const LandingPage = ({ onLoginSuccess }) => {
 
       {/* How It Works Section */}
       <section 
+        id="how-it-works"
         ref={howItWorksSectionRef}
         className="relative bg-white flex flex-col justify-between items-start w-full px-4 sm:px-6 md:px-6 lg:px-8 xl:px-10 2xl:px-12 py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20 2xl:py-24" 
         style={{ minHeight: 'auto' }}
@@ -1016,7 +1200,8 @@ const LandingPage = ({ onLoginSuccess }) => {
               className="flex w-[200px] justify-end items-end w-full lg:flex-1"
             >
               {/* Form Container */}
-              <div 
+              <form 
+                onSubmit={handleSubmit}
                 className="w-full bg-white rounded-lg border border-gray-200 p-4 sm:p-6"
                 style={{
                   gap: '10px',
@@ -1038,13 +1223,21 @@ const LandingPage = ({ onLoginSuccess }) => {
                     </label>
                     <input 
                       type="text" 
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
                       placeholder="John Smith"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        formErrors.name ? 'border-red-500' : 'border-gray-300'
+                      }`}
                       style={{
                         fontFamily: 'Inter, sans-serif',
                         fontSize: '14px'
                       }}
                     />
+                    {formErrors.name && (
+                      <p className="text-red-500 text-xs mt-1">{formErrors.name}</p>
+                    )}
                   </div>
 
                   {/* Email Field */}
@@ -1059,13 +1252,21 @@ const LandingPage = ({ onLoginSuccess }) => {
                     </label>
                     <input 
                       type="email" 
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
                       placeholder="johnsmith@gmail.com"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        formErrors.email ? 'border-red-500' : 'border-gray-300'
+                      }`}
                       style={{
                         fontFamily: 'Inter, sans-serif',
                         fontSize: '14px'
                       }}
                     />
+                    {formErrors.email && (
+                      <p className="text-red-500 text-xs mt-1">{formErrors.email}</p>
+                    )}
                   </div>
 
                   {/* Phone Field */}
@@ -1080,7 +1281,10 @@ const LandingPage = ({ onLoginSuccess }) => {
                     </label>
                     <input 
                       type="tel" 
-                      placeholder="+44789 123456"
+                      name="phoneNumber"
+                      value={formData.phoneNumber}
+                      onChange={handleInputChange}
+                      placeholder="+91 9876543210"
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       style={{
                         fontFamily: 'Inter, sans-serif',
@@ -1089,7 +1293,7 @@ const LandingPage = ({ onLoginSuccess }) => {
                     />
                   </div>
 
-                  {/* Message Field */}
+                  {/* Business Type Field */}
                   <div>
                     <label 
                       className="block text-sm font-medium text-gray-700 mb-1"
@@ -1097,21 +1301,90 @@ const LandingPage = ({ onLoginSuccess }) => {
                         fontFamily: 'Inter, sans-serif'
                       }}
                     >
-                      Message<span className="text-red-500">*</span>
+                      Type of Business
+                    </label>
+                    <select
+                      name="businessType"
+                      value={formData.businessType}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      style={{
+                        fontFamily: 'Inter, sans-serif',
+                        fontSize: '14px'
+                      }}
+                    >
+                      <option value="">Select business type</option>
+                      {businessTypes.map((type) => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Other Business Type Field (conditional) */}
+                  {formData.businessType === 'Others' && (
+                    <div>
+                      <label 
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                        style={{
+                          fontFamily: 'Inter, sans-serif'
+                        }}
+                      >
+                        Specify Business Type<span className="text-red-500">*</span>
+                      </label>
+                      <input 
+                        type="text" 
+                        name="otherBusinessType"
+                        value={formData.otherBusinessType}
+                        onChange={handleInputChange}
+                        placeholder="Enter your business type"
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                          formErrors.otherBusinessType ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                        style={{
+                          fontFamily: 'Inter, sans-serif',
+                          fontSize: '14px'
+                        }}
+                      />
+                      {formErrors.otherBusinessType && (
+                        <p className="text-red-500 text-xs mt-1">{formErrors.otherBusinessType}</p>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Business Description Field */}
+                  <div>
+                    <label 
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                      style={{
+                        fontFamily: 'Inter, sans-serif'
+                      }}
+                    >
+                      Describe your business in few words<span className="text-red-500">*</span>
                     </label>
                     <textarea 
-                      placeholder="Hello, I'd like to enquire about..."
+                      name="businessDescription"
+                      value={formData.businessDescription}
+                      onChange={handleInputChange}
+                      placeholder="Briefly describe your business..."
                       rows={4}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none ${
+                        formErrors.businessDescription ? 'border-red-500' : 'border-gray-300'
+                      }`}
                       style={{
                         fontFamily: 'Inter, sans-serif',
                         fontSize: '14px'
                       }}
                     />
+                    {formErrors.businessDescription && (
+                      <p className="text-red-500 text-xs mt-1">{formErrors.businessDescription}</p>
+                    )}
                   </div>
 
                   {/* Submit Button */}
                   <button 
+                    type="submit"
                     className="w-full bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700 transition-colors duration-200"
                     style={{
                       fontFamily: 'Inter, sans-serif',
@@ -1122,7 +1395,7 @@ const LandingPage = ({ onLoginSuccess }) => {
                     Send message
                   </button>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
@@ -1344,6 +1617,278 @@ const LandingPage = ({ onLoginSuccess }) => {
           </div>
         </div>
       )}
+
+      {/* Contact Form Modal */}
+      {showContactFormModal && (
+        <div 
+          className="fixed inset-0 flex items-center justify-center p-2 sm:p-4 z-50 backdrop-blur-sm"
+          style={{
+            backgroundImage: 'url("/bg.avif")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
+          {/* Dark overlay for better content readability */}
+          <div className="absolute inset-0 bg-black bg-opacity-70"></div>
+          
+          {/* Modal container */}
+          <div className="relative rounded-2xl max-w-2xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-700 bg-white">
+            <div className="p-6">
+              {/* Close Button */}
+              <div className="flex justify-end mb-4">
+                <button
+                  onClick={() => setShowContactFormModal(false)}
+                  className="text-gray-500 hover:text-gray-700 transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Modal Title */}
+              <h2 
+                className="text-2xl font-semibold text-gray-900 mb-6"
+                style={{ fontFamily: 'Inter, sans-serif' }}
+              >
+                Create My Profile
+              </h2>
+
+              {/* Form */}
+              <form onSubmit={handleModalSubmit} className="space-y-4">
+                {/* Name Field */}
+                <div>
+                  <label 
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                    style={{
+                      fontFamily: 'Inter, sans-serif'
+                    }}
+                  >
+                    Name<span className="text-red-500">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    name="name"
+                    value={modalFormData.name}
+                    onChange={handleModalInputChange}
+                    placeholder="John Smith"
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      modalFormErrors.name ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                    style={{
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: '14px'
+                    }}
+                  />
+                  {modalFormErrors.name && (
+                    <p className="text-red-500 text-xs mt-1">{modalFormErrors.name}</p>
+                  )}
+                </div>
+
+                {/* Email Field */}
+                <div>
+                  <label 
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                    style={{
+                      fontFamily: 'Inter, sans-serif'
+                    }}
+                  >
+                    Email<span className="text-red-500">*</span>
+                  </label>
+                  <input 
+                    type="email" 
+                    name="email"
+                    value={modalFormData.email}
+                    onChange={handleModalInputChange}
+                    placeholder="johnsmith@gmail.com"
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      modalFormErrors.email ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                    style={{
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: '14px'
+                    }}
+                  />
+                  {modalFormErrors.email && (
+                    <p className="text-red-500 text-xs mt-1">{modalFormErrors.email}</p>
+                  )}
+                </div>
+
+                {/* Phone Field */}
+                <div>
+                  <label 
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                    style={{
+                      fontFamily: 'Inter, sans-serif'
+                    }}
+                  >
+                    Phone Number
+                  </label>
+                  <input 
+                    type="tel" 
+                    name="phoneNumber"
+                    value={modalFormData.phoneNumber}
+                    onChange={handleModalInputChange}
+                    placeholder="+91 9876543210"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    style={{
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: '14px'
+                    }}
+                  />
+                </div>
+
+                {/* Business Type Field */}
+                <div>
+                  <label 
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                    style={{
+                      fontFamily: 'Inter, sans-serif'
+                    }}
+                  >
+                    Type of Business
+                  </label>
+                  <select
+                    name="businessType"
+                    value={modalFormData.businessType}
+                    onChange={handleModalInputChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    style={{
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: '14px'
+                    }}
+                  >
+                    <option value="">Select business type</option>
+                    {businessTypes.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Other Business Type Field (conditional) */}
+                {modalFormData.businessType === 'Others' && (
+                  <div>
+                    <label 
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                      style={{
+                        fontFamily: 'Inter, sans-serif'
+                      }}
+                    >
+                      Specify Business Type<span className="text-red-500">*</span>
+                    </label>
+                    <input 
+                      type="text" 
+                      name="otherBusinessType"
+                      value={modalFormData.otherBusinessType}
+                      onChange={handleModalInputChange}
+                      placeholder="Enter your business type"
+                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        modalFormErrors.otherBusinessType ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                      style={{
+                        fontFamily: 'Inter, sans-serif',
+                        fontSize: '14px'
+                      }}
+                    />
+                    {modalFormErrors.otherBusinessType && (
+                      <p className="text-red-500 text-xs mt-1">{modalFormErrors.otherBusinessType}</p>
+                    )}
+                  </div>
+                )}
+
+                {/* Business Description Field */}
+                <div>
+                  <label 
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                    style={{
+                      fontFamily: 'Inter, sans-serif'
+                    }}
+                  >
+                    Describe your business in few words<span className="text-red-500">*</span>
+                  </label>
+                  <textarea 
+                    name="businessDescription"
+                    value={modalFormData.businessDescription}
+                    onChange={handleModalInputChange}
+                    placeholder="Briefly describe your business..."
+                    rows={4}
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none ${
+                      modalFormErrors.businessDescription ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                    style={{
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: '14px'
+                    }}
+                  />
+                  {modalFormErrors.businessDescription && (
+                    <p className="text-red-500 text-xs mt-1">{modalFormErrors.businessDescription}</p>
+                  )}
+                </div>
+
+                {/* Submit Button */}
+                <button 
+                  type="submit"
+                  className="w-full bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700 transition-colors duration-200"
+                  style={{
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '14px',
+                    fontWeight: '500'
+                  }}
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success Modal */}
+      <Dialog open={showSuccessModal} onClose={() => setShowSuccessModal(false)} className="relative z-50">
+        <DialogBackdrop
+          transition
+          className="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"
+        />
+
+        <div className="fixed inset-0 z-50 w-screen overflow-y-auto">
+          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <DialogPanel
+              transition
+              className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95"
+            >
+              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="sm:flex sm:items-start">
+                  <div className="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:size-10">
+                    <CheckCircleIcon aria-hidden="true" className="size-6 text-green-600" />
+                  </div>
+                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <DialogTitle as="h3" className="text-base font-semibold text-gray-900">
+                      Thank You!
+                    </DialogTitle>
+                    <div className="mt-2">
+                      <p className="text-sm text-gray-500">
+                        Madevize will reach out to you within 24 hrs
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <button
+                  type="button"
+                  onClick={() => setShowSuccessModal(false)}
+                  className="inline-flex w-full justify-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-gray-700 sm:ml-3 sm:w-auto"
+                >
+                  Close
+                </button>
+              </div>
+            </DialogPanel>
+          </div>
+        </div>
+      </Dialog>
     </div>
   )
 }
