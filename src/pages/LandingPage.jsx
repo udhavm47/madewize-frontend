@@ -5,6 +5,8 @@ import { CheckCircleIcon } from '@heroicons/react/24/outline'
 import RegistrationForm from '../components/RegistrationForm'
 import LoginForm from '../components/LoginForm'
 import AnimatedText from '../components/AnimatedText'
+import card5Image from '../assets/card5.png'
+import bgnewImage from '../assets/bgnew.png'
 
 const LandingPage = ({ onLoginSuccess }) => {
   const navigate = useNavigate()
@@ -17,6 +19,8 @@ const LandingPage = ({ onLoginSuccess }) => {
   const cardsSectionRef = useRef(null)
   const [isHowItWorksSectionVisible, setIsHowItWorksSectionVisible] = useState(false)
   const howItWorksSectionRef = useRef(null)
+  const [isImageSectionVisible, setIsImageSectionVisible] = useState(false)
+  const imageSectionRef = useRef(null)
   const [counter1, setCounter1] = useState(0)
   const [counter2, setCounter2] = useState(0)
   const [counter3, setCounter3] = useState(0)
@@ -264,6 +268,34 @@ const LandingPage = ({ onLoginSuccess }) => {
       if (howItWorksSectionRef.current) {
         observer.unobserve(howItWorksSectionRef.current)
       }
+    }
+  }, [])
+
+  // Intersection Observer for image section - scroll-based animation
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!imageSectionRef.current) return
+
+      const rect = imageSectionRef.current.getBoundingClientRect()
+      const windowHeight = window.innerHeight
+      
+      // Calculate when section enters viewport
+      const sectionTop = rect.top
+      const sectionHeight = rect.height
+      
+      // Start animation when section is 20% visible
+      if (sectionTop < windowHeight * 0.8 && sectionTop + sectionHeight > 0) {
+        setIsImageSectionVisible(true)
+      } else {
+        setIsImageSectionVisible(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll() // Check initial state
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
     }
   }, [])
 
@@ -771,30 +803,50 @@ const LandingPage = ({ onLoginSuccess }) => {
               </div>
               {/* Card 4 */}
               <div 
-                className="bg-gray-100 rounded-lg p-5 md:p-6 lg:p-6 flex-1 min-h-[150px]"
+                className="bg-[#F5F5F5] rounded-lg p-5 md:p-6 lg:p-6 flex-1 min-h-[150px] flex items-center justify-center"
             style={{
                   transform: isCardsSectionVisible ? 'translateY(0)' : 'translateY(-50px)',
                   opacity: isCardsSectionVisible ? 1 : 0,
                   transition: `transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s, opacity 1.5s ease 0.3s`
             }}
           >
-                <p className="text-black">Card 4</p>
+                <h3 className="text-black font-semibold text-[36px] md:text-xl lg:text-[24px] text-center" style={{ lineHeight: '1.2' }}>
+                  <span style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif' }}>Reliable &</span><br></br><span className="font-normal" style={{ fontFamily: "'Great Vibes', sans-serif", fontSize: '36px' }}>Future-Ready</span>
+                </h3>
               </div>
               {/* Card 5 */}
               <div 
-                className="bg-gray-100 rounded-lg p-5 md:p-6 lg:p-6 flex-1 min-h-[150px]"
+                className="bg-[#F5F5F5] rounded-lg flex-1 min-h-[150px] relative overflow-hidden"
               style={{
                   transform: isCardsSectionVisible ? 'translateY(0)' : 'translateY(-50px)',
                   opacity: isCardsSectionVisible ? 1 : 0,
                   transition: `transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s, opacity 1.5s ease 0.3s`
                 }}
               >
-                <h3 className="text-black font-semibold mb-2 text-lg md:text-xl lg:text-[24px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
-                  Vendor discovery
-                </h3>
-                <p className="text-[#5B5B5B] text-sm md:text-base lg:text-[18px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
-                Find suppliers for castings, forgings, plating, machining, fabrication and more in a few clicks.
-                </p>
+                <div className="p-5 md:p-6 lg:p-6 relative z-10">
+                  <h3 className="text-black font-semibold mb-2 text-lg md:text-xl lg:text-[24px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
+                    Vendor discovery
+                  </h3>
+                  <p className="text-[#5B5B5B] text-sm md:text-base lg:text-[18px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
+                  Find suppliers for castings, forgings, plating, machining, fabrication and more in a few clicks.
+                  </p>
+                </div>
+                <img 
+                  src={card5Image} 
+                  alt="" 
+                  style={{ 
+                    position: 'absolute',
+                    bottom: 0,
+                    right: 0,
+                    height: 'auto',
+                    width: 'auto',
+                    maxWidth: '50%',
+                    maxHeight: '70%',
+                    objectFit: 'contain',
+                    zIndex: 1,
+                    pointerEvents: 'none'
+                  }}
+                />
             </div>
           </div>
           </div>
@@ -967,9 +1019,43 @@ const LandingPage = ({ onLoginSuccess }) => {
       </section>
 
       {/* Black Background with White Center Div Section */}
-      <section className="relative bg-black flex items-center justify-center w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 2xl:py-32">
-        <div className="bg-white rounded-lg w-full max-w-4xl p-8 md:p-12 lg:p-16">
-          {/* Content will go here */}
+      <section 
+        ref={imageSectionRef}
+        className="relative bg-black flex items-center justify-center w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 2xl:py-32"
+      >
+        <div className="bg-transparent w-full max-w-6xl p-8 md:p-12 lg:p-16 relative rounded-3xl overflow-hidden" style={{ 
+          minHeight: '500px',
+          transform: isImageSectionVisible ? 'translateY(0)' : 'translateY(50px)',
+          opacity: isImageSectionVisible ? 1 : 0,
+          transition: 'all 6s cubic-bezier(0.44, 0, 0.56, 1) 0s'
+        }}>
+          <img 
+            src={bgnewImage} 
+            alt="" 
+            className="absolute w-full h-full object-cover rounded-3xl"
+            style={{ 
+              zIndex: 0,
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              objectPosition: 'center 20%'
+            }}
+          />
+          <div className="relative z-10 flex flex-col justify-center h-full p-8 md:p-12 lg:p-16">
+            <div className="text-white max-w-2xl">
+              <h1 className="text-white font-semibold mb-4 text-2xl md:text-3xl lg:text-4xl" style={{ fontFamily: 'Inter, sans-serif' }}>
+                Show your real capability
+              </h1>
+              <br></br>
+              <h2 className="text-white font-medium mb-4 text-xl md:text-2xl lg:text-3xl" style={{ fontFamily: 'Inter, sans-serif' }}>
+                For the first time, your factory floor can speak itself
+              </h2>
+              <p className="text-white text-base md:text-lg lg:text-xl" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.6' }}>
+                Upload photos of your machines, inspection setups and parts you've produced. Highlight your quality checks, surface finishes and tolerances. Let buyers see what makes your shop different from the rest
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
