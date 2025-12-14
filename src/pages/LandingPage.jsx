@@ -2,11 +2,13 @@ import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { CheckCircleIcon } from '@heroicons/react/24/outline'
+import { motion } from 'framer-motion'
 import RegistrationForm from '../components/RegistrationForm'
 import LoginForm from '../components/LoginForm'
 import AnimatedText from '../components/AnimatedText'
 import card5Image from '../assets/card5.png'
 import bgnewImage from '../assets/bgnew.png'
+import testimonialImg from '../assets/testimonial.jpg'
 
 const LandingPage = ({ onLoginSuccess }) => {
   const navigate = useNavigate()
@@ -20,7 +22,20 @@ const LandingPage = ({ onLoginSuccess }) => {
   const [isHowItWorksSectionVisible, setIsHowItWorksSectionVisible] = useState(false)
   const howItWorksSectionRef = useRef(null)
   const [isImageSectionVisible, setIsImageSectionVisible] = useState(false)
+  const [imageScale, setImageScale] = useState(1.3)
   const imageSectionRef = useRef(null)
+  const [billingPeriod, setBillingPeriod] = useState('Monthly')
+  const [isPricingSectionVisible, setIsPricingSectionVisible] = useState(false)
+  const pricingSectionRef = useRef(null)
+  const [isTestimonialsSectionVisible, setIsTestimonialsSectionVisible] = useState(false)
+  const testimonialsSectionRef = useRef(null)
+  const [isAboutUsSectionVisible, setIsAboutUsSectionVisible] = useState(false)
+  const aboutUsSectionRef = useRef(null)
+  const [isMadevizeTitleVisible, setIsMadevizeTitleVisible] = useState(false)
+  const madevizeTitleRef = useRef(null)
+  const [isFactoryTitleVisible, setIsFactoryTitleVisible] = useState(false)
+  const factoryTitleRef = useRef(null)
+  const contactSectionRef = useRef(null)
   const [counter1, setCounter1] = useState(0)
   const [counter2, setCounter2] = useState(0)
   const [counter3, setCounter3] = useState(0)
@@ -271,24 +286,47 @@ const LandingPage = ({ onLoginSuccess }) => {
     }
   }, [])
 
-  // Intersection Observer for image section - scroll-based animation
+  // Intersection Observer for image section - scroll-based animation with zoom
   useEffect(() => {
     const handleScroll = () => {
       if (!imageSectionRef.current) return
 
       const rect = imageSectionRef.current.getBoundingClientRect()
       const windowHeight = window.innerHeight
-      
-      // Calculate when section enters viewport
       const sectionTop = rect.top
       const sectionHeight = rect.height
       
-      // Start animation when section is 20% visible
+      // Calculate scroll progress through the section
+      // When section top is at viewport top, progress is 0
+      // When section is fully scrolled past, progress is 1
+      const sectionBottom = sectionTop + sectionHeight
+      const viewportCenter = windowHeight * 0.5
+      
+      // Calculate progress: 0 when section enters, 1 when fully scrolled
+      let progress = 0
+      if (sectionTop < viewportCenter && sectionBottom > viewportCenter) {
+        // Section is in viewport
+        const distanceFromTop = viewportCenter - sectionTop
+        const visibleHeight = Math.min(sectionHeight, windowHeight)
+        progress = Math.min(1, distanceFromTop / (visibleHeight * 0.6))
+      } else if (sectionTop >= viewportCenter) {
+        progress = 0
+      } else {
+        progress = 1
+      }
+      
+      // Start animation when section is visible
       if (sectionTop < windowHeight * 0.8 && sectionTop + sectionHeight > 0) {
         setIsImageSectionVisible(true)
       } else {
         setIsImageSectionVisible(false)
       }
+      
+      // Calculate scale: start at 1.3 (zoomed in), end at 1.0 (original)
+      const minScale = 1.0
+      const maxScale = 1.3
+      const scale = maxScale - (progress * (maxScale - minScale))
+      setImageScale(Math.max(minScale, Math.min(maxScale, scale)))
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -298,6 +336,151 @@ const LandingPage = ({ onLoginSuccess }) => {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
+
+  // Intersection Observer for pricing section - triggers once when in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isPricingSectionVisible) {
+            setIsPricingSectionVisible(true)
+            // Stop observing after animation triggers (no replays)
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px'
+      }
+    )
+
+    if (pricingSectionRef.current) {
+      observer.observe(pricingSectionRef.current)
+    }
+
+    return () => {
+      if (pricingSectionRef.current) {
+        observer.unobserve(pricingSectionRef.current)
+      }
+    }
+  }, [isPricingSectionVisible])
+
+  // Intersection Observer for testimonials section
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isTestimonialsSectionVisible) {
+            setIsTestimonialsSectionVisible(true)
+            // Stop observing after animation triggers (no replays)
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px'
+      }
+    )
+
+    if (testimonialsSectionRef.current) {
+      observer.observe(testimonialsSectionRef.current)
+    }
+
+    return () => {
+      if (testimonialsSectionRef.current) {
+        observer.unobserve(testimonialsSectionRef.current)
+      }
+    }
+  }, [isTestimonialsSectionVisible])
+
+  // Intersection Observer for About Us section
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isAboutUsSectionVisible) {
+            setIsAboutUsSectionVisible(true)
+            // Stop observing after animation triggers (no replays)
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px'
+      }
+    )
+
+    if (aboutUsSectionRef.current) {
+      observer.observe(aboutUsSectionRef.current)
+    }
+
+    return () => {
+      if (aboutUsSectionRef.current) {
+        observer.unobserve(aboutUsSectionRef.current)
+      }
+    }
+  }, [isAboutUsSectionVisible])
+
+  // Intersection Observer for Madevize title in About Us section
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isMadevizeTitleVisible) {
+            setIsMadevizeTitleVisible(true)
+            // Stop observing after animation triggers (no replays)
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px'
+      }
+    )
+
+    if (madevizeTitleRef.current) {
+      observer.observe(madevizeTitleRef.current)
+    }
+
+    return () => {
+      if (madevizeTitleRef.current) {
+        observer.unobserve(madevizeTitleRef.current)
+      }
+    }
+  }, [isMadevizeTitleVisible])
+
+  // Intersection Observer for Factory title section - triggers when centered
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isFactoryTitleVisible) {
+            setIsFactoryTitleVisible(true)
+            // Stop observing after animation triggers
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      {
+        threshold: 0.5, // Trigger when element is centered (50% visible)
+        rootMargin: '0px'
+      }
+    )
+
+    if (factoryTitleRef.current) {
+      observer.observe(factoryTitleRef.current)
+    }
+
+    return () => {
+      if (factoryTitleRef.current) {
+        observer.unobserve(factoryTitleRef.current)
+      }
+    }
+  }, [isFactoryTitleVisible])
 
   // Counter animations for "How It Works" section
   useEffect(() => {
@@ -402,6 +585,36 @@ const LandingPage = ({ onLoginSuccess }) => {
     }
   }
 
+  // Smooth scroll to About Us section
+  const scrollToAboutUs = () => {
+    if (aboutUsSectionRef.current) {
+      aboutUsSectionRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  }
+
+  // Smooth scroll to Pricing section
+  const scrollToPricing = () => {
+    if (pricingSectionRef.current) {
+      pricingSectionRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  }
+
+  // Smooth scroll to Contact section
+  const scrollToContact = () => {
+    if (contactSectionRef.current) {
+      contactSectionRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  }
+
   return (
     <div className="min-h-screen">
       {/* Hero Section Container with Background */}
@@ -435,6 +648,7 @@ const LandingPage = ({ onLoginSuccess }) => {
           <nav className="hidden md:flex items-center">
             <div className="bg-white/10 backdrop-blur-sm rounded-[14px] px-4 md:px-5 lg:px-6 py-3 md:py-3.5 lg:py-4 flex items-center space-x-4 md:space-x-5 lg:space-x-6 xl:space-x-8 relative z-20">
           <button 
+                onClick={scrollToAboutUs}
                 className="text-white font-semibold text-[14px] xl:text-base hover:text-gray-300 transition-colors duration-200 relative z-30"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
@@ -448,12 +662,14 @@ const LandingPage = ({ onLoginSuccess }) => {
                 HOW IT WORKS
           </button>
               <button 
+                onClick={scrollToPricing}
                 className="text-white font-semibold text-[14px] xl:text-base hover:text-gray-300 transition-colors duration-200 relative z-30"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 PRICING
           </button>
           <button 
+                onClick={scrollToContact}
                 className="text-white font-semibold text-[14px] xl:text-base hover:text-gray-300 transition-colors duration-200 relative z-30"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
@@ -489,6 +705,10 @@ const LandingPage = ({ onLoginSuccess }) => {
         <div className="lg:hidden absolute top-16 sm:top-20 left-0 right-0 bg-gray-900/95 backdrop-blur-lg z-20 px-4 sm:px-6 py-4 border-t border-gray-700">
           <nav className="flex flex-col space-y-2 sm:space-y-3">
             <button 
+              onClick={() => {
+                scrollToAboutUs()
+                setShowMobileMenu(false)
+              }}
               className="px-4 py-2 sm:py-2.5 text-white font-bold hover:text-gray-300 transition-colors text-center text-sm sm:text-base"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
@@ -505,12 +725,20 @@ const LandingPage = ({ onLoginSuccess }) => {
               HOW IT WORKS
             </button>
             <button 
+              onClick={() => {
+                scrollToPricing()
+                setShowMobileMenu(false)
+              }}
               className="px-4 py-2 sm:py-2.5 text-white font-bold hover:text-gray-300 transition-colors text-center text-sm sm:text-base"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               PRICING
             </button>
             <button 
+              onClick={() => {
+                scrollToContact()
+                setShowMobileMenu(false)
+              }}
               className="px-4 py-2 sm:py-2.5 text-white font-bold hover:text-gray-300 transition-colors text-center text-sm sm:text-base"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
@@ -824,12 +1052,12 @@ const LandingPage = ({ onLoginSuccess }) => {
                 }}
               >
                 <div className="p-5 md:p-6 lg:p-6 relative z-10">
-                  <h3 className="text-black font-semibold mb-2 text-lg md:text-xl lg:text-[24px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
-                    Vendor discovery
-                  </h3>
-                  <p className="text-[#5B5B5B] text-sm md:text-base lg:text-[18px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
-                  Find suppliers for castings, forgings, plating, machining, fabrication and more in a few clicks.
-                  </p>
+                <h3 className="text-black font-semibold mb-2 text-lg md:text-xl lg:text-[24px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
+                  Vendor discovery
+                </h3>
+                <p className="text-[#5B5B5B] text-sm md:text-base lg:text-[18px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
+                Find suppliers for castings, forgings, plating, machining, fabrication and more in a few clicks.
+                </p>
                 </div>
                 <img 
                   src={card5Image} 
@@ -1027,7 +1255,7 @@ const LandingPage = ({ onLoginSuccess }) => {
           minHeight: '500px',
           transform: isImageSectionVisible ? 'translateY(0)' : 'translateY(50px)',
           opacity: isImageSectionVisible ? 1 : 0,
-          transition: 'all 6s cubic-bezier(0.44, 0, 0.56, 1) 0s'
+          transition: 'all 1s cubic-bezier(0.44, 0, 0.56, 1) 0s'
         }}>
           <img 
             src={bgnewImage} 
@@ -1039,7 +1267,9 @@ const LandingPage = ({ onLoginSuccess }) => {
               left: 0,
               right: 0,
               bottom: 0,
-              objectPosition: 'center 20%'
+              objectPosition: 'center 20%',
+              transform: `scale(${imageScale})`,
+              transition: 'transform 0.1s ease-out'
             }}
           />
           <div className="relative z-10 flex flex-col justify-center h-full p-8 md:p-12 lg:p-16">
@@ -1059,8 +1289,479 @@ const LandingPage = ({ onLoginSuccess }) => {
         </div>
       </section>
 
+      {/* Clear Pricing Section */}
+      <section 
+        ref={pricingSectionRef}
+        className="relative bg-black flex flex-col items-center w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 2xl:py-32"
+      >
+        <h2 
+          className="text-white text-center mb-6 md:mb-8 lg:mb-10"
+          style={{
+            fontFamily: 'Inter, sans-serif',
+            fontSize: 'clamp(76px, 4vw, 76px)',
+            fontWeight: '500',
+            letterSpacing: '-0.02em',
+            lineHeight: '1.2',
+            width: '60%',
+            transform: isPricingSectionVisible ? 'translateY(0)' : 'translateY(100px)',
+            opacity: isPricingSectionVisible ? 1 : 0,
+            transition: 'transform 1.5s cubic-bezier(0.68, -0.2, 0.265, 1.2) 0.15s, opacity 1.5s cubic-bezier(0.68, -0.2, 0.265, 1.2) 0.15s'
+          }}
+        >
+          Clear <span style={{ fontFamily: '"Great Vibes", sans-serif' }}>Pricing</span>, Clear Results
+        </h2>
+        <div className="flex flex-row w-full gap-2 md:gap-6 lg:gap-2">
+          <div 
+            className="bg-[#1a1a1b] flex rounded-xl flex-col p-4 md:p-8 lg:p-10 gap-6 w-full md:w-[600px] lg:w-[65%] flex-shrink-0"
+            style={{
+              transform: isPricingSectionVisible ? 'translateY(0)' : 'translateY(100px)',
+              opacity: isPricingSectionVisible ? 1 : 0,
+              transition: 'transform 1.5s cubic-bezier(0.68, -0.2, 0.265, 1.2) 0.3s, opacity 1.5s cubic-bezier(0.68, -0.2, 0.265, 1.2) 0.3s'
+            }}
+          >
+            {/* First div: Title, Subtitle, and Toggle */}
+            <div className="flex flex-row items-start justify-between gap-4">
+              <div className="flex flex-col">
+                <h3 className="text-white font-semibold mb-2 text-xl md:text-2xl lg:text-3xl" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif' }}>
+                  Founding Factory Owner
+                </h3>
+                <p className="text-white text-sm md:text-base lg:text-lg" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  Free for the first 500 factories
+                </p>
+              </div>
+              {/* Toggle Button */}
+              <div className="relative flex bg-[#0a0a0a] rounded-full p-1" style={{ minWidth: '300px' }}>
+                <button
+                  onClick={() => setBillingPeriod('Monthly')}
+                  className={`flex-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 relative z-10 ${
+                    billingPeriod === 'Monthly'
+                      ? 'text-white'
+                      : 'text-[#AAA9AD]'
+                  }`}
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                >
+                  Monthly
+                </button>
+                <button
+                  onClick={() => setBillingPeriod('Yearly')}
+                  className={`flex-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 relative z-10 ${
+                    billingPeriod === 'Yearly'
+                      ? 'text-white'
+                      : 'text-[#AAA9AD]'
+                  }`}
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                >
+                  Yearly
+                </button>
+                {/* Active indicator background */}
+                <div
+                  className={`absolute top-1 bottom-1 rounded-full bg-[#2a2a2b] transition-all duration-200 ${
+                    billingPeriod === 'Monthly' ? 'left-1 right-1/2' : 'left-1/2 right-1'
+                  }`}
+                />
+              </div>
+            </div>
+            {/* Second div - placeholder for now */}
+
+            <div className="flex">
+            <p className="text-[#AAA9AD] text-sm md:text-base lg:text-md mb-6" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.6' }}>
+                Get full access to your factory profile, vendor search, RFQs and priority placement at no cost during the early-access phase. Help shape the platform that represents India's manufacturing backbone.
+              </p>
+            </div>
+            {/* Third div - placeholder for now */}
+            <div>
+              <div className="bg-black p-4 md:p-5 lg:p-6 rounded-lg flex flex-row items-center justify-between gap-4">
+                <div>
+                  <p className="text-white text-2xl md:text-3xl lg:text-4xl font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    <span style={{ fontFamily: '"Great Vibes", sans-serif' }}>₹</span>0 <span className="text-[#AAA9AD] md:text-sm lg:text-sm">/month</span>
+                  </p>
+                </div>
+                <button 
+                  className="flex items-center bg-white text-black rounded-full  hover:bg-gray-50 transition-colors duration-200"
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                >
+                  <span className="font-medium text-sm md:text-base lg:text-base pr-6 ml-2">Claim Your Free Spot</span>
+                  <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div 
+            className="flex-1 bg-[#1a1a1b] flex rounded-xl flex-col justify-between p-4 md:p-8 lg:p-10 w-full md:w-[30%] lg:w-[30%] flex-shrink-0"
+            style={{
+              transform: isPricingSectionVisible ? 'translateY(0)' : 'translateY(100px)',
+              opacity: isPricingSectionVisible ? 1 : 0,
+              transition: 'transform 1.5s cubic-bezier(0.68, -0.2, 0.265, 1.2) 0.3s, opacity 1.5s cubic-bezier(0.68, -0.2, 0.265, 1.2) 0.3s'
+            }}
+          >
+            <div>
+              <h3 className="text-white font-semibold mb-6 text-xl md:text-2xl lg:text-3xl" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif' }}>
+                Founding Factory Owner
+              </h3>
+              
+            </div>
+              <div className="bg-black p-4 md:p-5 lg:p-6 mb-6 rounded-lg">
+                <p className="text-white text-2xl md:text-3xl lg:text-4xl font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  <span style={{ fontFamily: '"Great Vibes", sans-serif' }}>₹</span>0 <span className="text-[#AAA9AD] md:text-sm lg:text-sm">/month</span>
+                </p>
+              </div>
+            <ul className="bottom-0">
+              <li className="flex items-start text-[#AAA9AD]">
+                <span className="text-[#AAA9AD] mr-3">•</span>
+                <span className="text-[#AAA9AD] text-sm md:text-base lg:text-sm" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
+                  Featured placement in relevant searches
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-[#AAA9AD] mr-3">•</span>
+                <span className="text-[#AAA9AD] text-sm md:text-base lg:text-sm" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
+                  Direct feedback channel with the product team
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-[#AAA9AD] mr-3">•</span>
+                <span className="text-[#AAA9AD] text-sm md:text-base lg:text-sm" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
+                  Locked-in discounts for future premium plans
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section 
+        ref={testimonialsSectionRef}
+        className="relative bg-white flex flex-col font-medium items-center w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 2xl:py-32"
+      >
+        <h2 
+          style={{
+            flex: 1,
+            width: 'auto',
+            minWidth: 'fit-content',
+            height: '153px',
+            whiteSpace: 'pre-wrap',
+            wordWrap: 'break-word',
+            wordBreak: 'break-word',
+            maxWidth: '1200px',
+            fontWeight: 550,
+            fontStyle: 'normal',
+            fontFamily: 'Cal Sans, "Cal Sans Placeholder", sans-serif',
+            fontSize: '204px',
+            letterSpacing: '0px',
+            textAlign: 'center',
+            lineHeight: '204px',
+            fontFeatureSettings: 'normal',
+            position: 'relative',
+            background: 'linear-gradient(to top, transparent, rgba(12, 12, 12, 0.82))',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            color: 'transparent',
+            margin: '0 auto',
+            transform: isTestimonialsSectionVisible ? 'translateY(0)' : 'translateY(100px)',
+            opacity: isTestimonialsSectionVisible ? 1 : 0,
+            transition: 'transform 1s ease-in-out, opacity 1s ease-in-out'
+          }}
+        >
+          Testimonials
+        </h2>
+        
+        {/* Testimonials Marquee */}
+        <div className="w-full mt-[-50px]">
+          <div className="flex flex-col gap-6 overflow-hidden w-full">
+            {/* First Row - Infinite Scrolling Left */}
+            <div className="relative w-full overflow-hidden">
+              <div className="flex animate-scroll-left gap-6" style={{ width: 'max-content' }}>
+                {/* Duplicate content for seamless loop */}
+                {[...Array(3)].map((_, loopIndex) => (
+                  <div key={`loop-${loopIndex}`} className="flex gap-6">
+                    {[
+                      {
+                        quote: 'Buyers who never knew we existed started reaching out. For the first time, we feel visible beyond our local network.',
+                        author: 'Rohit Sharma',
+                        designation: 'Owner, Precision CNC Works • Ludhiana'
+                      },
+                      {
+                        quote: 'Buyers who never knew we existed started reaching out. For the first time, we feel visible beyond our local network.',
+                        author: 'Rohit Sharma',
+                        designation: 'Owner, Precision CNC Works • Ludhiana'
+                      },
+                      {
+                        quote: 'Buyers who never knew we existed started reaching out. For the first time, we feel visible beyond our local network.',
+                        author: 'Rohit Sharma',
+                        designation: 'Owner, Precision CNC Works • Ludhiana'
+                      },
+                      {
+                        quote: 'Buyers who never knew we existed started reaching out. For the first time, we feel visible beyond our local network.',
+                        author: 'Rohit Sharma',
+                        designation: 'Owner, Precision CNC Works • Ludhiana'
+                      },
+                      {
+                        quote: 'Buyers who never knew we existed started reaching out. For the first time, we feel visible beyond our local network.',
+                        author: 'Rohit Sharma',
+                        designation: 'Owner, Precision CNC Works • Ludhiana'
+                      }
+                    ].map((testimonial, index) => (
+                      <div
+                        key={`${loopIndex}-${index}`}
+                        className="bg-black rounded-lg p-4 flex-shrink-0 flex flex-col justify-between"
+                        style={{
+                          width: '320px',
+                          minHeight: '220px',
+                          height: '220px',
+                          background: '#000000',
+                          borderRadius: '12px'
+                        }}
+                      >
+                        {/* 5 Stars at the top */}
+                        <div className="flex gap-1">
+                          {[...Array(5)].map((_, starIndex) => (
+                            <svg
+                              key={starIndex}
+                              className="w-5 h-5 text-white"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                        </div>
+
+                        {/* Review Quote in the middle */}
+                        <div className="flex-1 flex items-center">
+                          <p className="text-sm text-gray-400 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+                            "{testimonial.quote || 'Buyers who never knew we existed started reaching out. For the first time, we feel visible beyond our local network.'}"
+                          </p>
+                        </div>
+
+                        {/* Reviewer Name and Designation at the bottom */}
+                        <div>
+                          <p className="text-sm text-white font-medium mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>
+                            {testimonial.author || 'Rohit Sharma'}
+                          </p>
+                          <p className="text-xs text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>
+                            {testimonial.designation || 'Owner, Precision CNC Works • Ludhiana'}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Second Row - Infinite Scrolling Right */}
+            <div className="relative w-full overflow-hidden">
+              <div className="flex animate-scroll-right gap-6" style={{ width: 'max-content' }}>
+                {/* Duplicate content for seamless loop */}
+                {[...Array(3)].map((_, loopIndex) => (
+                  <div key={`loop-reverse-${loopIndex}`} className="flex gap-6">
+                    {[
+                      {
+                        quote: 'Buyers who never knew we existed started reaching out. For the first time, we feel visible beyond our local network.',
+                        author: 'Rohit Sharma',
+                        designation: 'Owner, Precision CNC Works • Ludhiana'
+                      },
+                      {
+                        quote: 'Buyers who never knew we existed started reaching out. For the first time, we feel visible beyond our local network.',
+                        author: 'Rohit Sharma',
+                        designation: 'Owner, Precision CNC Works • Ludhiana'
+                      },
+                      {
+                        quote: 'Buyers who never knew we existed started reaching out. For the first time, we feel visible beyond our local network.',
+                        author: 'Rohit Sharma',
+                        designation: 'Owner, Precision CNC Works • Ludhiana'
+                      },
+                      {
+                        quote: 'Buyers who never knew we existed started reaching out. For the first time, we feel visible beyond our local network.',
+                        author: 'Rohit Sharma',
+                        designation: 'Owner, Precision CNC Works • Ludhiana'
+                      },
+                      {
+                        quote: 'Buyers who never knew we existed started reaching out. For the first time, we feel visible beyond our local network.',
+                        author: 'Rohit Sharma',
+                        designation: 'Owner, Precision CNC Works • Ludhiana'
+                      }
+                    ].map((testimonial, index) => (
+                      <div
+                        key={`reverse-${loopIndex}-${index}`}
+                        className="bg-black rounded-lg p-4 flex-shrink-0 flex flex-col justify-between"
+                        style={{
+                          width: '320px',
+                          minHeight: '220px',
+                          height: '220px',
+                          background: '#000000',
+                          borderRadius: '12px'
+                        }}
+                      >
+                        {/* 5 Stars at the top */}
+                        <div className="flex gap-1">
+                          {[...Array(5)].map((_, starIndex) => (
+                            <svg
+                              key={starIndex}
+                              className="w-5 h-5 text-white"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                        </div>
+
+                        {/* Review Quote in the middle */}
+                        <div className="flex-1 flex items-center">
+                          <p className="text-sm text-gray-400 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+                            "{testimonial.quote || 'Buyers who never knew we existed started reaching out. For the first time, we feel visible beyond our local network.'}"
+                          </p>
+                        </div>
+
+                        {/* Reviewer Name and Designation at the bottom */}
+                        <div>
+                          <p className="text-sm text-white font-medium mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>
+                            {testimonial.author || 'Rohit Sharma'}
+                          </p>
+                          <p className="text-xs text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>
+                            {testimonial.designation || 'Owner, Precision CNC Works • Ludhiana'}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Us Section */}
+      <section 
+        ref={aboutUsSectionRef}
+        className="relative bg-black flex flex-col font-medium items-center w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 2xl:py-32"
+      >
+        <h2 
+          style={{
+            flex: 1,
+            width: 'auto',
+            minWidth: 'fit-content',
+            height: '153px',
+            whiteSpace: 'pre-wrap',
+            wordWrap: 'break-word',
+            wordBreak: 'break-word',
+            maxWidth: '1200px',
+            fontWeight: 550,
+            fontStyle: 'normal',
+            fontFamily: 'Cal Sans, "Cal Sans Placeholder", sans-serif',
+            fontSize: '204px',
+            letterSpacing: '0px',
+            textAlign: 'center',
+            lineHeight: '204px',
+            fontFeatureSettings: 'normal',
+            position: 'relative',
+            background: 'linear-gradient(to top, transparent, rgba(58, 58, 58, 0.82))',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            color: 'transparent',
+            margin: '0 auto',
+            transform: isAboutUsSectionVisible ? 'translateY(0)' : 'translateY(100px)',
+            opacity: isAboutUsSectionVisible ? 1 : 0,
+            transition: 'transform 1s ease-in-out, opacity 1s ease-in-out'
+          }}
+        >
+          About Us
+        </h2>
+        
+        {/* Madevize Information */}
+        <div className="w-full max-w-4xl mx-auto mt-12">
+          <h3 
+            ref={madevizeTitleRef}
+            className="text-white text-left mb-8 flex"
+            style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: 'clamp(32px, 3vw, 48px)',
+              fontWeight: '600'
+            }}
+          >
+            {'Madevize'.split('').map((char, index) => (
+              <span
+                key={index}
+                style={{
+                  display: 'inline-block',
+                  transform: isMadevizeTitleVisible ? 'translateX(0)' : 'translateX(-30px)',
+                  opacity: isMadevizeTitleVisible ? 1 : 0,
+                  transition: `transform 0.4s cubic-bezier(0.44, 0, 0.56, 1) ${0.05 + index * 0.06}s, opacity 0.4s cubic-bezier(0.44, 0, 0.56, 1) ${0.05 + index * 0.05}s`
+                }}
+              >
+                {char === ' ' ? '\u00A0' : char}
+              </span>
+            ))}
+          </h3>
+          
+          <div className="space-y-6 text-left">
+            <p className="text-gray-400 text-base md:text-lg lg:text-xl leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+              Madevize has grown from a single idea into a simple, powerful tool that helps small and medium manufacturers get noticed and grow their business. Whether you make parts, do fabrication, or run a job shop, we make it easy to show your work to the right players.
+            </p>
+            
+            <p className="text-gray-400 text-base md:text-lg lg:text-xl leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+              Our platform brings together easy-to-use features and local know-how, helping factories create an online profile, share achievements, find new buyers and suppliers, and get quotes faster, all in one place, in your own language, right from your phone.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Factory Title Section */}
+      <section 
+        ref={factoryTitleRef}
+        className="relative bg-white flex flex-col items-center w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 2xl:py-32"
+      >
+        <h2 
+          className="text-black text-left"
+          style={{
+            fontFamily: '"Inter Display", "Inter Display Placeholder", sans-serif',
+            fontSize: 'clamp(38px, 4vw, 60px)',
+            fontWeight: '550',
+            letterSpacing: '-0.02em',
+            lineHeight: '1.2',
+            width: '80%',
+            wordWrap: 'break-word',
+            wordBreak: 'break-word'
+          }}
+        >
+          {"See How Your Factory Looks When It's Done Right".split('').map((char, index) => (
+            <motion.span
+              key={index}
+              initial={{ 
+                opacity: 0, 
+                filter: 'blur(10px)' 
+              }}
+              animate={isFactoryTitleVisible ? { 
+                opacity: 1, 
+                filter: 'blur(0px)' 
+              } : { 
+                opacity: 0, 
+                filter: 'blur(10px)' 
+              }}
+              transition={{
+                duration: 0.4,
+                delay: index * 0.05,
+                ease: [0.44, 0, 0.56, 1] // Custom bezier curve
+              }}
+            >
+              {char === ' ' ? '\u00A0' : char}
+            </motion.span>
+          ))}
+        </h2>
+      </section>
+
       {/* Contact Us Section */}
       <section 
+        ref={contactSectionRef}
         className="relative bg-black overflow-hidden px-4 sm:px-6 md:px-10 lg:px-10 py-12 sm:py-16 md:py-20 lg:py-24"
         style={{
           minHeight: 'auto'
