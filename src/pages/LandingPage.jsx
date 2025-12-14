@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import RegistrationForm from '../components/RegistrationForm'
 import LoginForm from '../components/LoginForm'
 import AnimatedText from '../components/AnimatedText'
+import DemoCompanyProfilePage from './DemoCompanyProfilePage'
 import card5Image from '../assets/card5.png'
 import bgnewImage from '../assets/bgnew.png'
 import testimonialImg from '../assets/testimonial.jpg'
@@ -1757,6 +1758,42 @@ const LandingPage = ({ onLoginSuccess }) => {
             </motion.span>
           ))}
         </h2>
+
+        {/* Content Container */}
+        <div
+          className="w-full mt-8 rounded-2xl"
+          style={{
+            minHeight: '300px',
+            maxHeight: '500px',
+            overflow: 'hidden',
+            position: 'relative',
+            backgroundColor: '#000000'
+          }}
+        >
+          <style>{`
+            .hidden-scrollbar::-webkit-scrollbar {
+              display: none;
+            }
+            .hidden-scrollbar {
+              -ms-overflow-style: none;
+              scrollbar-width: none;
+            }
+          `}</style>
+          {/* Scrollable Content Wrapper */}
+          <div
+            className="hidden-scrollbar"
+            style={{
+              height: '100%',
+              maxHeight: '500px',
+              overflowY: 'auto',
+              overflowX: 'hidden',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none'
+            }}
+          >
+            <DemoCompanyProfilePage />
+          </div>
+        </div>
       </section>
 
       {/* Contact Us Section */}
