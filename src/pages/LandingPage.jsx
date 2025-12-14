@@ -211,7 +211,8 @@ const LandingPage = ({ onLoginSuccess }) => {
           "https://script.google.com/macros/s/AKfycbwPEFe9s20oNdt7pj95BnBViW1unLa72MpOl2N2ZmpsyjbI4PcnTalKRX4hwPH6DC7JuA/exec",
           {
             method: "POST",
-            body: new URLSearchParams(formPayload),
+            mode: "no-cors",
+            formPayload,
           }
         );
         
