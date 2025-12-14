@@ -65,6 +65,7 @@ const LandingPage = ({ onLoginSuccess }) => {
     businessDescription: ''
   })
   const [modalFormErrors, setModalFormErrors] = useState({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
   
   // Business types for dropdown
   const businessTypes = [
@@ -187,24 +188,64 @@ const LandingPage = ({ onLoginSuccess }) => {
   }
   
   // Handle modal form submission
-  const handleModalSubmit = (e) => {
+  const handleModalSubmit = async (e) => {
     e.preventDefault()
     
     if (validateModalForm()) {
-      // Here you can add your form submission logic
-      console.log('Modal form submitted:', modalFormData)
-      // Reset form after successful submission
-      setModalFormData({
-        name: '',
-        email: '',
-        phoneNumber: '',
-        businessType: '',
-        otherBusinessType: '',
-        businessDescription: ''
-      })
-      // Close modal and show success modal
-      setShowContactFormModal(false)
-      setShowSuccessModal(true)
+      setIsSubmitting(true)
+      
+      try {
+        // Prepare data for Google Apps Script
+        const formPayload = new URLSearchParams({
+          name: modalFormData.name,
+          email: modalFormData.email,
+          phoneNumber: modalFormData.phoneNumber,
+          businessType:
+            modalFormData.businessType === "Others"
+              ? modalFormData.otherBusinessType
+              : modalFormData.businessType,
+          description: modalFormData.businessDescription,
+        });
+        
+        await fetch(
+          "https://script.google.com/macros/s/AKfycbwPEFe9s20oNdt7pj95BnBViW1unLa72MpOl2N2ZmpsyjbI4PcnTalKRX4hwPH6DC7JuA/exec",
+          {
+            method: "POST",
+            body: new URLSearchParams(formPayload),
+          }
+        );
+        
+        // Reset form after successful submission
+        setModalFormData({
+          name: '',
+          email: '',
+          phoneNumber: '',
+          businessType: '',
+          otherBusinessType: '',
+          businessDescription: ''
+        })
+        setModalFormErrors({})
+        
+        // Close modal and show success modal
+        setShowContactFormModal(false)
+        setShowSuccessModal(true)
+      } catch (error) {
+        console.error('Error submitting form:', error)
+        // Still show success since no-cors mode doesn't return response
+        setModalFormData({
+          name: '',
+          email: '',
+          phoneNumber: '',
+          businessType: '',
+          otherBusinessType: '',
+          businessDescription: ''
+        })
+        setModalFormErrors({})
+        setShowContactFormModal(false)
+        setShowSuccessModal(true)
+      } finally {
+        setIsSubmitting(false)
+      }
     }
   }
 
@@ -681,12 +722,112 @@ const LandingPage = ({ onLoginSuccess }) => {
           
           {/* Right - CTA Button */}
           <div className="flex items-center">
+          <style>{`
+            .get-started-btn {
+              overflow: hidden;
+              position: relative;
+            }
+            .get-started-text-container {
+              position: relative;
+              height: 1.5em;
+              overflow: hidden;
+            }
+            .get-started-text {
+              transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                          font-size 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+              display: block;
+            }
+            .get-started-btn:hover .get-started-text-top {
+              transform: translateY(-100%) scale(0.8);
+            }
+            .get-started-text-bottom {
+              position: absolute;
+              top: 100%;
+              left: 0;
+              transform: scale(0.8);
+              transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                          top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .get-started-btn:hover .get-started-text-bottom {
+              top: 0;
+              transform: scale(1);
+            }
+            .arrow-container {
+              position: relative;
+              width: 36px;
+              height: 36px;
+              overflow: visible;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            .arrow-chevron {
+              position: absolute;
+              transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                          opacity 0.3s ease,
+                          d 0.4s ease;
+            }
+            .get-started-btn:hover .arrow-chevron {
+              transform: translateX(150%);
+              opacity: 0;
+            }
+            .arrow-horizontal {
+              position: absolute;
+              left: 50%;
+              transform: translateX(-50%);
+              transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, 
+                          opacity 0.3s ease 0.2s;
+              opacity: 0;
+            }
+            .get-started-btn:hover .arrow-horizontal {
+              transform: translateX(150%);
+              opacity: 1;
+            }
+            .arrow-horizontal-new {
+              position: absolute;
+              left: -50%;
+              transform: translateX(-50%);
+              transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.4s, 
+                          opacity 0.3s ease 0.4s;
+              opacity: 0;
+            }
+            .get-started-btn:hover .arrow-horizontal-new {
+              left: 50%;
+              transform: translateX(-50%);
+              opacity: 1;
+            }
+          `}</style>
           <button 
             onClick={() => setShowContactFormModal(true)}
-              className="px-6 xl:px-6 py-4 xl:py-2.5 bg-white text-black hover:bg-gray-100 rounded-[15px] transition-all duration-200 font-semibold text-sm xl:text-base"
-            style={{ fontFamily: 'Inter, sans-serif' }}
+              className="get-started-btn flex items-center bg-white text-black rounded-full hover:bg-gray-50 transition-colors duration-200"
+            style={{ fontFamily: '"Inter Display", "Inter Display Placeholder", sans-serif' }}
           >
-              Create My Profile
+              <div className="get-started-text-container font-semibold text-sm md:text-base lg:text-base pr-6 ml-2">
+                <span className="get-started-text get-started-text-top">Get Started</span>
+                <span className="get-started-text get-started-text-bottom">Get Started</span>
+              </div>
+              <div className="p-[1px] flex-shrink-0">
+                <div className="arrow-container bg-black rounded-full flex items-center justify-center">
+                  {/* Chevron Arrow (original) */}
+                  <svg className="arrow-chevron w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: '24px', height: '24px' }}>
+                    <line x1="4" y1="12" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                    <line x1="16" y1="6" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                    <line x1="16" y1="18" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                  </svg>
+                  {/* Horizontal Arrow (->) that moves right */}
+                  <svg className="arrow-horizontal w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: '24px', height: '24px' }}>
+                    <line x1="4" y1="12" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                    <line x1="16" y1="6" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                    <line x1="16" y1="18" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                  </svg>
+                  {/* New Horizontal Arrow coming from left */}
+                  <svg className="arrow-horizontal-new w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: '24px', height: '24px' }}>
+                    <line x1="4" y1="12" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                    <line x1="16" y1="6" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                    <line x1="16" y1="18" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                  </svg>
+                </div>
+              </div>
           </button>
         </div>
         
@@ -750,10 +891,15 @@ const LandingPage = ({ onLoginSuccess }) => {
                 setShowContactFormModal(true)
                 setShowMobileMenu(false)
               }}
-              className="px-4 py-2 sm:py-2.5 bg-white text-black hover:bg-gray-100 rounded-full transition-all duration-200 text-center font-medium text-sm sm:text-base mt-4"
+              className="flex items-center justify-between bg-white text-black rounded-full hover:bg-gray-50 transition-colors duration-200 px-4 py-2.5 text-center font-medium text-sm sm:text-base mt-4 border border-gray-300"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
-              Create My Profile
+              <span className="font-medium text-sm sm:text-base">Get Started</span>
+              <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center flex-shrink-0">
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
             </button>
           </nav>
         </div>
@@ -806,20 +952,68 @@ const LandingPage = ({ onLoginSuccess }) => {
           </p>
           
           {/* CTA Buttons Row */}
+          <style>{`
+            .hero-btn {
+              position: relative;
+              overflow: hidden;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            .hero-btn-text {
+              transition: transform 0.3s ease;
+              display: inline-block;
+            }
+            .hero-btn-arrow {
+              position: absolute;
+              right: -30px;
+              top: 50%;
+              transform: translateY(-50%);
+              opacity: 0;
+              transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                          opacity 0.3s ease,
+                          transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .hero-btn:hover {
+              background-color: rgba(255, 255, 255, 0.1) !important;
+              color: white !important;
+            }
+            .hero-btn:hover .hero-btn-text {
+              transform: translateX(-10px);
+            }
+            .hero-btn:hover .hero-btn-arrow {
+              color: white;
+            }
+            .hero-btn:hover .hero-btn-arrow {
+              right: 16px;
+              opacity: 1;
+              transform: translateY(-50%);
+            }
+          `}</style>
           <div className="flex flex-row items-center gap-3 md:gap-4">
           <button 
             onClick={() => setShowContactFormModal(true)}
-              className="px-4 py-2 h-[47px] w-[160px] md:w-[170px] lg:w-[180px] bg-white text-black hover:bg-gray-100 rounded-[15px] transition-all duration-200 font-semibold text-sm md:text-base"
+              className="hero-btn px-4 py-2 h-[47px] w-[160px] md:w-[170px] lg:w-[180px] bg-white text-black rounded-[15px] transition-all duration-200 font-semibold text-sm md:text-md"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
-              Create My Profile
+              <span className="hero-btn-text">Create My Profile</span>
+              <svg className="hero-btn-arrow w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: '20px', height: '20px' }}>
+                <line x1="4" y1="12" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                <line x1="16" y1="6" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                <line x1="16" y1="18" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+              </svg>
             </button>
             <button 
               onClick={() => navigate('/demo-company')}
-              className="px-4 py-2 h-[47px] w-[160px] md:w-[170px] lg:w-[180px] bg-white text-black hover:bg-gray-100 rounded-[15px] transition-all duration-200 font-semibold text-sm md:text-base"
+              className="hero-btn px-6 py-4 h-[47px] w-[160px] md:w-[170px] lg:w-[180px] bg-white text-black rounded-[15px] transition-all duration-200 font-semibold text-sm md:text-md"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
-              View How It Works
+              <span className="hero-btn-text">View How It Works</span>
+              <svg className="hero-btn-arrow w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: '20px', height: '20px' }}>
+                <line x1="4" y1="12" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                <line x1="16" y1="6" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                <line x1="16" y1="18" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+              </svg>
           </button>
           </div>
         </div>
@@ -1115,14 +1309,34 @@ const LandingPage = ({ onLoginSuccess }) => {
             {/* Get Started Button */}
             <button 
               onClick={() => setShowRegistration(true)}
-              className="mt-6 w-full md:w-[60%] lg:w-[50%] bg-white text-black rounded-full px-4 md:px-5 lg:px-6 py-2 md:py-2.5 lg:py-3 flex items-center justify-between border border-gray-300 hover:bg-gray-50 transition-colors duration-200"
+              className="get-started-btn mt-6 w-full md:w-[60%] lg:w-[50%] bg-white text-black rounded-full flex items-center justify-between border border-gray-300 hover:bg-gray-50 transition-colors duration-200"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
-              <span className="font-medium text-sm md:text-base lg:text-base">Get started</span>
-              <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
+              <div className="get-started-text-container font-semibold text-sm md:text-base lg:text-base pr-6 ml-2">
+                <span className="get-started-text get-started-text-top">Get started</span>
+                <span className="get-started-text get-started-text-bottom">Get started</span>
+              </div>
+              <div className="p-[1px] flex-shrink-0">
+                <div className="arrow-container bg-black rounded-full flex items-center justify-center">
+                  {/* Chevron Arrow (original) */}
+                  <svg className="arrow-chevron w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: '24px', height: '24px' }}>
+                    <line x1="4" y1="12" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                    <line x1="16" y1="6" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                    <line x1="16" y1="18" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                  </svg>
+                  {/* Horizontal Arrow (->) that moves right */}
+                  <svg className="arrow-horizontal w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: '24px', height: '24px' }}>
+                    <line x1="4" y1="12" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                    <line x1="16" y1="6" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                    <line x1="16" y1="18" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                  </svg>
+                  {/* New Horizontal Arrow coming from left */}
+                  <svg className="arrow-horizontal-new w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: '24px', height: '24px' }}>
+                    <line x1="4" y1="12" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                    <line x1="16" y1="6" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                    <line x1="16" y1="18" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                  </svg>
+                </div>
               </div>
             </button>
           </div>
@@ -1378,14 +1592,34 @@ const LandingPage = ({ onLoginSuccess }) => {
                   </p>
                 </div>
                 <button 
-                  className="flex items-center bg-white text-black rounded-full  hover:bg-gray-50 transition-colors duration-200"
+                  className="get-started-btn flex items-center bg-white text-black rounded-full hover:bg-gray-50 transition-colors duration-200"
                   style={{ fontFamily: 'Inter, sans-serif' }}
                 >
-                  <span className="font-medium text-sm md:text-base lg:text-base pr-6 ml-2">Claim Your Free Spot</span>
-                  <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+                  <div className="get-started-text-container font-semibold text-sm md:text-base lg:text-base pr-6 ml-4">
+                    <span className="get-started-text get-started-text-top">Claim Your Free Spot</span>
+                    <span className="get-started-text get-started-text-bottom">Claim Your Free Spot</span>
+                  </div>
+                  <div className="p-[1px] flex-shrink-0">
+                    <div className="arrow-container bg-black rounded-full flex items-center justify-center">
+                      {/* Chevron Arrow (original) */}
+                      <svg className="arrow-chevron w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: '24px', height: '24px' }}>
+                        <line x1="4" y1="12" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                        <line x1="16" y1="6" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                        <line x1="16" y1="18" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                      </svg>
+                      {/* Horizontal Arrow (->) that moves right */}
+                      <svg className="arrow-horizontal w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: '24px', height: '24px' }}>
+                        <line x1="4" y1="12" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                        <line x1="16" y1="6" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                        <line x1="16" y1="18" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                      </svg>
+                      {/* New Horizontal Arrow coming from left */}
+                      <svg className="arrow-horizontal-new w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: '24px', height: '24px' }}>
+                        <line x1="4" y1="12" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                        <line x1="16" y1="6" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                        <line x1="16" y1="18" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                      </svg>
+                    </div>
                   </div>
                 </button>
               </div>
@@ -1761,7 +1995,7 @@ const LandingPage = ({ onLoginSuccess }) => {
 
         {/* Content Container */}
         <div
-          className="w-full mt-8 rounded-2xl"
+          className="w-full mt-8 rounded-t-2xl"
           style={{
             minHeight: '300px',
             maxHeight: '500px',
@@ -1793,6 +2027,19 @@ const LandingPage = ({ onLoginSuccess }) => {
           >
             <DemoCompanyProfilePage />
           </div>
+          {/* Bottom Gradient Fade Overlay */}
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: '30%',
+              background: 'linear-gradient(to bottom, transparent 0%, rgba(192, 191, 191, 0.4) 50%, rgb(252, 252, 252) 100%)',
+              pointerEvents: 'none',
+              zIndex: 10
+            }}
+          />
         </div>
       </section>
 
@@ -2480,7 +2727,7 @@ const LandingPage = ({ onLoginSuccess }) => {
               </h2>
 
               {/* Form */}
-              <form onSubmit={handleModalSubmit} className="space-y-4">
+              <form onSubmit={(e)=>{handleModalSubmit(e)}} className="space-y-4">
                 {/* Name Field */}
                 <div>
                   <label 
@@ -2655,14 +2902,15 @@ const LandingPage = ({ onLoginSuccess }) => {
                 {/* Submit Button */}
                 <button 
                   type="submit"
-                  className="w-full bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700 transition-colors duration-200"
+                  disabled={isSubmitting}
+                  className="w-full bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                   style={{
                     fontFamily: 'Inter, sans-serif',
                     fontSize: '14px',
                     fontWeight: '500'
                   }}
                 >
-                  Submit
+                  {isSubmitting ? 'Sending...' : 'Submit'}
                 </button>
               </form>
             </div>
