@@ -668,6 +668,7 @@ const LandingPage = ({ onLoginSuccess }) => {
           name="description"
           content="Madevize helps manufacturing businesses get discovered, build trust, and connect with buyers and vendors through verified profiles, smart search, and RFRQ tools."
         />
+        <meta name="google-site-verification" content="wH20C1fOweiEe7fn9rBZUu7t0dGV9uX6sHRKhgV1TwA" />
       </Helmet>
     <div className="min-h-screen">
       {/* Hero Section Container with Background */}
