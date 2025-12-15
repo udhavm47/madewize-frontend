@@ -10,7 +10,6 @@ import DemoCompanyProfilePage from './DemoCompanyProfilePage'
 import card5Image from '../assets/card5.png'
 import bgnewImage from '../assets/bgnew.png'
 import testimonialImg from '../assets/testimonial.jpg'
-import { Helmet } from 'react-helmet-async'
 const LandingPage = ({ onLoginSuccess }) => {
   const navigate = useNavigate()
   const [showRegistration, setShowRegistration] = useState(false)
