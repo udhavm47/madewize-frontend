@@ -211,7 +211,7 @@ const LandingPage = ({ onLoginSuccess }) => {
           {
             method: "POST",
             mode: "no-cors",
-            formPayload,
+            body: formPayload,
           }
         );
         
