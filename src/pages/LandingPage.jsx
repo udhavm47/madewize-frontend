@@ -10,7 +10,7 @@ import DemoCompanyProfilePage from './DemoCompanyProfilePage'
 import card5Image from '../assets/card5.png'
 import bgnewImage from '../assets/bgnew.png'
 import testimonialImg from '../assets/testimonial.jpg'
-
+import { Helmet } from 'react-helmet-async'
 const LandingPage = ({ onLoginSuccess }) => {
   const navigate = useNavigate()
   const [showRegistration, setShowRegistration] = useState(false)
@@ -659,6 +659,16 @@ const LandingPage = ({ onLoginSuccess }) => {
   }
 
   return (
+    <>
+    <Helmet>
+        <title>
+          Madevize — Digital Presence Platform for India’s Industrial & B2B Manufacturers
+        </title>
+        <meta
+          name="description"
+          content="Madevize helps manufacturing businesses get discovered, build trust, and connect with buyers and vendors through verified profiles, smart search, and RFRQ tools."
+        />
+      </Helmet>
     <div className="min-h-screen">
       {/* Hero Section Container with Background */}
       <div className="relative min-h-screen overflow-hidden">
@@ -2963,6 +2973,7 @@ const LandingPage = ({ onLoginSuccess }) => {
         </div>
       </Dialog>
     </div>
+    </>
   )
 }
 
