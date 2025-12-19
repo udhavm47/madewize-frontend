@@ -1105,7 +1105,7 @@ const LandingPage = ({ onLoginSuccess }) => {
                   </svg>
                 </button>
                 <button
-                  onClick={() => navigate('/demo-company')}
+                  onClick={scrollToHowItWorks}
                   className="hero-btn px-6 py-4 h-[47px] w-[160px] md:w-[170px] lg:w-[180px] bg-white text-black rounded-[15px] transition-all duration-200 font-semibold text-sm md:text-md"
                   style={{ fontFamily: 'Inter, sans-serif' }}
                 >
@@ -1699,6 +1699,7 @@ const LandingPage = ({ onLoginSuccess }) => {
                     </p>
                   </div>
                   <button
+                    onClick={() => setShowContactFormModal(true)}
                     className="get-started-btn flex items-center bg-white text-black rounded-full hover:bg-gray-50 transition-colors duration-200"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
@@ -2138,7 +2139,7 @@ const LandingPage = ({ onLoginSuccess }) => {
                 msOverflowStyle: 'none'
               }}
             >
-              <DemoCompanyProfilePage />
+              <DemoCompanyProfilePage readOnly={true} />
             </div>
             {/* Bottom Gradient Fade Overlay */}
             <div

@@ -80,7 +80,7 @@ const initialMockCompanyData = {
   profileCompletionPercentage: 85
 }
 
-const DemoCompanyProfilePage = () => {
+const DemoCompanyProfilePage = ({ readOnly = false }) => {
   const [company, setCompany] = useState(initialMockCompanyData)
   const [editingFields, setEditingFields] = useState({})
   const [isEditMode, setIsEditMode] = useState(false)
@@ -95,6 +95,7 @@ const DemoCompanyProfilePage = () => {
   }
 
   const startEditing = (fieldName) => {
+    if (readOnly) return // Prevent editing when in read-only mode
     setEditingFields(prev => ({ ...prev, [fieldName]: true }))
     setIsEditMode(true)
   }
@@ -154,6 +155,7 @@ const DemoCompanyProfilePage = () => {
   }
 
   const handleAddArrayItem = (fieldName) => {
+    if (readOnly) return // Prevent adding items when in read-only mode
     // Enter edit mode if not already editing
     if (!editingFields[fieldName]) {
       startEditing(fieldName)
@@ -172,6 +174,7 @@ const DemoCompanyProfilePage = () => {
   }
 
   const handleRemoveArrayItem = (fieldName, index) => {
+    if (readOnly) return // Prevent removing items when in read-only mode
     setCompany(prev => ({
       ...prev,
       [fieldName]: prev[fieldName].filter((_, i) => i !== index)
@@ -212,6 +215,10 @@ const DemoCompanyProfilePage = () => {
     // Handle user updates if needed
   }
 
+  // Ensure edit mode is disabled when in read-only mode
+  const effectiveEditMode = readOnly ? false : isEditMode
+  const effectiveEditingFields = readOnly ? {} : editingFields
+
   return (
     <div className="min-h-screen bg-black text-white font-montserrat overflow-x-hidden" style={{ overflowX: 'hidden' }}>
       <div className="w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 overflow-x-hidden" style={{ overflowX: 'hidden' }}>
@@ -248,28 +255,28 @@ const DemoCompanyProfilePage = () => {
           </div>
         )}
 
-        <Hero company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
-        <About company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
+        <Hero company={company} isEditMode={effectiveEditMode} editingFields={effectiveEditingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
+        <About company={company} isEditMode={effectiveEditMode} editingFields={effectiveEditingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
         <SectionSeparator sectionName="CLIENTS" />
-        <Vendors company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} onArrayChange={handleArrayFieldChange} onPartnerFieldChange={handlePartnerFieldChange} onAddItem={handleAddArrayItem} onRemoveItem={handleRemoveArrayItem} />
-        <MoreAboutUs company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
+        <Vendors company={company} isEditMode={effectiveEditMode} editingFields={effectiveEditingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} onArrayChange={handleArrayFieldChange} onPartnerFieldChange={handlePartnerFieldChange} onAddItem={handleAddArrayItem} onRemoveItem={handleRemoveArrayItem} />
+        <MoreAboutUs company={company} isEditMode={effectiveEditMode} editingFields={effectiveEditingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
         <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
         <SectionSeparator sectionName="OUR SERVICES" />
-        <OurServices company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
+        <OurServices company={company} isEditMode={effectiveEditMode} editingFields={effectiveEditingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
         <SectionSeparator sectionName="CERTIFICATIONS" />
-        <Certifications company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
+        <Certifications company={company} isEditMode={effectiveEditMode} editingFields={effectiveEditingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
         <SectionSeparator sectionName="MEDIA & VISUALS" />
         <Gallery company={company} />
-        {/* <Machines company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} onArrayChange={handleArrayFieldChange} onAddItem={handleAddArrayItem} onRemoveItem={handleRemoveArrayItem} />
-        <Details company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} /> */}
+        {/* <Machines company={company} isEditMode={effectiveEditMode} editingFields={effectiveEditingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} onArrayChange={handleArrayFieldChange} onAddItem={handleAddArrayItem} onRemoveItem={handleRemoveArrayItem} />
+        <Details company={company} isEditMode={effectiveEditMode} editingFields={effectiveEditingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} /> */}
         <SectionSeparator sectionName="TEAM" />
-        <Team company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
+        <Team company={company} isEditMode={effectiveEditMode} editingFields={effectiveEditingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
         <SectionSeparator sectionName="TESTIMONIALS" />
-        <Testimonials company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
+        <Testimonials company={company} isEditMode={effectiveEditMode} editingFields={effectiveEditingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
         <SectionSeparator sectionName="ID CARD" />
-        <IdCard company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
+        <IdCard company={company} isEditMode={effectiveEditMode} editingFields={effectiveEditingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
         <SectionSeparator sectionName="CONTACT" />
-        <Contact company={company} isEditMode={isEditMode} editingFields={editingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
+        <Contact company={company} isEditMode={effectiveEditMode} editingFields={effectiveEditingFields} onStartEdit={startEditing} onStopEdit={stopEditing} onFieldChange={handleFieldChange} />
       </div>
     </div>
   )
@@ -287,9 +294,11 @@ const EditableField = ({
   placeholder = '',
   className = '',
   maxLength,
-  multiline = false
+  multiline = false,
+  readOnly = false
 }) => {
   const handleClick = (e) => {
+    if (readOnly) return // Don't allow editing in read-only mode
     if (!isEditing && onStartEdit) {
       onStartEdit(fieldName)
     }
@@ -342,18 +351,20 @@ const EditableField = ({
   return (
     <div
       onClick={handleClick}
-      className={`cursor-pointer hover:bg-gray-800/50 rounded px-2 py-1 transition-colors group relative ${className} ${!value ? 'text-gray-500 italic' : ''}`}
-      title="Click to edit"
+      className={`${readOnly ? 'cursor-default' : 'cursor-pointer hover:bg-gray-800/50'} rounded px-2 py-1 transition-colors group relative ${className} ${!value ? 'text-gray-500 italic' : ''}`}
+      title={readOnly ? undefined : "Click to edit"}
     >
       {value || <span className="text-gray-500 italic">{placeholder || 'Click to add...'}</span>}
-      <svg
-        className="w-4 h-4 text-gray-500 absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-      </svg>
+      {!readOnly && (
+        <svg
+          className="w-4 h-4 text-gray-500 absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+        </svg>
+      )}
     </div>
   )
 }
