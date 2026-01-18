@@ -64,6 +64,13 @@ const LandingPage = ({ onLoginSuccess }) => {
   const [billingPeriod, setBillingPeriod] = useState('Monthly')
 
   // ============================================================================
+  // STATE MANAGEMENT - Mobile Parallax Scroll Effect
+  // ============================================================================
+  const [heroScrollProgress, setHeroScrollProgress] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0)
+
+  // ============================================================================
   // STATE MANAGEMENT - Counter Animations
   // ============================================================================
   const [counter1, setCounter1] = useState(0)
@@ -700,6 +707,60 @@ const LandingPage = ({ onLoginSuccess }) => {
   }, [isHowItWorksSectionVisible])
 
   // ============================================================================
+  // MOBILE PARALLAX SCROLL EFFECT
+  // ============================================================================
+
+  /**
+   * Detects mobile viewport and sets up parallax effect
+   * where the next section scrolls over the hero section
+   */
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    // Check on mount
+    checkMobile()
+    
+    // Check on resize
+    window.addEventListener('resize', checkMobile)
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile)
+    }
+  }, [])
+
+  // ============================================================================
+  // TESTIMONIAL CAROUSEL SWIPE HANDLERS
+  // ============================================================================
+
+  /**
+   * Handles swipe gestures for testimonial carousel on mobile
+   */
+  const [touchStart, setTouchStart] = useState(0)
+  const [touchEnd, setTouchEnd] = useState(0)
+
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (touchStart - touchEnd > 75) {
+      // Swiped left - go to next
+      setCurrentTestimonialIndex((prev) => (prev + 1) % 5)
+    }
+
+    if (touchStart - touchEnd < -75) {
+      // Swiped right - go to previous
+      setCurrentTestimonialIndex((prev) => (prev - 1 + 5) % 5)
+    }
+  }
+
+  // ============================================================================
   // SCROLL FUNCTIONS - Smooth Navigation
   // ============================================================================
 
@@ -756,12 +817,18 @@ const LandingPage = ({ onLoginSuccess }) => {
   // ============================================================================
   return (
     <>
-      <div className="min-h-screen">
+      <div className="min-h-screen overflow-x-hidden">
         {/* ======================================================================
             HERO SECTION - Main Landing Area with Background
             ====================================================================== */}
         {/* Hero Section Container with Background */}
-        <div className="relative min-h-screen overflow-hidden">
+        <div 
+          id="hero-section"
+          className={`min-h-[70vh] md:min-h-screen overflow-hidden w-full ${isMobile ? 'sticky top-0' : 'relative'}`}
+          style={{
+            zIndex: isMobile ? '1' : 'auto'
+          }}
+        >
           {/* Background Image */}
           <div
             className="absolute inset-0 z-10"
@@ -822,7 +889,7 @@ const LandingPage = ({ onLoginSuccess }) => {
             </nav>
 
             {/* Right - CTA Button */}
-            <div className="flex items-center">
+            <div className="hidden lg:flex items-center">
               <style>{`
             .get-started-btn {
               overflow: hidden;
@@ -1007,15 +1074,15 @@ const LandingPage = ({ onLoginSuccess }) => {
           )}
 
           {/* Hero Section */}
-          <main className="relative z-10 flex items-center min-h-screen px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-24">
-            <div className="flex flex-col items-start justify-start w-full md:w-[85%] lg:w-[80%] xl:w-[75%] 2xl:w-[70%]">
+          <main className="relative z-10 flex items-center min-h-[55vh] md:min-h-screen px-5 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-24">
+            <div className="flex flex-col items-start justify-start w-full max-w-full md:w-[85%] lg:w-[80%] xl:w-[75%] 2xl:w-[70%]">
               {/* Indicator Pill */}
-              <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2.5 flex items-center space-x-3 mb-6">
+              <div className="bg-white/10 backdrop-blur-sm rounded-full px-3 py-2 md:px-4 md:py-2.5 flex items-center space-x-2 md:space-x-3 mb-4 md:mb-6 w-full md:w-auto">
                 {/* Light gray circular bullet point */}
-                <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-gray-400 rounded-full flex-shrink-0"></div>
                 {/* Text */}
                 <span
-                  className="text-white text-sm font-medium"
+                  className="text-white text-sm md:text-sm font-medium"
                   style={{ fontFamily: 'Inter, sans-serif' }}
                 >
                   For factories, job shops & suppliers in India
@@ -1024,11 +1091,11 @@ const LandingPage = ({ onLoginSuccess }) => {
 
               {/* Main Heading with Animation */}
               <h2
-                className="w-full h-auto whitespace-pre-wrap break-words max-w-full font-medium text-white leading-[1.2] mb-6 text-[42px] md:text-[48px] lg:text-[54px] xl:text-[60px] 2xl:text-[64px]"
+                className="w-full h-auto whitespace-pre-wrap break-words max-w-full font-medium text-white leading-[1.15] md:leading-[1.2] mb-4 md:mb-6 text-left text-[34px] sm:text-[38px] md:text-[48px] lg:text-[54px] xl:text-[60px] 2xl:text-[64px]"
                 style={{
                   fontFamily: '"Inter Display", "Inter Display Placeholder", sans-serif',
-                  letterSpacing: '-0.04em',
-                  wordSpacing: '-1.5em',
+                  letterSpacing: '-0.02em',
+                  wordSpacing: 'normal',
                   fontFeatureSettings: 'normal'
                 }}
               >
@@ -1041,10 +1108,8 @@ const LandingPage = ({ onLoginSuccess }) => {
 
               {/* Description Paragraph */}
               <p
-                className="w-full md:w-[70%] lg:w-[60%] xl:w-[55%] mb-6"
+                className="w-full md:w-[70%] lg:w-[60%] xl:w-[55%] mb-6 md:mb-6 text-left text-[16px] sm:text-[17px] md:text-base lg:text-lg text-white md:text-[#B1B1B1]"
                 style={{
-                  color: '#B1B1B1',
-                  fontSize: 'clamp(16px, 2vw, 20px)',
                   fontFamily: 'Inter, sans-serif',
                   lineHeight: '1.5'
                 }}
@@ -1064,6 +1129,8 @@ const LandingPage = ({ onLoginSuccess }) => {
             .hero-btn-text {
               transition: transform 0.3s ease;
               display: inline-block;
+              text-align: center;
+              width: 100%;
             }
             .hero-btn-arrow {
               position: absolute;
@@ -1091,10 +1158,10 @@ const LandingPage = ({ onLoginSuccess }) => {
               transform: translateY(-50%);
             }
           `}</style>
-              <div className="flex flex-row items-center gap-3 md:gap-4">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-4 w-[45%] sm:w-[80%] md:w-auto">
                 <button
                   onClick={() => setShowContactFormModal(true)}
-                  className="hero-btn px-4 py-2 h-[47px] w-[160px] md:w-[170px] lg:w-[180px] bg-white text-black rounded-[15px] transition-all duration-200 font-semibold text-sm md:text-md"
+                  className="hero-btn px-4 py-3 md:py-2 h-[50px] md:h-[47px] w-full md:w-[160px] lg:w-[180px] bg-white text-black rounded-[15px] transition-all duration-200 font-semibold text-[15px] md:text-sm lg:text-md"
                   style={{ fontFamily: 'Inter, sans-serif' }}
                 >
                   <span className="hero-btn-text">Create My Profile</span>
@@ -1106,7 +1173,7 @@ const LandingPage = ({ onLoginSuccess }) => {
                 </button>
                 <button
                   onClick={scrollToHowItWorks}
-                  className="hero-btn px-6 py-4 h-[47px] w-[160px] md:w-[170px] lg:w-[180px] bg-white text-black rounded-[15px] transition-all duration-200 font-semibold text-sm md:text-md"
+                  className="hero-btn px-4 py-3 md:py-4 h-[50px] md:h-[47px] w-full md:w-[160px] lg:w-[180px] bg-white text-black rounded-[15px] transition-all duration-200 font-semibold text-[15px] md:text-sm lg:text-md"
                   style={{ fontFamily: 'Inter, sans-serif' }}
                 >
                   <span className="hero-btn-text">View How It Works</span>
@@ -1123,9 +1190,16 @@ const LandingPage = ({ onLoginSuccess }) => {
         {/* End Hero Section Container */}
 
         {/* The Reality Today Section */}
-        <section className="relative bg-white flex flex-col justify-between items-start w-full px-4 sm:px-6 md:px-6 lg:px-8 xl:px-10 2xl:px-12 py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20 2xl:py-24" style={{ minHeight: 'auto' }}>
+        <section 
+          className="relative bg-white flex flex-col justify-between items-start w-full px-4 sm:px-6 md:px-6 lg:px-8 xl:px-10 2xl:px-12 py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20 2xl:py-24" 
+          style={{ 
+            minHeight: 'auto',
+            position: 'relative',
+            zIndex: isMobile ? '10' : 'auto'
+          }}
+        >
           {/* Title and Paragraph on Same Line */}
-          <div className="flex flex-row items-start justify-between w-full gap-8 md:gap-10 lg:gap-16 xl:gap-20 mb-6 md:mb-8">
+          <div className="flex flex-col md:flex-row items-start md:justify-between w-full gap-6 md:gap-8 lg:gap-16 xl:gap-20 mb-6 md:mb-8">
             {/* THE REALITY TODAY Label */}
             <div className="relative flex items-center p-2 flex-shrink-0" style={{ width: 'fit-content' }}>
               <div className="w-4 sm:w-6 md:w-4 h-4 bg-black mr-2 md:mr-3"></div>
@@ -1135,16 +1209,15 @@ const LandingPage = ({ onLoginSuccess }) => {
             </div>
 
             {/* Paragraph and Grid Container */}
-            <div className="flex flex-col w-[65%] items-end justify-space-between flex-shrink-0">
+            <div className="flex flex-col w-full md:w-[65%] items-start md:items-end justify-space-between flex-shrink-0">
               {/* Paragraph */}
               <p
-                className="text-[#1E1E1E] font-semibold mb-6 md:mb-8"
+                className="text-[#1E1E1E] font-semibold mb-10 md:mb-8 text-left w-full"
                 style={{
                   fontFamily: 'Inter, sans-serif',
-                  fontSize: 'clamp(32px, 3.5vw, 42px)',
+                  fontSize: 'clamp(32px, 4vw, 42px)',
                   lineHeight: '1.5',
-                  maxWidth: '100%',
-                  textAlign: 'left'
+                  maxWidth: '100%'
                 }}
               >
                 Manufacturers lose business every day, not because of quality, but because they are invisible.
@@ -1153,60 +1226,60 @@ const LandingPage = ({ onLoginSuccess }) => {
               {/* Grid Section - 2 rows, 3 columns */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-2 gap-5 md:gap-6 lg:gap-6 w-full">
                 {/* Grid Item 1 */}
-                <div className="flex flex-col">
-                  <h3 className="text-[#1E1E1E] font-semibold text-lg mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <div className="flex flex-col items-start text-left border-t border-b md:border-0 border-gray-200 py-5 md:py-0">
+                  <h3 className="text-[#1E1E1E] font-semibold text-lg mb-5" style={{ fontFamily: 'Inter, sans-serif' }}>
                     No proper digital presence
                   </h3>
-                  <p className="text-[#666666] text-base md:text-base lg:text-base w-[60%]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
+                  <p className="text-[#666666] text-base md:text-base lg:text-base w-full md:w-[60%]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
                     Buyers can't discover you beyond references.
                   </p>
                 </div>
 
                 {/* Grid Item 2 */}
-                <div className="flex flex-col">
-                  <h3 className="text-[#1E1E1E] font-semibold text-lg mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <div className="flex flex-col items-start text-left border-b md:border-0 border-gray-200 py-5 md:py-0">
+                  <h3 className="text-[#1E1E1E] font-semibold text-lg mb-5" style={{ fontFamily: 'Inter, sans-serif' }}>
                     Limited Customer Base
                   </h3>
-                  <p className="text-[#666666] text-base md:text-base lg:text-base w-[60%]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
+                  <p className="text-[#666666] text-base md:text-base lg:text-base w-full md:w-[60%]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
                     90% of work comes from the same 2-3 customers you've always had
                   </p>
                 </div>
 
                 {/* Grid Item 3 */}
-                <div className="flex flex-col">
-                  <h3 className="text-[#1E1E1E] font-semibold text-lg mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <div className="flex flex-col items-start text-left border-b md:border-0 border-gray-200 py-5 md:py-0">
+                  <h3 className="text-[#1E1E1E] font-semibold text-lg mb-5" style={{ fontFamily: 'Inter, sans-serif' }}>
                     Capabilities Go Unseen            </h3>
-                  <p className="text-[#666666] text-base md:text-base lg:text-base w-[60%]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
+                  <p className="text-[#666666] text-base md:text-base lg:text-base w-full md:w-[60%]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
                     It's hard to show your true capability: machines, tolerances, quality checks.
                   </p>
                 </div>
 
                 {/* Grid Item 4 */}
-                <div className="flex flex-col">
-                  <h3 className="text-[#1E1E1E] font-semibold text-lg mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <div className="flex flex-col items-start text-left border-b md:border-0 border-gray-200 py-5 md:py-0">
+                  <h3 className="text-[#1E1E1E] font-semibold text-lg mb-5" style={{ fontFamily: 'Inter, sans-serif' }}>
                     Slow Vendor Discovery
                   </h3>
-                  <p className="text-[#666666] text-base md:text-base lg:text-base w-[60%]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
+                  <p className="text-[#666666] text-base md:text-base lg:text-base w-full md:w-[60%]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
                     Finding new vendors for castings, machining, treatments takes weeks
                   </p>
                 </div>
 
                 {/* Grid Item 5 */}
-                <div className="flex flex-col">
-                  <h3 className="text-[#1E1E1E] font-semibold text-lg mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <div className="flex flex-col items-start text-left border-b md:border-0 border-gray-200 py-5 md:py-0">
+                  <h3 className="text-[#1E1E1E] font-semibold text-lg mb-5" style={{ fontFamily: 'Inter, sans-serif' }}>
                     Lost on Generic Platforms
                   </h3>
-                  <p className="text-[#666666] text-base md:text-base lg:text-base w-[60%]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
+                  <p className="text-[#666666] text-base md:text-base lg:text-base w-full md:w-[60%]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
                     Generic portals don't understand manufacturing, you become "just another listing"
                   </p>
                 </div>
 
                 {/* Grid Item 6 */}
-                <div className="flex flex-col">
-                  <h3 className="text-[#1E1E1E] font-semibold text-lg mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <div className="flex flex-col items-start text-left border-b md:border-0 border-gray-200 py-5 md:py-0">
+                  <h3 className="text-[#1E1E1E] font-semibold text-lg mb-5" style={{ fontFamily: 'Inter, sans-serif' }}>
                     Visibility Starts Online
                   </h3>
-                  <p className="text-[#666666] text-base md:text-base lg:text-base w-[60%]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
+                  <p className="text-[#666666] text-base md:text-base lg:text-base w-full md:w-[60%]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
                     Younger buyers and OEMs search online first. If you're not there, you're not considered
                   </p>
                 </div>
@@ -1227,7 +1300,7 @@ const LandingPage = ({ onLoginSuccess }) => {
             className="text-[#D9D9D9] text-center"
             style={{
               fontFamily: 'Inter, sans-serif',
-              fontSize: 'clamp(36px, 4vw, 60px)',
+              fontSize: 'clamp(28px, 3.5vw, 48px)',
               fontWeight: '600',
               letterSpacing: '-0.02em',
               lineHeight: '1.2'
@@ -1262,8 +1335,8 @@ const LandingPage = ({ onLoginSuccess }) => {
             className="text-black text-center mb-6 md:mb-8 lg:mb-10"
             style={{
               fontFamily: 'Inter, sans-serif',
-              fontSize: 'clamp(36px, 4vw, 60px)',
-              fontWeight: '600',
+              fontSize: 'clamp(42px, 5vw, 72px)',
+              fontWeight: '500',
               letterSpacing: '-0.02em',
               lineHeight: '1.2'
             }}
@@ -1289,10 +1362,10 @@ const LandingPage = ({ onLoginSuccess }) => {
                     transition: `transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s, opacity 1.5s ease 0.3s`
                   }}
                 >
-                  <h3 className="text-black font-semibold mb-2 text-lg md:text-xl lg:text-[24px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
+                  <h3 className="text-black font-semibold mb-4 text-xl md:text-2xl lg:text-[28px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
                     Factory business profile
                   </h3>
-                  <p className="text-[#5B5B5B] text-sm md:text-base lg:text-[18px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
+                  <p className="text-[#5B5B5B] text-base md:text-lg lg:text-[20px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
                     Show your machines, capacities, tolerances, materials, certifications and clients in one powerful profile.
                   </p>
                 </div>
@@ -1305,10 +1378,10 @@ const LandingPage = ({ onLoginSuccess }) => {
                     transition: `transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s, opacity 1.5s ease 0.3s`
                   }}
                 >
-                  <h3 className="text-black font-semibold mb-2 text-lg md:text-xl lg:text-[24px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
+                  <h3 className="text-black font-semibold mb-4 text-xl md:text-2xl lg:text-[28px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
                     RFQs & quotes
                   </h3>
-                  <p className="text-[#5B5B5B] text-sm md:text-base lg:text-[18px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
+                  <p className="text-[#5B5B5B] text-base md:text-lg lg:text-[20px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
                     Post requirements, receive multiple quotations and choose vendors based on capability, quality and trust.                </p>
                 </div>
               </div>
@@ -1324,10 +1397,10 @@ const LandingPage = ({ onLoginSuccess }) => {
                     transition: `transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s, opacity 1.5s ease 0.3s`
                   }}
                 >
-                  <h3 className="text-black font-semibold mb-2 text-lg md:text-xl lg:text-[24px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
+                  <h3 className="text-black font-semibold mb-4 text-xl md:text-2xl lg:text-[28px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
                     Get founded by buyers
                   </h3>
-                  <p className="text-[#5B5B5B] text-sm md:text-base lg:text-[18px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
+                  <p className="text-[#5B5B5B] text-base md:text-lg lg:text-[20px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
                     OEMs, exporters, assemblers and traders can discover you using filters like process, material, location and industry.
                   </p>
                 </div>
@@ -1354,10 +1427,10 @@ const LandingPage = ({ onLoginSuccess }) => {
                   }}
                 >
                   <div className="p-5 md:p-6 lg:p-6 relative z-10">
-                    <h3 className="text-black font-semibold mb-2 text-lg md:text-xl lg:text-[24px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
+                    <h3 className="text-black font-semibold mb-4 text-xl md:text-2xl lg:text-[28px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
                       Vendor discovery
                     </h3>
-                    <p className="text-[#5B5B5B] text-sm md:text-base lg:text-[18px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.2' }}>
+                    <p className="text-[#5B5B5B] text-base md:text-lg lg:text-[20px]" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}>
                       Find suppliers for castings, forgings, plating, machining, fabrication and more in a few clicks.
                     </p>
                   </div>
@@ -1416,7 +1489,7 @@ const LandingPage = ({ onLoginSuccess }) => {
               {/* Get Started Button */}
               <button
                 onClick={() => setShowRegistration(true)}
-                className="get-started-btn mt-6 w-full md:w-[60%] lg:w-[50%] bg-white text-black rounded-full flex items-center justify-between border border-gray-300 hover:bg-gray-50 transition-colors duration-200"
+                className="get-started-btn mt-6 w-fit bg-white text-black rounded-full flex items-center border border-gray-300 hover:bg-gray-50 transition-colors duration-200"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 <div className="get-started-text-container font-semibold text-sm md:text-base lg:text-base pr-6 ml-2">
@@ -1460,11 +1533,19 @@ const LandingPage = ({ onLoginSuccess }) => {
           className="relative bg-white flex flex-col justify-between items-start w-full px-4 sm:px-6 md:px-6 lg:px-8 xl:px-10 2xl:px-12 py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20 2xl:py-24"
           style={{ minHeight: 'auto' }}
         >
-          <div className="flex flex-row items-start justify-start w-full">
+          {/* HOW IT WORKS Label - Only shown at top on mobile */}
+          <div className="relative flex md:hidden items-center p-2 mb-6" style={{ width: 'fit-content' }}>
+            <div className="w-4 sm:w-6 md:w-4 h-4 bg-black mr-2 md:mr-3"></div>
+            <span className="text-[#29292B] tracking-wider text-sm sm:text-lg" style={{ fontFamily: 'Inter, sans-serif', fontWeight: '500', letterSpacing: '0em' }}>
+              HOW IT WORKS
+            </span>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-start justify-start w-full">
             {/* First Column */}
-            <div className="flex flex-col flex-1">
-              {/* HOW IT WORKS Label */}
-              <div className="relative flex items-center p-2 mb-4" style={{ width: 'fit-content' }}>
+            <div className="flex flex-col w-full md:flex-1">
+              {/* HOW IT WORKS Label - Only shown here on desktop */}
+              <div className="relative hidden md:flex items-center p-2 mb-4" style={{ width: 'fit-content' }}>
                 <div className="w-4 sm:w-6 md:w-4 h-4 bg-black mr-2 md:mr-3"></div>
                 <span className="text-[#29292B] tracking-wider text-sm sm:text-lg" style={{ fontFamily: 'Inter, sans-serif', fontWeight: '500', letterSpacing: '0em' }}>
                   HOW IT WORKS
@@ -1473,13 +1554,13 @@ const LandingPage = ({ onLoginSuccess }) => {
 
               {/* Title */}
               <h1
-                className="text-[#05080C] font-medium"
+                className="text-[#05080C] font-medium mb-6 md:mb-0"
                 style={{
                   fontFamily: '"Inter Display", "Inter Display Placeholder", sans-serif',
-                  fontSize: 'clamp(36px, 4.5vw, 60px)',
+                  fontSize: 'clamp(40px, 5vw, 68px)',
                   lineHeight: '1.2',
                   fontWeight: '500',
-                  paddingRight: '50px',
+                  paddingRight: '0px',
                   maxWidth: '100%',
                   transform: isHowItWorksSectionVisible ? 'translateY(0)' : 'translateY(-50px)',
                   opacity: isHowItWorksSectionVisible ? 1 : 0,
@@ -1491,7 +1572,7 @@ const LandingPage = ({ onLoginSuccess }) => {
             </div>
 
             {/* Second Column */}
-            <div className="flex flex-col flex-1">
+            <div className="flex flex-col w-full md:flex-1">
               {/* Section 1 */}
               <div
                 className="flex flex-row justify-between items-center gap-4 pb-6 border-b border-gray-200"
@@ -1501,11 +1582,11 @@ const LandingPage = ({ onLoginSuccess }) => {
                   transition: `transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s, opacity 1.5s ease 0.45s`
                 }}
               >
-                <span className="text-black font-medium text-2xl md:text-3xl lg:text-8xl flex-shrink-0" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif;' }}>
+                <span className="text-black font-medium text-4xl md:text-5xl lg:text-9xl flex-shrink-0 pl-4 md:pl-0" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif;' }}>
                   {Math.floor(counter1)}
                 </span>
                 <div className="flex flex-col w-[70%] justify-center items-center">
-                  <p className="text-black text-base md:text-lg lg:text-xl" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif;', lineHeight: '1' }}>
+                  <p className="text-black text-sm md:text-base lg:text-lg" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif;', lineHeight: '1.6' }}>
                     Tell us what you do: machines, processes, materials, industries served and tolerances. We format it for you.
                   </p>
                 </div>
@@ -1520,11 +1601,11 @@ const LandingPage = ({ onLoginSuccess }) => {
                   transition: `transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s, opacity 1.5s ease 0.6s`
                 }}
               >
-                <span className="text-black font-medium text-2xl md:text-3xl lg:text-8xl flex-shrink-0" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif;' }}>
+                <span className="text-black font-medium text-4xl md:text-5xl lg:text-9xl flex-shrink-0 pl-4 md:pl-0" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif;' }}>
                   {Math.floor(counter2)}
                 </span>
                 <div className="flex flex-col w-[70%] justify-center items-center">
-                  <p className="text-black text-base md:text-lg lg:text-xl" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif;', lineHeight: '1' }}>
+                  <p className="text-black text-sm md:text-base lg:text-lg" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif;', lineHeight: '1.6' }}>
                     Your profile appears in relevant searches made by OEMs, traders and factories nearby and across India.
                   </p>
                 </div>
@@ -1539,11 +1620,11 @@ const LandingPage = ({ onLoginSuccess }) => {
                   transition: `transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.75s, opacity 1.5s ease 0.75s`
                 }}
               >
-                <span className="text-black font-medium text-2xl md:text-3xl lg:text-8xl flex-shrink-0" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif;' }}>
+                <span className="text-black font-medium text-4xl md:text-5xl lg:text-9xl flex-shrink-0 pl-4 md:pl-0" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif;' }}>
                   {Math.floor(counter3)}
                 </span>
                 <div className="flex flex-col w-[70%] justify-center items-center">
-                  <p className="text-black text-base md:text-lg lg:text-xl" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif;', lineHeight: '1' }}>
+                  <p className="text-black text-sm md:text-base lg:text-lg" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif;', lineHeight: '1.6' }}>
                     Need a vendor for machining, laser cutting, casting or treatment? Post an RFQ and receive quotes.
                   </p>
                 </div>
@@ -1558,11 +1639,11 @@ const LandingPage = ({ onLoginSuccess }) => {
                   transition: `transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s, opacity 1.5s ease 0.9s`
                 }}
               >
-                <span className="text-black font-medium text-2xl md:text-3xl lg:text-8xl flex-shrink-0" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif;' }}>
+                <span className="text-black font-medium text-4xl md:text-5xl lg:text-9xl flex-shrink-0 pl-4 md:pl-0" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif;' }}>
                   {Math.floor(counter4)}
                 </span>
                 <div className="flex flex-col w-[70%] justify-center items-center">
-                  <p className="text-black text-base md:text-lg lg:text-xl" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif;', lineHeight: '1' }}>
+                  <p className="text-black text-sm md:text-base lg:text-lg" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif;', lineHeight: '1.6' }}>
                     Start with small jobs, prove quality, and grow lasting relationships, all starting from your Madevize presence.
                   </p>
                 </div>
@@ -1599,14 +1680,14 @@ const LandingPage = ({ onLoginSuccess }) => {
             />
             <div className="relative z-10 flex flex-col justify-center h-full p-8 md:p-12 lg:p-16">
               <div className="text-white max-w-2xl">
-                <h1 className="text-white font-semibold mb-4 text-2xl md:text-3xl lg:text-4xl" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <h1 className="text-white font-semibold mb-4 md:mb-4 pb-4 md:pb-0 border-b md:border-0 border-gray-600 text-3xl md:text-3xl lg:text-4xl text-left" style={{ fontFamily: 'Inter, sans-serif' }}>
                   Show your real capability
                 </h1>
                 <br></br>
-                <h2 className="text-white font-medium mb-4 text-xl md:text-2xl lg:text-3xl" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <h2 className="text-white font-medium mb-4 text-2xl md:text-2xl lg:text-3xl text-left" style={{ fontFamily: 'Inter, sans-serif' }}>
                   For the first time, your factory floor can speak itself
                 </h2>
-                <p className="text-white text-base md:text-lg lg:text-xl" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.6' }}>
+                <p className="text-sm md:text-lg lg:text-xl text-left" style={{ color: '#A0A0A0', fontFamily: 'Inter, sans-serif', lineHeight: '1.6' }}>
                   Upload photos of your machines, inspection setups and parts you've produced. Highlight your quality checks, surface finishes and tolerances. Let buyers see what makes your shop different from the rest
                 </p>
               </div>
@@ -1620,14 +1701,13 @@ const LandingPage = ({ onLoginSuccess }) => {
           className="relative bg-black flex flex-col items-center w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 2xl:py-32"
         >
           <h2
-            className="text-white text-center mb-6 md:mb-8 lg:mb-10"
+            className="text-white text-center mb-6 md:mb-8 lg:mb-10 w-full md:w-[60%]"
             style={{
               fontFamily: 'Inter, sans-serif',
-              fontSize: 'clamp(76px, 4vw, 76px)',
+              fontSize: 'clamp(48px, 8vw, 76px)',
               fontWeight: '500',
               letterSpacing: '-0.02em',
               lineHeight: '1.2',
-              width: '60%',
               transform: isPricingSectionVisible ? 'translateY(0)' : 'translateY(100px)',
               opacity: isPricingSectionVisible ? 1 : 0,
               transition: 'transform 1.5s cubic-bezier(0.68, -0.2, 0.265, 1.2) 0.15s, opacity 1.5s cubic-bezier(0.68, -0.2, 0.265, 1.2) 0.15s'
@@ -1645,17 +1725,17 @@ const LandingPage = ({ onLoginSuccess }) => {
               }}
             >
               {/* First div: Title, Subtitle, and Toggle */}
-              <div className="flex flex-row items-start justify-between gap-4">
-                <div className="flex flex-col">
-                  <h3 className="text-white font-semibold mb-2 text-xl md:text-2xl lg:text-3xl" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif' }}>
-                    Founding Factory Owner
+              <div className="flex flex-col md:flex-row items-start md:justify-between gap-4 pb-6 md:pb-0 border-b md:border-0 border-gray-700">
+                <div className="flex flex-col w-full md:w-auto">
+                  <h3 className="text-white font-semibold mb-2 text-3xl md:text-2xl lg:text-3xl text-left" style={{ fontFamily: '"Geist", "Geist Placeholder", sans-serif' }}>
+                    Founding Factory Offer
                   </h3>
-                  <p className="text-white text-sm md:text-base lg:text-lg" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  <p className="text-white text-xl md:text-base lg:text-lg mb-4 md:mb-0 text-left" style={{ fontFamily: 'Inter, sans-serif' }}>
                     Free for the first 500 factories
                   </p>
                 </div>
                 {/* Toggle Button */}
-                <div className="relative flex bg-[#0a0a0a] rounded-full p-1" style={{ minWidth: '300px' }}>
+                <div className="relative flex bg-[#0a0a0a] rounded-full p-1 w-full md:w-auto" style={{ minWidth: '0', maxWidth: '100%' }}>
                   <button
                     onClick={() => setBillingPeriod('Monthly')}
                     className={`flex-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 relative z-10 ${billingPeriod === 'Monthly'
@@ -1692,15 +1772,15 @@ const LandingPage = ({ onLoginSuccess }) => {
               </div>
               {/* Third div - placeholder for now */}
               <div>
-                <div className="bg-black p-4 md:p-5 lg:p-6 rounded-lg flex flex-row items-center justify-between gap-4">
+                <div className="bg-black p-4 md:p-5 lg:p-6 rounded-lg flex flex-col md:flex-row items-start md:items-center md:justify-between gap-4">
                   <div>
-                    <p className="text-white text-2xl md:text-3xl lg:text-4xl font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
-                      <span style={{ fontFamily: '"Great Vibes", sans-serif' }}>₹</span>0 <span className="text-[#AAA9AD] md:text-sm lg:text-sm">/month</span>
+                    <p className="text-white text-4xl md:text-3xl lg:text-4xl font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
+                      <span style={{ fontFamily: '"Great Vibes", sans-serif' }}>₹</span>0<span className="text-[#AAA9AD] text-lg md:text-sm lg:text-sm ml-2">/month</span>
                     </p>
                   </div>
                   <button
                     onClick={() => setShowContactFormModal(true)}
-                    className="get-started-btn flex items-center bg-white text-black rounded-full hover:bg-gray-50 transition-colors duration-200"
+                    className="get-started-btn flex items-center bg-white text-black rounded-full hover:bg-gray-50 transition-colors duration-200 w-fit md:w-auto"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
                     <div className="get-started-text-container font-semibold text-sm md:text-base lg:text-base pr-6 ml-4">
@@ -1789,18 +1869,18 @@ const LandingPage = ({ onLoginSuccess }) => {
               flex: 1,
               width: 'auto',
               minWidth: 'fit-content',
-              height: '153px',
-              whiteSpace: 'pre-wrap',
+              height: 'auto',
+              whiteSpace: 'nowrap',
               wordWrap: 'break-word',
               wordBreak: 'break-word',
               maxWidth: '1200px',
               fontWeight: 550,
               fontStyle: 'normal',
               fontFamily: 'Cal Sans, "Cal Sans Placeholder", sans-serif',
-              fontSize: '204px',
+              fontSize: 'clamp(24px, 15vw, 204px)',
               letterSpacing: '0px',
               textAlign: 'center',
-              lineHeight: '204px',
+              lineHeight: 'clamp(24px, 15vw, 204px)',
               fontFeatureSettings: 'normal',
               position: 'relative',
               background: 'linear-gradient(to top, transparent, rgba(12, 12, 12, 0.82))',
@@ -1818,8 +1898,114 @@ const LandingPage = ({ onLoginSuccess }) => {
           </h2>
 
           {/* Testimonials Marquee */}
-          <div className="w-full mt-[-50px]">
-            <div className="flex flex-col gap-6 overflow-hidden w-full">
+          <div className="w-full mt-[-40px] md:mt-[-50px]">
+            {/* Mobile Carousel - Only visible on mobile */}
+            <div className="block md:hidden">
+              <div className="relative w-full px-4">
+                {/* Testimonial Card */}
+                <div 
+                  className="flex justify-center items-center min-h-[280px]"
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
+                >
+                  {[
+                    {
+                      quote: 'Buyers who never knew we existed started reaching out. For the first time, we feel visible beyond our local network.',
+                      author: 'Rohit Sharma',
+                      designation: 'Owner, Precision CNC Works • Ludhiana'
+                    },
+                    {
+                      quote: 'Within weeks of joining, we received our first inquiry from a Fortune 500 company. Madevize put us on the map.',
+                      author: 'Priya Patel',
+                      designation: 'Managing Director, Gujarat Forgings Ltd • Ahmedabad'
+                    },
+                    {
+                      quote: 'The platform helped us showcase our capabilities in a way we never could before. Quality leads started coming in immediately.',
+                      author: 'Amit Kumar',
+                      designation: 'Co-Founder, Bangalore Precision Engineering • Bangalore'
+                    },
+                    {
+                      quote: 'Our workshop was always busy, but Madevize helped us reach tier-1 suppliers and premium clients we could never access before.',
+                      author: 'Sandeep Singh',
+                      designation: 'Proprietor, Delhi Machine Tools • New Delhi'
+                    },
+                    {
+                      quote: 'Finally, a platform that understands manufacturing. We get inquiries from serious buyers who appreciate our technical expertise.',
+                      author: 'Rajesh Mehta',
+                      designation: 'Owner, Pune Sheet Metal Works • Pune'
+                    }
+                  ].map((testimonial, index) => (
+                    <div
+                      key={index}
+                      className={`w-full transition-opacity duration-500 ${
+                        index === currentTestimonialIndex ? 'block' : 'hidden'
+                      }`}
+                    >
+                      <div
+                        className="bg-black rounded-lg p-6 flex flex-col justify-between mx-auto"
+                        style={{
+                          maxWidth: '100%',
+                          minHeight: '240px',
+                          background: '#000000',
+                          borderRadius: '12px'
+                        }}
+                      >
+                        {/* 5 Stars at the top */}
+                        <div className="flex gap-1 mb-4">
+                          {[...Array(5)].map((_, starIndex) => (
+                            <svg
+                              key={starIndex}
+                              className="w-5 h-5 text-white"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                        </div>
+
+                        {/* Review Quote in the middle */}
+                        <div className="flex-1 flex items-center mb-4">
+                          <p className="text-sm text-gray-400 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+                            "{testimonial.quote}"
+                          </p>
+                        </div>
+
+                        {/* Reviewer Name and Designation at the bottom */}
+                        <div>
+                          <p className="text-base text-white font-medium mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>
+                            {testimonial.author}
+                          </p>
+                          <p className="text-sm text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>
+                            {testimonial.designation}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Dot Indicators */}
+                <div className="flex justify-center gap-2 mt-6">
+                  {[...Array(5)].map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentTestimonialIndex(index)}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        index === currentTestimonialIndex
+                          ? 'bg-black w-6'
+                          : 'bg-gray-300'
+                      }`}
+                      aria-label={`Go to testimonial ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop Marquee - Only visible on desktop */}
+            <div className="hidden md:flex flex-col gap-6 overflow-hidden w-full">
               {/* First Row - Infinite Scrolling Left */}
               <div className="relative w-full overflow-hidden">
                 <div className="flex animate-scroll-left gap-6" style={{ width: 'max-content' }}>
@@ -1998,18 +2184,18 @@ const LandingPage = ({ onLoginSuccess }) => {
               flex: 1,
               width: 'auto',
               minWidth: 'fit-content',
-              height: '153px',
-              whiteSpace: 'pre-wrap',
+              height: 'auto',
+              whiteSpace: 'nowrap',
               wordWrap: 'break-word',
               wordBreak: 'break-word',
               maxWidth: '1200px',
               fontWeight: 550,
               fontStyle: 'normal',
               fontFamily: 'Cal Sans, "Cal Sans Placeholder", sans-serif',
-              fontSize: '204px',
+              fontSize: 'clamp(24px, 15vw, 204px)',
               letterSpacing: '0px',
               textAlign: 'center',
-              lineHeight: '204px',
+              lineHeight: 'clamp(24px, 15vw, 204px)',
               fontFeatureSettings: 'normal',
               position: 'relative',
               background: 'linear-gradient(to top, transparent, rgba(58, 58, 58, 0.82))',
@@ -2070,14 +2256,13 @@ const LandingPage = ({ onLoginSuccess }) => {
           className="relative bg-white flex flex-col items-center w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 2xl:py-32"
         >
           <h2
-            className="text-black text-left"
+            className="text-black text-left w-full md:w-[80%]"
             style={{
               fontFamily: '"Inter Display", "Inter Display Placeholder", sans-serif',
-              fontSize: 'clamp(38px, 4vw, 60px)',
-              fontWeight: '550',
+              fontSize: 'clamp(40px, 4vw, 60px)',
+              fontWeight: '500',
               letterSpacing: '-0.02em',
               lineHeight: '1.2',
-              width: '80%',
               wordWrap: 'break-word',
               wordBreak: 'break-word'
             }}
@@ -2188,7 +2373,8 @@ const LandingPage = ({ onLoginSuccess }) => {
                   height: 'fit-content'
                 }}
               >
-                <div className="w-4 sm:w-6 md:w-10 h-[4px] bg-white items-center mr-2 md:mr-3"></div>
+                {/* Square for mobile, line for desktop */}
+                <div className="w-3 h-3 md:w-10 md:h-[4px] bg-white items-center mr-2 md:mr-3" style={{ borderRadius: '2px' }}></div>
                 <span
                   className="text-white uppercase tracking-wider text-lg"
                   style={{
@@ -2197,16 +2383,16 @@ const LandingPage = ({ onLoginSuccess }) => {
                     letterSpacing: '0.1em'
                   }}
                 >
-                  CONTACT US
+                  <span className="md:hidden">CONTACT</span>
+                  <span className="hidden md:inline">CONTACT US</span>
                 </span>
               </div>
 
               {/* Main Title */}
               <h2
-                className="text-white font-medium"
+                className="text-white font-medium text-6xl md:text-[60px]"
                 style={{
                   fontFamily: '"Inter Display", Inter, sans-serif',
-                  fontSize: '60px',
                   letterSpacing: '-0.04em',
                   lineHeight: '1.2',
                   maxWidth: '820px',
@@ -2215,7 +2401,8 @@ const LandingPage = ({ onLoginSuccess }) => {
                   wordBreak: 'break-word'
                 }}
               >
-                Get in Touch
+                <span className="md:hidden">Let's see how Madevize can work for your factory</span>
+                <span className="hidden md:inline">Get in Touch</span>
               </h2>
             </div>
 
@@ -2228,19 +2415,17 @@ const LandingPage = ({ onLoginSuccess }) => {
             >
               {/* Left Side - Contact Info */}
               <div
-                className="flex flex-col justify-between items-start w-full lg:w-auto lg:max-w-full"
+                className="flex flex-col justify-start md:justify-between items-start w-full lg:w-auto lg:max-w-full gap-16 md:gap-[10px]"
                 style={{
-                  gap: '10px',
                   minHeight: '400px'
                 }}
               >
                 {/* Description Text */}
                 <p
-                  className="text-white/90"
+                  className="text-white/90 text-sm md:text-[20px]"
                   style={{
                     fontFamily: 'Manrope, sans-serif',
                     fontWeight: '400',
-                    fontSize: '20px',
                     letterSpacing: '0em',
                     lineHeight: '1.5',
                     maxWidth: '100%'
@@ -2250,8 +2435,55 @@ const LandingPage = ({ onLoginSuccess }) => {
                 </p>
 
                 {/* Contact Details */}
+                {/* Mobile Version - New Format */}
+                <div className="flex md:hidden flex-col items-start gap-6 w-full">
+                  {/* Office */}
+                  <div className="flex flex-col gap-2">
+                    <h3 className="text-white text-sm font-bold uppercase tracking-wider">Office</h3>
+                    <p className="text-white/90 text-base">India - Working with factories PAN-India</p>
+                  </div>
+
+                  {/* Email */}
+                  <div className="flex flex-col gap-2">
+                    <h3 className="text-white text-sm font-bold uppercase tracking-wider">Email</h3>
+                    <p className="text-white/90 text-base">hello@madevize.com</p>
+                  </div>
+
+                  {/* Telephone */}
+                  <div className="flex flex-col gap-2">
+                    <h3 className="text-white text-sm font-bold uppercase tracking-wider">Telephone</h3>
+                    <p className="text-white/90 text-base">8872722641</p>
+                  </div>
+
+                  {/* Separation Line */}
+                  <div className="w-full h-[1px] bg-white/20"></div>
+
+                  {/* Follow Us */}
+                  <div className="flex flex-col gap-4">
+                    <h3 className="text-white text-sm font-bold uppercase tracking-wider">Follow Us</h3>
+                    <div className="flex gap-4">
+                      {/* Instagram Icon */}
+                      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 transition-colors">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                      </a>
+                      {/* X (Twitter) Icon */}
+                      <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 transition-colors">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 4l11.733 16h4.267l-11.733 -16z"></path>
+                          <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Desktop Version - Original Format */}
                 <div
-                  className="flex flex-col items-start"
+                  className="hidden md:flex flex-col items-start"
                   style={{
                     gap: '10px'
                   }}
@@ -2606,6 +2838,75 @@ const LandingPage = ({ onLoginSuccess }) => {
                 />
               </div>
             </div>
+
+            {/* Mobile Only - Additional CTA Section */}
+            <div className="flex md:hidden flex-col items-center text-center w-full gap-8 mt-12 relative py-12">
+              {/* Blurry white spot background - focused on content area */}
+              <div 
+                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full"
+                style={{ 
+                  zIndex: 0, 
+                  width: '200px',
+                  height: '350px',
+                  background: 'radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%)',
+                  filter: 'blur(50px)'
+                }}
+              ></div>
+              
+              {/* Content */}
+              <div className="flex flex-col items-center gap-4 relative z-10">
+                <h2 
+                  className="text-white font-bold text-4xl leading-tight"
+                  style={{
+                    fontFamily: 'Inter, sans-serif',
+                    letterSpacing: '-0.02em'
+                  }}
+                >
+                  Let's talk about your next big move
+                </h2>
+                <p 
+                  className="text-white/70 text-lg"
+                  style={{
+                    fontFamily: 'Inter, sans-serif',
+                    lineHeight: '1.6',
+                    fontWeight: '400'
+                  }}
+                >
+                  Contact us to see how our services can accelerate your growth.
+                </p>
+              </div>
+
+              {/* Contact Us Button */}
+              <button
+                onClick={() => window.scrollTo({ top: document.querySelector('footer').offsetTop, behavior: 'smooth' })}
+                className="get-started-btn flex items-center bg-white text-black rounded-full hover:bg-gray-50 transition-colors duration-200 w-fit relative z-10"
+                style={{ fontFamily: 'Inter, sans-serif', height: '45px' }}
+              >
+                <div className="get-started-text-container font-medium text-base pr-6 ml-4">
+                  <span className="get-started-text get-started-text-top">Contact Us</span>
+                  <span className="get-started-text get-started-text-bottom">Contact Us</span>
+                </div>
+                <div className="p-[1px] flex-shrink-0">
+                  <div className="arrow-container bg-black rounded-full flex items-center justify-center">
+                    {/* Chevron Arrow (original) */}
+                    <svg className="arrow-chevron w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: '24px', height: '24px' }}>
+                      <line x1="4" y1="12" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                      <line x1="16" y1="6" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                      <line x1="16" y1="18" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                    </svg>
+                    {/* Horizontal Arrow (->) that moves right */}
+                    <svg className="arrow-horizontal w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: '24px', height: '24px' }}>
+                      <line x1="4" y1="12" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                      <line x1="16" y1="6" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                      <line x1="16" y1="18" x2="20" y2="12" strokeLinecap="round" strokeWidth={2.5} />
+                    </svg>
+                  </div>
+                </div>
+              </button>
+
+              {/* Separation Line */}
+              <div className="w-full h-[1px] bg-white/20 mt-4"></div>
+            </div>
           </div>
         </section>
 
@@ -2633,10 +2934,7 @@ const LandingPage = ({ onLoginSuccess }) => {
             >
               {/* Left Stack - Logo */}
               <div
-                className="flex flex-col items-start"
-                style={{
-                  gap: 'clamp(20px, 5vw, 383px)'
-                }}
+                className="flex flex-col items-start gap-4"
               >
                 {/* Logo */}
                 <div
@@ -2661,11 +2959,49 @@ const LandingPage = ({ onLoginSuccess }) => {
                     madevize
                   </span>
                 </div>
+
+                {/* Mobile Only - Join Us Content Below Logo */}
+                <div className="flex md:hidden flex-col items-start gap-2 mt-2">
+                  <h3
+                    className="text-white font-medium text-left"
+                    style={{
+                      fontFamily: '"Inter Display", Inter, sans-serif',
+                      fontSize: '20px',
+                      letterSpacing: '0em',
+                      lineHeight: '1.2'
+                    }}
+                  >
+                    Join Us Now
+                  </h3>
+                  <p
+                    className="text-white/80 text-left text-sm"
+                    style={{
+                      fontFamily: 'Manrope, sans-serif',
+                      fontWeight: '400',
+                      letterSpacing: '0em',
+                      lineHeight: '1.4',
+                      maxWidth: '300px'
+                    }}
+                  >
+                    Connect, share, and grow with people who inspire and support each other
+                  </p>
+                  {/* Social Links */}
+                  <p
+                    className="text-gray-400 text-left text-sm mt-2"
+                    style={{
+                      fontFamily: 'Inter, sans-serif',
+                      fontWeight: '400',
+                      letterSpacing: '0.05em'
+                    }}
+                  >
+                    Wa. In. Ld.
+                  </p>
+                </div>
               </div>
 
-              {/* Right Stack - Join Us Content */}
+              {/* Right Stack - Join Us Content (Desktop Only) */}
               <div
-                className="flex flex-col items-end w-full lg:w-auto"
+                className="hidden lg:flex flex-col items-end w-full lg:w-auto"
                 style={{
                   width: '100%',
                   gap: '10px'
@@ -2706,17 +3042,36 @@ const LandingPage = ({ onLoginSuccess }) => {
               </div>
             </div>
 
-            {/* Divider Line */}
+            {/* Mobile Only - Separator and Copyright */}
+            <div className="flex md:hidden flex-col items-center w-full gap-6 mt-6">
+              {/* Separation Line */}
+              <div className="w-full h-[1px] bg-white/20"></div>
+              
+              {/* Copyright Text */}
+              <p
+                className="text-white text-center text-sm"
+                style={{
+                  fontFamily: 'Inter, sans-serif',
+                  fontWeight: '400',
+                  letterSpacing: '0em',
+                  lineHeight: '1.4'
+                }}
+              >
+                Copyright 2025 • Madevize • All Rights Reserved.
+              </p>
+            </div>
+
+            {/* Desktop Divider Line */}
             <div
-              className="w-full bg-white/20"
+              className="hidden md:block w-full bg-white/20"
               style={{
                 height: '2px'
               }}
             />
 
-            {/* Copyright Frame */}
+            {/* Desktop Copyright Frame */}
             <div
-              className="flex items-center justify-center w-full"
+              className="hidden md:flex items-center justify-center w-full"
               style={{
                 gap: '5px'
               }}
